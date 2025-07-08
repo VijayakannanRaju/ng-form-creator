@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0px;
+}
+
+@font-face {
+  font-family: "CrimsonPro"; /* Choose a name for your font */
+  src: url("/fonts/crimson-pro/CrimsonPro-VariableFont_wght.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "Inter"; /* Choose a name for your font */
+  src: url("/fonts/Inter/Inter-VariableFont_opsz,wght.ttf") format("truetype");
+}

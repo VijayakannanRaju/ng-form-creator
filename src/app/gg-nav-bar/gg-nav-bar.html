@@ -1,0 +1,25 @@
+<nav class="navbar">
+  <div class="logo">
+    <img src="imgs/GG Logo - Transparent.svg" height="35px" alt="">
+    <div class="siteName">Form Creator</div>
+  </div>
+
+  <div class="hamburger" (click)="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <ul class="menu" [class.active]="menuOpen">
+    <li><a routerLink="/" (click)="closeMobileMenu()">Home</a></li>
+
+    <li><a routerLink="/products" (click)="closeMobileMenu()">Products</a></li>
+
+    <li><a routerLink="/community" (click)="closeMobileMenu()">Community</a></li>
+
+
+    <li class="gg-btn"><a routerLink="/login" (click)="closeMobileMenu()">Login</a></li>
+
+
+  </ul>
+</nav>
