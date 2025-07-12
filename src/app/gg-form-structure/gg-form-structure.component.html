@@ -1,0 +1,22 @@
+<div class="drop-zone" (dragover)="onDragOver($event)" (drop)="onDrop($event)">
+    Drop Here (Component B)
+
+    <div class="drag-box">
+
+        <div *ngFor="let c of components;let i = index">
+
+            <div *ngIf="c.type =='TEXT_BOX'">{{c.type}} - {{c.displayName}}</div>
+            <div *ngIf="c.type =='TEXT_AREA'">{{c.type}} - {{c.displayName}}</div>
+            <div *ngIf="c.type =='FORM_GROUP'">
+                <div>{{c.type}} - {{c.displayName}}</div>
+                <app-gg-form-structure *ngIf="c.components" [components]="c.components"></app-gg-form-structure>
+            </div>
+            <div *ngIf="c.type =='FORM_ARRAY'">
+                <div>{{c.type}} - {{c.displayName}}</div>
+                <app-gg-form-structure *ngIf="c.components" [components]="c.components"></app-gg-form-structure>
+            </div>
+
+        </div>
+
+    </div>
+</div>

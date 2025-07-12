@@ -1,0 +1,16 @@
+.drop-zone {
+  padding: 20px;
+  border: 2px dashed #aaa;
+  min-height: 100px;
+}
+
+.in-between-drop-zone {
+  min-height: 10px;
+  border: 1px dashed transparent;
+  transition: background 0.2s ease;
+}
+
+.in-between-drop-zone.drag-over {
+  background-color: #d1e7dd; // light green
+  border-color: #0f5132; // green
+}

@@ -2,18 +2,21 @@
 <app-gg-form-creator-nav-bar></app-gg-form-creator-nav-bar>
 
 
-<div style="display: flex; background: blue;">
+<div style="display: flex;">
 
-  <div style="width: 250px; height: 100vh; background: red">
-
+  <div style="width: 250px; height: calc(100vh - 138px); overflow-y: auto; border-right: 1px solid lightgray;">
+    <app-gg-input-selection></app-gg-input-selection>
   </div>
 
-  <div style=" height: 100vh; background: green; flex: 1">
+  <div style=" height: calc(100vh - 138px);  overflow-y: auto; flex: 1; border-right: 1px solid lightgray;">
+    <app-gg-form-structure (structureChanged)="onStructureChange($event)"></app-gg-form-structure>
 
+    <!-- Show JSON preview -->
+    <pre>{{ formStructure | json }}</pre>
   </div>
 
-  <div style="width: 250px; height: 100vh; background: yellow">
-
+  <div style="width: 250px; height: calc(100vh - 138px);  overflow-y: auto;">
+    <app-gg-input-configuration></app-gg-input-configuration>
   </div>
 
 
