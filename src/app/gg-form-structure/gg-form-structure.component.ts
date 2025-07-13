@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { InputComponentDragService } from '../input-component-drag.service';
+import { SelectedFormElementService } from '../selected-form-element.service';
 
 // Shared Interface for form component metadata
 export interface FormComponent {
@@ -21,7 +22,9 @@ export class GgFormStructureComponent {
   @Output() structureChanged = new EventEmitter<any[]>();
 
 
-  constructor(private inputComponentDragService: InputComponentDragService) { }
+  constructor(private inputComponentDragService: InputComponentDragService,
+    private selectedFormElementService: SelectedFormElementService
+  ) { }
   onDragOver(event: DragEvent, c?: any) {
     event.preventDefault(); // Necessary to allow dropping
 
@@ -44,6 +47,14 @@ export class GgFormStructureComponent {
 
     // 🚀 Emit updated structure to parent
     this.structureChanged.emit(this.components);
+  }
+
+
+
+  componentSelected(event: Event, c: any) {
+    event.stopPropagation();
+    console.log('Component selected:', c);
+    this.selectedFormElementService.selectedElement = c;
   }
 
 

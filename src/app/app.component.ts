@@ -29,4 +29,15 @@ export class AppComponent {
   }
 
 
+  currentComponent: any;
+  onComponentClick(component: any) {
+    console.log('Component clicked:', component);
+    this.currentComponent = component;
+
+    this.currentComponent.toggled = !this.currentComponent.toggled;
+    // Here you can handle the component click event, e.g., open a configuration panel
+    // or perform any other action based on the clicked component.
+  }
+
+
 }
