@@ -6,6 +6,7 @@ import { GgInputSelectionComponent } from './gg-input-selection/gg-input-selecti
 import { GgFormStructureComponent } from './gg-form-structure/gg-form-structure.component';
 import { GgInputConfigurationComponent } from './gg-input-configuration/gg-input-configuration.component';
 import { JsonPipe } from '@angular/common';
+import { FormMetadataService } from './form-metadata.service';
 
 @Component({
   selector: 'app-root',
@@ -24,8 +25,16 @@ export class AppComponent {
 
   formStructure: any[] = [];
 
+  constructor(public formMetadataService: FormMetadataService) {
+
+  }
+
   onStructureChange(newStructure: any[]) {
-    this.formStructure = newStructure;
+
+    console.log("New structure received:");
+    // console.log(newStructure);
+
+    this.formStructure = this.formMetadataService.components;
   }
 
 

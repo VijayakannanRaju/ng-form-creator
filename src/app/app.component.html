@@ -9,10 +9,11 @@
   </div>
 
   <div style=" height: calc(100vh - 138px);  overflow-y: auto; flex: 1; border-right: 1px solid lightgray;">
-    <app-gg-form-structure (structureChanged)="onStructureChange($event)"></app-gg-form-structure>
+    <!-- (structureChanged)="onStructureChange($event)" -->
+    <app-gg-form-structure [components]="formMetadataService.components"></app-gg-form-structure>
 
     <!-- Show JSON preview -->
-    <pre>{{ formStructure | json }}</pre>
+    <pre>{{ this.formMetadataService.components | json }}</pre>
   </div>
 
   <div style="width: 250px; height: calc(100vh - 138px);  overflow-y: auto;">

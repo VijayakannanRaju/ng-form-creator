@@ -43,8 +43,16 @@ export class GgInputSelectionComponent {
   onDragStart(event: DragEvent, item: any) {
     this.inputComponentDragService.setData(item);
     console.log(item);
+    item.id = this.generateUniqueId(); // Assign a unique ID to the item
+    item.dropZoneId = this.generateUniqueId(); // Assign a unique drop zone ID for groups and arrays
+
 
     event.dataTransfer?.setData('text/plain', JSON.stringify(item)); // Optional
+  }
+
+
+  generateUniqueId(): string {
+    return 'id-' + Date.now() + '-' + Math.floor(Math.random() * 10000);
   }
 
 }

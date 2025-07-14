@@ -1,20 +1,26 @@
-<div class="drop-zone" (dragover)="onDragOver($event)" (drop)="onDrop($event)">
+<div class="drop-zone" [id]="dropZoneId" (dragover)="onDragOver($event)" (drop)="onDrop($event)">
     Drop Here (Component B)
 
     <div class="drag-box">
 
         <div *ngFor="let c of components;let i = index">
 
-            <div *ngIf="c.type =='TEXT_BOX'" (click)="componentSelected($event, c)">{{c.type}} - {{c.displayName}}</div>
-            <div *ngIf="c.type =='TEXT_AREA'" (click)="componentSelected($event, c)">{{c.type}} - {{c.displayName}}
+            <div [id]="c.id" *ngIf="c.type =='TEXT_BOX'" (click)="componentSelected($event, c)" draggable="true"
+                (dragstart)="onDragStart($event, c)" class="drop-item">{{c.type}} - {{c.displayName}}</div>
+            <div [id]="c.id" *ngIf="c.type =='TEXT_AREA'" (click)="componentSelected($event, c)" draggable="true"
+                (dragstart)="onDragStart($event, c)" class="drop-item">{{c.type}} - {{c.displayName}}
             </div>
-            <div *ngIf="c.type =='FORM_GROUP'" (click)="componentSelected($event, c)">
+            <div [id]="c.id" *ngIf="c.type =='FORM_GROUP'" (click)="componentSelected($event, c)" draggable="true"
+                (dragstart)="onDragStart($event, c)" class="drop-item">
                 <div>{{c.type}} - {{c.displayName}}</div>
-                <app-gg-form-structure *ngIf="c.components" [components]="c.components"></app-gg-form-structure>
+                <app-gg-form-structure *ngIf="c.components" [components]="c.components"
+                    [dropZoneId]="c.dropZoneId"></app-gg-form-structure>
             </div>
-            <div *ngIf="c.type =='FORM_ARRAY'" (click)="componentSelected($event, c)">
+            <div [id]="c.id" *ngIf="c.type =='FORM_ARRAY'" (click)="componentSelected($event, c)" draggable="true"
+                (dragstart)="onDragStart($event, c)" class="drop-item">
                 <div>{{c.type}} - {{c.displayName}}</div>
-                <app-gg-form-structure *ngIf="c.components" [components]="c.components"></app-gg-form-structure>
+                <app-gg-form-structure *ngIf="c.components" [components]="c.components"
+                    [dropZoneId]="c.dropZoneId"></app-gg-form-structure>
             </div>
 
         </div>
