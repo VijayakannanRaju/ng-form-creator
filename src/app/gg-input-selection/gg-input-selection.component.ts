@@ -18,12 +18,14 @@ export class GgInputSelectionComponent {
       name: 'formgroup',
       displayName: 'Form Group',
       type: 'FORM_GROUP',
+      components: []
     },
 
     {
       name: 'formarray',
       displayName: 'Form Array',
       type: 'FORM_ARRAY',
+      components: []
     },
 
     {
@@ -44,7 +46,13 @@ export class GgInputSelectionComponent {
     this.inputComponentDragService.setData(item);
     console.log(item);
     item.id = this.generateUniqueId(); // Assign a unique ID to the item
-    item.dropZoneId = this.generateUniqueId(); // Assign a unique drop zone ID for groups and arrays
+    // item.idOfBeforeDiv = item.id + '-before'; // ID for the before div
+    // item.idOfAfterDiv = item.id + '-after'; // ID for the after div
+
+    if (['FORM_GROUP', 'FORM_ARRAY'].includes(item.type)) {
+      item.dropZoneId = this.generateUniqueId();
+    }
+    // Assign a unique drop zone ID for groups and arrays
 
 
     event.dataTransfer?.setData('text/plain', JSON.stringify(item)); // Optional

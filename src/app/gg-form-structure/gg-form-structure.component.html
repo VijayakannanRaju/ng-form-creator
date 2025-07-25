@@ -1,27 +1,37 @@
-<div class="drop-zone" [id]="dropZoneId" (dragover)="onDragOver($event)" (drop)="onDrop($event)">
-    Drop Here (Component B)
+<div class="drop-zone" [id]="dropZoneId" (dragover)="onDragOver($event)" (drop)="onDrop($event)"
+    (dragenter)="draggedOnZone($event, 'enter')" (dragleave)="draggedOnZone($event, 'leave')" dragHighlight>
+    Drop Here
 
     <div class="drag-box">
 
         <div *ngFor="let c of components;let i = index">
 
+            <!-- <div [id]="c.id+'-before'" class="before-drop-item"
+                style="width: 100%; height: 20px; background-color: red;" dragHighlight>{{c.id+'-before'}}</div> -->
+
             <div [id]="c.id" *ngIf="c.type =='TEXT_BOX'" (click)="componentSelected($event, c)" draggable="true"
-                (dragstart)="onDragStart($event, c)" class="drop-item">{{c.type}} - {{c.displayName}}</div>
+                (dragstart)="onDragStart($event, c)" class="drop-item" style="position: relative;">
+                <div [id]="c.id+'-label'" borderTopHighlight>{{c.type}} - {{c.displayName}}</div>
+            </div>
             <div [id]="c.id" *ngIf="c.type =='TEXT_AREA'" (click)="componentSelected($event, c)" draggable="true"
-                (dragstart)="onDragStart($event, c)" class="drop-item">{{c.type}} - {{c.displayName}}
+                (dragstart)="onDragStart($event, c)" class="drop-item" style="position: relative;">
+                <div [id]="c.id+'-label'" borderTopHighlight>{{c.type}} - {{c.displayName}}</div>
             </div>
             <div [id]="c.id" *ngIf="c.type =='FORM_GROUP'" (click)="componentSelected($event, c)" draggable="true"
                 (dragstart)="onDragStart($event, c)" class="drop-item">
-                <div>{{c.type}} - {{c.displayName}}</div>
-                <app-gg-form-structure *ngIf="c.components" [components]="c.components"
+                <div [id]="c.id+'-label'" borderTopHighlight>{{c.type}} - {{c.displayName}}</div>
+                <app-gg-form-structure [id]="c.id+' groupDiv'" *ngIf="c.components" [components]="c.components"
                     [dropZoneId]="c.dropZoneId"></app-gg-form-structure>
             </div>
             <div [id]="c.id" *ngIf="c.type =='FORM_ARRAY'" (click)="componentSelected($event, c)" draggable="true"
                 (dragstart)="onDragStart($event, c)" class="drop-item">
-                <div>{{c.type}} - {{c.displayName}}</div>
-                <app-gg-form-structure *ngIf="c.components" [components]="c.components"
+                <div [id]="c.id+'-label'" borderTopHighlight>{{c.type}} - {{c.displayName}}</div>
+                <app-gg-form-structure [id]="c.id+' arrayDiv'" *ngIf="c.components" [components]="c.components"
                     [dropZoneId]="c.dropZoneId"></app-gg-form-structure>
             </div>
+
+            <div *ngIf="i === components.length-1" [id]="c.id+'-after'" class="after-drop-item"
+                style="width: 100%; height: 20px; background-color: green;" dragHighlight>{{c.id+'-after'}}</div>
 
         </div>
 

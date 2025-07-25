@@ -13,7 +13,8 @@
     <app-gg-form-structure [components]="formMetadataService.components"></app-gg-form-structure>
 
     <!-- Show JSON preview -->
-    <pre>{{ this.formMetadataService.components | json }}</pre>
+    <pre>{{ this.formMetadataService.components 
+      |json}}</pre>
   </div>
 
   <div style="width: 250px; height: calc(100vh - 138px);  overflow-y: auto;">

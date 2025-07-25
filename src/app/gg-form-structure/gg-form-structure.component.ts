@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, Renderer2, ViewChild } from '@angular/core';
 import { InputComponentDragService } from '../input-component-drag.service';
 import { SelectedFormElementService } from '../selected-form-element.service';
 import { FormMetadataService } from '../form-metadata.service';
 import { Form } from '@angular/forms';
-
+import { HighlightDirective } from '../drag-highlight.directive';
+import { BorderTopDirective } from '../border-top.directive';
 // Shared Interface for form component metadata
 export interface FormComponent {
   type: string;
@@ -14,7 +15,7 @@ export interface FormComponent {
 
 @Component({
   selector: 'app-gg-form-structure',
-  imports: [CommonModule],
+  imports: [CommonModule, HighlightDirective, BorderTopDirective],
   templateUrl: './gg-form-structure.component.html',
   styleUrl: './gg-form-structure.component.scss',
   standalone: true
@@ -25,9 +26,12 @@ export class GgFormStructureComponent {
   @Input() dropZoneId: string = 'root';
 
 
+
   constructor(private inputComponentDragService: InputComponentDragService,
     private selectedFormElementService: SelectedFormElementService,
-    private formMetadataService: FormMetadataService
+    private formMetadataService: FormMetadataService,
+    private renderer: Renderer2,
+    private el: ElementRef
   ) { }
   onDragOver(event: DragEvent, c?: any) {
     event.preventDefault(); // Necessary to allow dropping
@@ -38,40 +42,79 @@ export class GgFormStructureComponent {
   onDrop(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
+
+    const data = this.inputComponentDragService.getData();
+    console.log("Dropped Data", data);
+
+    let item;
+
+    // if (!data.components?.length) {
+    item = {
+      ...data,
+      components: data.components ?
+        JSON.parse(JSON.stringify(data.components)) :
+        (['FORM_GROUP', 'FORM_ARRAY'].includes(data.type) ? [] : undefined)
+    };
+    // }
+
+    console.log("Parsed Item", item);
+
+
+
     console.log('Drop event:', event);
 
 
     const droppedElement = event.target as HTMLElement;
+    console.log('Dropped On Element ID', droppedElement.id);
 
-    console.log("Dropped in Zone");
+
+    //console.log("Dropped in Zone");
     if (droppedElement.classList.contains('drop-zone')) {
       console.log('Dropped on zone:', droppedElement.id);
-    } else {
-      console.log('Not dropped in a valid zone');
+      console.log(this.components);
+
+      this.components.push(JSON.parse(JSON.stringify(item)));
+      // this.dropOnZone(this.components, droppedElement.id, item);
+    }
+    // else {
+    //   console.log('Not dropped in a valid zone');
+    // }
+
+
+    // console.log("Dropped near Component");
+    // console.log(droppedElement.classList);
+
+
+    // if (droppedElement.classList.contains('drop-item')) {
+
+    if (droppedElement.id.includes('-label')) {
+      console.log('Dropped on LABEL:', droppedElement.id);
+      // this.components.push(item);
+      this.dropOnBeforeDiv(this.components, droppedElement.id.split('-label')[0], item)
+
+    }
+    // else {
+    //   console.log('Dropped on non-target area inside drop zone');
+    // }
+
+
+    if (droppedElement.classList.contains('before-drop-item')) {
+      console.log('Dropped on before :', droppedElement.id);
+      this.dropOnBeforeDiv(this.components, droppedElement.id.split('-before')[0], item)
     }
 
 
-    console.log("Dropped near Component");
-    console.log(droppedElement.classList);
-
-    if (droppedElement.classList.contains('drop-item')) {
-      console.log('Dropped on child:', droppedElement.id);
-    } else {
-      console.log('Dropped on non-target area inside drop zone');
+    if (droppedElement.classList.contains('after-drop-item')) {
+      console.log('Dropped on  after:', droppedElement.id);
+      this.dropOnAfterDiv(this.components, droppedElement.id.split('-after')[0], item)
     }
 
 
 
 
-    const data = this.inputComponentDragService.getData();
-
-    const newItem = {
-      ...data,
-      components: ['FORM_GROUP', 'FORM_ARRAY'].includes(data.type) ? [] : undefined
-    };
 
 
-    this.components.push(newItem);
+
 
     // 🚀 Emit updated structure to parent
     // this.structureChanged.emit(this.components);
@@ -108,9 +151,111 @@ export class GgFormStructureComponent {
       }
 
     });
+  }
+
+
+  dropOnBeforeDiv(components: any, relativeComponentId: string, item: any) {
+
+    console.log(this.components);
+    console.log(relativeComponentId);
+    console.log(item);
+
+
+
+    let relativeComponent;
+    let relativeComponentIndex;
+
+    components.forEach((c: any, index: number) => {
+      if (c.id === relativeComponentId) {
+        relativeComponent = c;
+        console.log('Added before');
+        relativeComponentIndex = index;
+      }
+    });
+
+    console.log("RelativeComponent Index", relativeComponentIndex);
+
+    if (typeof (relativeComponentIndex) === 'number' && relativeComponentIndex >= 0) {
+
+      console.log("Inside splicing op");
+
+      components.splice(relativeComponentIndex, 0, item)
+    }
+
+    if (!relativeComponent) {
+      components.forEach((c: any) => {
+        if (c.components) {
+          this.dropOnBeforeDiv(c.components, relativeComponentId, item)
+        }
+      });
+    }
 
   }
 
+
+  dropOnAfterDiv(components: any, relativeComponentId: string, item: any) {
+
+    console.log(this.components);
+
+
+    let relativeComponent;
+    let relativeComponentIndex;
+
+
+    components.forEach((c: any, index: number) => {
+      if (c.id === relativeComponentId) {
+        relativeComponent = c;
+        console.log('Added after');
+        // components.splice(index + 1, 0, item);
+        relativeComponentIndex = index;
+
+      }
+    });
+
+    if (typeof (relativeComponentIndex) === 'number' && relativeComponentIndex >= 0) {
+      components.splice(relativeComponentIndex + 1, 0, item)
+
+    }
+
+
+    if (!relativeComponent) {
+      components.forEach((c: any) => {
+        if (c.components) {
+          this.dropOnAfterDiv(c.components, relativeComponentId, item)
+        }
+      });
+    }
+
+  }
+
+
+  dropOnZone(components: any, zoneId: string, item: any) {
+
+    let pushed = false;
+    components.forEach((c: any) => {
+      if (c.dropZoneId === zoneId) {
+        c.components.push(item);
+        pushed = true;
+      }
+    });
+
+    if (!pushed) {
+      components.forEach((c: any) => {
+        if (c.components) {
+          this.dropOnZone(c.components, zoneId, item)
+        }
+      });
+    }
+  }
+
+  draggedOnZone(event: DragEvent, action: 'enter' | 'leave') {
+    event.preventDefault();
+    event.stopPropagation();
+    console.log(action);
+    console.log((event.target as HTMLElement).id);
+
+
+  }
 
 
 }
