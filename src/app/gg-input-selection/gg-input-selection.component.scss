@@ -1,0 +1,16 @@
+.drag-item {
+  text-align: center;
+  padding: 0.5rem;
+  cursor: grab;
+}
+
+.drag-item-label {
+  font-family: "Inter";
+  font-size: 9px;
+  color: rgb(10, 42, 117);
+  font-weight: 600;
+}
+
+.drag-item:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}

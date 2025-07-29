@@ -1,2 +1,2 @@
 <p>gg-input-configuration works!</p>
-<button (click)="toggleComponent()">Toggle</button>
+<button *ngIf="selectedFormElementService.selectedElement" (click)="changeLabel()">ChangeLabel</button>

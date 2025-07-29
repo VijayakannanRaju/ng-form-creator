@@ -30,12 +30,18 @@ export class HighlightDirective {
 
 
     @HostListener('dragleave', ['$event'])
-    onDragExit(event: DragEvent) {
+    onDragExit(event: DragEvent | any) {
         event.preventDefault();
         event.stopPropagation();
+        console.log('Drag Exit TO Zone:', event.fromElement?.id);
+        console.log('Drag Exit From Zone:', event.target?.id);
 
+        // console.log(event);
 
-
+        if (event.fromElement?.id.split('-')[0] === event.target.id.split('-')[0]) {
+            console.log('Drag Exit From Same Zone');
+            return; // Prevent resetting background if leaving the same zone  
+        }
         this.renderer.setStyle(this.el.nativeElement, 'background-color', this.originalBackground || '');
 
     }

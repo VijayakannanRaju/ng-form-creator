@@ -1,0 +1,14 @@
+<div style="position: relative;">
+
+
+    <div style="padding: 1rem;">
+        <div [id]="c.id+'-label'" class="component-label">{{c.type}} - {{c.displayName}}</div>
+        <button [id]="c.id+'-button'" (click)="c.displayName = 'CHanged From Component'">CLick</button>
+    </div>
+
+
+    <div *ngIf="inputComponentDragService.showOverlay" [id]="c.id+'-overlay'"
+        style="position:absolute; top:0; height: 100%; width: 100%; background-color: rgba(128, 128, 128, 0.205);">
+    </div>
+
+</div>

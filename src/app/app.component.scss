@@ -1,0 +1,23 @@
+.scrollable-div {
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #b4b4b454 #f1f1f100;
+}
+
+.scrollable-div::-webkit-scrollbar {
+  width: 6px;
+  height: 8px;
+}
+
+.scrollable-div::-webkit-scrollbar-track {
+  background: #f1f1f100;
+}
+
+.scrollable-div::-webkit-scrollbar-thumb {
+  background: #b4b4b454;
+  border-radius: 4px;
+}
+
+.scrollable-div::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

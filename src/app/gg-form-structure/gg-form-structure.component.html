@@ -1,6 +1,8 @@
 <div class="drop-zone" [id]="dropZoneId" (dragover)="onDragOver($event)" (drop)="onDrop($event)"
     (dragenter)="draggedOnZone($event, 'enter')" (dragleave)="draggedOnZone($event, 'leave')" dragHighlight>
-    Drop Here
+
+    <div [id]="dropZoneId+'-zoneDropMessage'" class="drop-zone-message">Drop Here</div>
+
 
     <div class="drag-box">
 
@@ -9,29 +11,116 @@
             <!-- <div [id]="c.id+'-before'" class="before-drop-item"
                 style="width: 100%; height: 20px; background-color: red;" dragHighlight>{{c.id+'-before'}}</div> -->
 
-            <div [id]="c.id" *ngIf="c.type =='TEXT_BOX'" (click)="componentSelected($event, c)" draggable="true"
-                (dragstart)="onDragStart($event, c)" class="drop-item" style="position: relative;">
-                <div [id]="c.id+'-label'" borderTopHighlight>{{c.type}} - {{c.displayName}}</div>
-            </div>
-            <div [id]="c.id" *ngIf="c.type =='TEXT_AREA'" (click)="componentSelected($event, c)" draggable="true"
-                (dragstart)="onDragStart($event, c)" class="drop-item" style="position: relative;">
-                <div [id]="c.id+'-label'" borderTopHighlight>{{c.type}} - {{c.displayName}}</div>
-            </div>
-            <div [id]="c.id" *ngIf="c.type =='FORM_GROUP'" (click)="componentSelected($event, c)" draggable="true"
-                (dragstart)="onDragStart($event, c)" class="drop-item">
-                <div [id]="c.id+'-label'" borderTopHighlight>{{c.type}} - {{c.displayName}}</div>
-                <app-gg-form-structure [id]="c.id+' groupDiv'" *ngIf="c.components" [components]="c.components"
-                    [dropZoneId]="c.dropZoneId"></app-gg-form-structure>
-            </div>
-            <div [id]="c.id" *ngIf="c.type =='FORM_ARRAY'" (click)="componentSelected($event, c)" draggable="true"
-                (dragstart)="onDragStart($event, c)" class="drop-item">
-                <div [id]="c.id+'-label'" borderTopHighlight>{{c.type}} - {{c.displayName}}</div>
-                <app-gg-form-structure [id]="c.id+' arrayDiv'" *ngIf="c.components" [components]="c.components"
-                    [dropZoneId]="c.dropZoneId"></app-gg-form-structure>
+            <div [id]="c.id" draggable="true" (dragstart)="onDragStart($event, c)" (dragend)="onDragEnd($event)"
+                class="drop-item" style="position: relative;">
+                <div [id]="c.id+'-component'" borderTopHighlight class="component">
+                    <div [id]="c.id+'-componentCard'" (click)="componentSelected($event, c)" class="component-card"
+                        [ngClass]="{'selected' : c.selected}">
+                        <div [id]="c.id+'-topHighlight'" class="top-highlight"></div>
+                        <app-heading-metadata *ngIf="c.type =='HEADING'" [component]="c"></app-heading-metadata>
+                        <app-description-metadata *ngIf="c.type =='DESCRIPTION'"
+                            [component]="c"></app-description-metadata>
+                        <app-radio-group-metadata *ngIf="c.type =='RADIO_GROUP'"
+                            [component]="c"></app-radio-group-metadata>
+                        <app-checkbox-single-metadata *ngIf="c.type =='CHECKBOX_SINGLE'"
+                            [component]="c"></app-checkbox-single-metadata>
+                        <app-checkbox-multi-metadata *ngIf="c.type =='CHECKBOX_MULTI'"
+                            [component]="c"></app-checkbox-multi-metadata>
+                        <app-dropdown-metadata *ngIf="c.type =='DROPDOWN'" [component]="c"></app-dropdown-metadata>
+                        <app-date-time-metadata *ngIf="c.type =='DATETIME'" [component]="c"></app-date-time-metadata>
+                        <app-date-only-metadata *ngIf="c.type =='DATEONLY'" [component]="c"></app-date-only-metadata>
+                        <app-time-only-metadata *ngIf="c.type =='TIMEONLY'" [component]="c"></app-time-only-metadata>
+                        <app-textbox-metadata *ngIf="c.type =='TEXTBOX'" [component]="c"></app-textbox-metadata>
+                        <app-emailbox-metadata *ngIf="c.type =='EMAILBOX'" [component]="c"></app-emailbox-metadata>
+                        <app-numberbox-metadata *ngIf="c.type =='NUMBERBOX'" [component]="c"></app-numberbox-metadata>
+                        <app-textarea-metadata *ngIf="c.type =='TEXTAREA'" [component]="c"></app-textarea-metadata>
+                        <app-form-array-metadata *ngIf="c.type =='FORM_ARRAY'"
+                            [component]="c"></app-form-array-metadata>
+                        <app-form-group-metadata *ngIf="c.type =='FORM_GROUP'"
+                            [component]="c"></app-form-group-metadata>
+
+                        <app-gg-form-structure [id]="c.id+' groupDiv'"
+                            *ngIf="c.type =='FORM_GROUP' && c.components && c.dropZoneId" [components]="c.components"
+                            [dropZoneId]="c.dropZoneId"></app-gg-form-structure>
+
+                        <app-gg-form-structure [id]="c.id+' arrayDiv'"
+                            *ngIf="c.type =='FORM_ARRAY' && c.components  && c.dropZoneId " [components]="c.components"
+                            [dropZoneId]="c.dropZoneId"></app-gg-form-structure>
+
+
+                    </div>
+                </div>
             </div>
 
-            <div *ngIf="i === components.length-1" [id]="c.id+'-after'" class="after-drop-item"
-                style="width: 100%; height: 20px; background-color: green;" dragHighlight>{{c.id+'-after'}}</div>
+            <!-- <div [id]="c.id" *ngIf="c.type =='TEXTBOX'" draggable="true" (dragstart)="onDragStart($event, c)"
+                (dragend)="onDragEnd($event)" class="drop-item" style="position: relative;">
+                <div [id]="c.id+'-component'" borderTopHighlight class="component">
+
+                    <div [id]="c.id+'-componentCard'" (click)="componentSelected($event, c)" class="component-card"
+                        [ngClass]="{'selected' : c.selected}">
+                        <div [id]="c.id+'-topHighlight'" class="top-highlight"></div>
+                        <div [id]="c.id+'-label'" class="component-label">{{c.type}} - {{c.displayName}}</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div [id]="c.id" *ngIf="c.type =='EMAILBOX'" draggable="true" (dragstart)="onDragStart($event, c)"
+                (dragend)="onDragEnd($event)" class="drop-item" style="position: relative;">
+                <div [id]="c.id+'-component'" borderTopHighlight class="component">
+
+                    <div [id]="c.id+'-componentCard'" (click)="componentSelected($event, c)" class="component-card"
+                        [ngClass]="{'selected' : c.selected}">
+                        <div [id]="c.id+'-topHighlight'" class="top-highlight"></div>
+                        <div [id]="c.id+'-label'" class="component-label">{{c.type}} - {{c.displayName}}</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div [id]="c.id" *ngIf="c.type =='TEXTAREA'" (click)="componentSelected($event, c)" draggable="true"
+                (dragend)="onDragEnd($event)" (dragstart)="onDragStart($event, c)" class="drop-item"
+                style="position: relative;">
+                <div [id]="c.id+'-component'" borderTopHighlight class="component">
+                    <div [id]="c.id+'-componentCard'" class="component-card">
+                        <div [id]="c.id+'-topHighlight'" class="top-highlight"></div>
+                        <div [id]="c.id+'-label'" class="component-label">{{c.type}} - {{c.displayName}}</div>
+                    </div>
+                </div>
+            </div>
+            <div [id]="c.id" *ngIf="c.type =='FORM_GROUP'" (click)="componentSelected($event, c)" draggable="true"
+                (dragend)="onDragEnd($event)" (dragstart)="onDragStart($event, c)" class="drop-item">
+                <div [id]="c.id+'-component'" borderTopHighlight class="component">
+                    <div [id]="c.id+'-componentCard'" class="component-card">
+                        <div [id]="c.id+'-topHighlight'" class="top-highlight"></div>
+                        <div [id]="c.id+'-label'" class="component-label">{{c.type}} - {{c.displayName}}</div>
+                        <app-gg-form-structure [id]="c.id+' groupDiv'" *ngIf="c.components && c.dropZoneId"
+                            [components]="c.components" [dropZoneId]="c.dropZoneId"></app-gg-form-structure>
+                    </div>
+                </div>
+
+            </div>
+            <div [id]="c.id" *ngIf="c.type =='FORM_ARRAY'" (click)="componentSelected($event, c)" draggable="true"
+                (dragend)="onDragEnd($event)" (dragstart)="onDragStart($event, c)" class="drop-item">
+                <div [id]="c.id+'-component'" borderTopHighlight class="component">
+                    <div [id]="c.id+'-componentCard'" class="component-card">
+                        <div [id]="c.id+'-topHighlight'" class="top-highlight"></div>
+
+                        <div [id]="c.id+'-label'" class="component-label">{{c.type}} - {{c.displayName}}</div>
+
+                        <app-gg-form-structure [id]="c.id+' arrayDiv'" *ngIf="c.components  && c.dropZoneId "
+                            [components]="c.components" [dropZoneId]="c.dropZoneId"></app-gg-form-structure>
+                    </div>
+
+                    <div [id]="c.id+'-overlay'"
+                        style="position:absolute; top:0; margin:0.5rem 0; height: calc( 100% - 1rem); width: 100%; background-color: rgba(128, 128, 128, 0.205);">
+                    </div>
+                </div>
+
+            </div> -->
+
+            <!-- <div *ngIf="i === components.length-1" [id]="c.id+'-after'" class="after-drop-item"
+                style="width: 100%; height: 20px; background-color: green;" dragHighlight>{{c.id+'-after'}}</div> -->
 
         </div>
 

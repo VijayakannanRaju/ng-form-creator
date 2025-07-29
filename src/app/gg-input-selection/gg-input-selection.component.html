@@ -1,3 +1,17 @@
-<div *ngFor="let input of inputList" draggable="true" (dragstart)="onDragStart($event, input)" class="drag-box">
+<!-- <div *ngFor="let input of inputList" draggable="true" (dragstart)="onDragStart($event, input)" class="drag-box">
     {{input.displayName}}
+</div> -->
+
+<div *ngFor="let input of inputList" draggable="true" (dragstart)="onDragStart($event, input)"
+    (dragend)="onDragEnd($event)" class="drag-box">
+
+
+    <div class="drag-item" [title]="input.displayLabel">
+        <div>
+            <img [src]="'imgs/form-fields/'+input.iconName" height="30px" alt="">
+        </div>
+        <div class="drag-item-label">{{input.displayName}}</div>
+    </div>
+
+
 </div>

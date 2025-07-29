@@ -1,10 +1,12 @@
 
 // input-component-drag.service.ts
 import { Injectable } from '@angular/core';
+import { FormComponentMetadata } from './form.type';
 
 @Injectable({ providedIn: 'root' })
 export class InputComponentDragService {
-  private data: any = null;
+  private data: FormComponentMetadata | null = null;
+  public showOverlay: boolean = false; // Flag to control overlay visibility
 
   setData(item: any) {
     this.data = item;

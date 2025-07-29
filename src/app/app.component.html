@@ -1,24 +1,27 @@
 <app-gg-nav-bar></app-gg-nav-bar>
-<app-gg-form-creator-nav-bar></app-gg-form-creator-nav-bar>
+<!-- <app-gg-form-creator-nav-bar></app-gg-form-creator-nav-bar> -->
 
 
 <div style="display: flex;">
 
-  <div style="width: 250px; height: calc(100vh - 138px); overflow-y: auto; border-right: 1px solid lightgray;">
+  <div class="scrollable-div" style="width: 100px; height: calc(100vh - 73px); overflow-y: auto;">
     <app-gg-input-selection></app-gg-input-selection>
   </div>
 
-  <div style=" height: calc(100vh - 138px);  overflow-y: auto; flex: 1; border-right: 1px solid lightgray;">
+  <div style=" height: calc(100vh - 73px);  overflow-y: auto; flex: 1; border-right: 1px solid lightgray;">
     <!-- (structureChanged)="onStructureChange($event)" -->
     <app-gg-form-structure [components]="formMetadataService.components"></app-gg-form-structure>
 
-    <!-- Show JSON preview -->
-    <pre>{{ this.formMetadataService.components 
-      |json}}</pre>
+
   </div>
 
-  <div style="width: 250px; height: calc(100vh - 138px);  overflow-y: auto;">
+  <div style="width: 200px; height: calc(100vh - 73px);  overflow-y: auto;">
     <app-gg-input-configuration></app-gg-input-configuration>
+  </div>
+
+  <div style="width: 250px; height: calc(100vh - 73px);  overflow-y: auto;">
+    <!-- Show JSON preview -->
+    <pre>{{ this.formMetadataService.components |json}}</pre>
   </div>
 
 
