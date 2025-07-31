@@ -9,15 +9,18 @@
   </div>
 
   <div style=" height: calc(100vh - 73px);  overflow-y: auto; flex: 1; border-right: 1px solid lightgray;">
-    <!-- (structureChanged)="onStructureChange($event)" -->
-    <app-gg-form-structure [components]="formMetadataService.components"></app-gg-form-structure>
+
+    <button *ngIf="showStructure" (click)="toggleShowStructure()">Show Preview</button>
+    <button *ngIf="!showStructure" (click)="toggleShowStructure()">Show Structure</button>
+
+    <app-gg-form-structure *ngIf="showStructure" [components]="formMetadataService.components"></app-gg-form-structure>
+    <app-form-renderer *ngIf="!showStructure" [components]="formMetadataService.components"
+      [formGroup]="myForm"></app-form-renderer>
 
 
   </div>
 
-  <div style="width: 200px; height: calc(100vh - 73px);  overflow-y: auto;">
-    <app-gg-input-configuration></app-gg-input-configuration>
-  </div>
+
 
   <div style="width: 250px; height: calc(100vh - 73px);  overflow-y: auto;">
     <!-- Show JSON preview -->

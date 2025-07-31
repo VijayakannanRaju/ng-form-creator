@@ -1,0 +1,11 @@
+<label *ngIf="label">{{ label }}</label>
+<input
+  type="date"
+  [value]="value"
+  (input)="onInput($event)"
+  (blur)="onTouched()"
+  [attr.placeholder]="placeholder"
+  [attr.min]="minDate"
+  [attr.max]="maxDate"
+  [disabled]="isDisabled"
+/>

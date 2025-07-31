@@ -1,0 +1,9 @@
+<label *ngIf="label">{{ label }}</label>
+<input
+  type="time"
+  [value]="value"
+  (input)="onInput($event)"
+  (blur)="onTouched()"
+  [attr.placeholder]="placeholder"
+  [disabled]="isDisabled"
+/>

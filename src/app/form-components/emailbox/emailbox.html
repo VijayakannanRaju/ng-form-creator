@@ -1,0 +1,9 @@
+<label *ngIf="label">{{ label }}</label>
+<input
+  type="email"
+  [value]="value"
+  (input)="onInput($event)"
+  (blur)="onTouched()"
+  [disabled]="isDisabled"
+  [placeholder]="placeholder"
+/>

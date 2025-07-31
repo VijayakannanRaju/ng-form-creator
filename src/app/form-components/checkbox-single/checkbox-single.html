@@ -1,0 +1,5 @@
+<label *ngIf="label">{{ label }}</label>
+<label>
+  <input type="checkbox" [checked]="value" (change)="onInputChange($event)" [disabled]="isDisabled" />
+  {{ optionLabel }}
+</label>

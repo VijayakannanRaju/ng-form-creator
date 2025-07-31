@@ -1,0 +1,12 @@
+<label *ngIf="label">{{ label }}</label>
+<div *ngIf="options.length">
+
+  <div *ngFor="let option of options">
+    <label>
+      <input type="checkbox" [checked]="isChecked(option.value)" (change)="toggleValue(option.value)"
+        [disabled]="isDisabled" />
+      {{ option.display }}
+    </label>
+  </div>
+
+</div>

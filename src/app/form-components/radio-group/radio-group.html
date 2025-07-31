@@ -1,0 +1,11 @@
+<label *ngIf="label">{{ label }}</label>
+<div *ngIf="options.length">
+
+  <div *ngFor="let option of options">
+    <label>
+      <input type="radio" [disabled]="isDisabled" [value]="option.value" [checked]="value === option.value"
+        (change)="onSelectionChange(option.value)" name="radioGroup" />
+      {{ option.display }}
+    </label>
+  </div>
+</div>

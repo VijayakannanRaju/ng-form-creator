@@ -1,0 +1,12 @@
+<label *ngIf="label">{{ label }}</label>
+<select
+  [disabled]="isDisabled"
+  [value]="value"
+  (change)="onSelect($event)"
+  (blur)="onTouched()"
+>
+  <option value="">-- Select --</option>
+  <option *ngFor="let opt of options" [value]="opt.value">
+    {{ opt.display }}
+  </option>
+</select>
