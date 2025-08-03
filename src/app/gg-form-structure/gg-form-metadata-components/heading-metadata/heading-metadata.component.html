@@ -2,8 +2,31 @@
 
 
     <div style="padding: 1rem;">
-        <div [id]="c.id+'-label'" class="component-label">{{c.type}} - {{c.displayName}}</div>
-        <button [id]="c.id+'-button'" (click)="c.displayName = 'CHanged From Component'">CLick</button>
+        <!-- <div [id]="c.id+'-label'" class="component-label">{{c.type}} - {{c.displayName}}</div>
+        <button [id]="c.id+'-button'" (click)="c.displayName = 'CHanged From Component'">CLick</button> -->
+
+        <div>
+            <div class="card-container" [title]="c.displayLabel">
+                <div>
+                    <img [src]="'imgs/form-fields/'+c.iconName" height="30px" alt="">
+                </div>
+                <div class="card-heading">{{c.displayName}}</div>
+            </div>
+        </div>
+
+        <div>
+            <label [for]="c.id+'-value'" class="form-label">Heading (Type the heading that you want to see in the
+                form)</label>
+            <input class="form-control" [id]="c.id+'-value'" placeholder="My Heading" [(ngModel)]="c.value">
+        </div>
+        <div>
+            <label [for]="c.id+'-description'" class="form-label">Description (This is foryour understanding. This will
+                not be visible in the form)</label>
+            <textarea class="form-control" [id]="c.id+'-description'" rows="3" [(ngModel)]="c.description"></textarea>
+        </div>
+
+
+
     </div>
 
 

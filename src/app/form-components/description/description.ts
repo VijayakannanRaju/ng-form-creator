@@ -10,6 +10,5 @@ import { DescriptionMetadata } from '../../form.type';
   standalone: true
 })
 export class Description {
-  @Input() descriptionData: DescriptionMetadata  | undefined; // Default value is optional
-
+  @Input() descriptionData!: DescriptionMetadata;
 }

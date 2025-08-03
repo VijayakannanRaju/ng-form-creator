@@ -16,6 +16,7 @@ import { Datetime } from '../form-components/datetime/datetime';
 import { DateOnly } from '../form-components/date-only/date-only';
 import { TimeOnly } from '../form-components/time-only/time-only';
 import { Textarea } from '../form-components/textarea/textarea.component';
+import { buildFormGroup } from '../utils/form-builder';
 
 
 
@@ -31,7 +32,7 @@ import { Textarea } from '../form-components/textarea/textarea.component';
 })
 export class FormRenderer implements OnChanges, OnInit {
   @Input('components') metadata!: FormComponentMetadata[];
-  @Input() formGroup!: FormGroup;
+  formGroup!: FormGroup;
   // myForm!: FormGroup;
   //  = this.buildFormGroup(this.metadata);
 
@@ -92,19 +93,11 @@ export class FormRenderer implements OnChanges, OnInit {
 
     for (const comp of components) {
       if (comp.type === 'TEXTBOX') {
-        // const validators = [];
-        // if (comp.required) validators.push(Validators.required);
-        // if (comp.minLength) validators.push(Validators.minLength(comp.minLength));
-        // if (comp.maxLength) validators.push(Validators.maxLength(comp.maxLength));
-
-
         const validators = buildValidators({
           required: comp.required,
           minLength: comp.minLength,
           maxLength: comp.maxLength,
         });
-
-
         group.addControl(comp.id!, new FormControl('', validators));
       } else if (comp.type === 'EMAILBOX') {
         const validators = [Validators.email];
@@ -116,6 +109,10 @@ export class FormRenderer implements OnChanges, OnInit {
         if (comp.min != null) validators.push(Validators.min(comp.min));
         if (comp.max != null) validators.push(Validators.max(comp.max));
         group.addControl(comp.id!, new FormControl(null, validators));
+      } else if (comp.type === 'TEXTAREA') {
+        const validators = [];
+        if (comp.required) validators.push(Validators.required);
+        group.addControl(comp.id!, new FormControl('', validators));
       } else if (comp.type === 'DROPDOWN') {
         const validators = [];
         if (comp.required) validators.push(Validators.required);
@@ -146,8 +143,7 @@ export class FormRenderer implements OnChanges, OnInit {
         const validators = [];
         if (comp.required) validators.push(Validators.required);
         group.addControl(comp.id!, new FormControl(null, validators));
-      }
-      else if (comp.type === 'FORM_GROUP') {
+      } else if (comp.type === 'FORM_GROUP') {
         const nestedGroup = this.buildFormGroup(comp.components);
         group.addControl(comp.id!, nestedGroup);
       } else if (comp.type === 'FORM_ARRAY') {

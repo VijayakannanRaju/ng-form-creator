@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import {  HeadingMetadata } from '../../form.type';
+import { HeadingMetadata } from '../../form.type';
 
 @Component({
   selector: 'app-heading',
@@ -10,6 +10,7 @@ import {  HeadingMetadata } from '../../form.type';
   standalone: true
 })
 export class Heading {
-  @Input() headingData: HeadingMetadata | undefined; // Default value is optional
+  @Input() headingData!: HeadingMetadata; // Default value is optional
+
 
 }

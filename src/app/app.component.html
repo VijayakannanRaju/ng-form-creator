@@ -10,19 +10,34 @@
 
   <div style=" height: calc(100vh - 73px);  overflow-y: auto; flex: 1; border-right: 1px solid lightgray;">
 
-    <button *ngIf="showStructure" (click)="toggleShowStructure()">Show Preview</button>
-    <button *ngIf="!showStructure" (click)="toggleShowStructure()">Show Structure</button>
+    <div *ngIf="showStructure">
+      <div style="display: flex; align-items: center; padding: 0.5rem;">
+        <div>Form Name</div>
+        <div style="margin-left: auto">
+          <button class="gg-btn" (click)="toggleShowStructure()">Show Preview</button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!showStructure">
+      <div style="display: flex; align-items: center; padding: 0.5rem;">
+        <div>Form Name</div>
+        <div style="margin-left: auto">
+          <button class="gg-btn" (click)="toggleShowStructure()">Show Structure</button>
+        </div>
+      </div>
+    </div>
+
 
     <app-gg-form-structure *ngIf="showStructure" [components]="formMetadataService.components"></app-gg-form-structure>
-    <app-form-renderer *ngIf="!showStructure" [components]="formMetadataService.components"
-      [formGroup]="myForm"></app-form-renderer>
+    <app-form-renderer *ngIf="!showStructure" [components]="formMetadataService.components"></app-form-renderer>
 
 
   </div>
 
 
 
-  <div style="width: 250px; height: calc(100vh - 73px);  overflow-y: auto;">
+  <div style="width: 400px; height: calc(100vh - 73px);  overflow-y: auto;">
     <!-- Show JSON preview -->
     <pre>{{ this.formMetadataService.components |json}}</pre>
   </div>

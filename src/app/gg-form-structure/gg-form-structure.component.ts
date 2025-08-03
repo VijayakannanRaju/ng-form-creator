@@ -77,7 +77,7 @@ export class GgFormStructureComponent {
     event.stopPropagation();
 
     const data = this.inputComponentDragService.getData();
-    console.log("Dropped Data", data);
+    //console.log("Dropped Data", data);
 
     let item;
 
@@ -96,21 +96,21 @@ export class GgFormStructureComponent {
 
 
 
-    console.log('Drop event:', event);
+    // console.log('Drop event:', event);
 
 
     const droppedElement = event.target as HTMLElement;
-    console.log('Dropped On Element ID', droppedElement.id);
+    // console.log('Dropped On Element ID', droppedElement.id);
 
 
     if (droppedElement.classList.contains('drop-zone') || droppedElement.id.includes(this.dropZoneId)) {
-      console.log('Dropped on zone:', droppedElement.id);
-      console.log(this.components);
+      // console.log('Dropped on zone:', droppedElement.id);
+      // console.log(this.components);
 
-      console.log(item);
+      // console.log(item);
 
       this.components.push(JSON.parse(JSON.stringify(item)));
-      console.log(this.components);
+      // console.log(this.components);
 
     }
 
@@ -195,9 +195,10 @@ export class GgFormStructureComponent {
   onDragStart(event: DragEvent, item: any) {
     event.stopPropagation();
     this.inputComponentDragService.setData(item);
-    this.inputComponentDragService.showOverlay = true; // Show overlay on drag start
     // console.log(item);
     event.dataTransfer?.setData('text/plain', JSON.stringify(item)); // Optional
+    this.inputComponentDragService.showOverlay = true; // Show overlay on drag start
+
     this.removeComponent(item.id, this.formMetadataService.components); // Remove the component from the list
 
   }
