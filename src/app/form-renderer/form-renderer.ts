@@ -32,27 +32,20 @@ import { buildFormGroup } from '../utils/form-builder';
 })
 export class FormRenderer implements OnChanges, OnInit {
   @Input('components') metadata!: FormComponentMetadata[];
-  formGroup!: FormGroup;
-  // myForm!: FormGroup;
-  //  = this.buildFormGroup(this.metadata);
+  @Input('formGroup') formGroup!: FormGroup;
 
   constructor() {
     console.log('constructor called');
-
   }
 
   ngOnInit() {
     console.log(this.metadata);
-    this.formGroup = this.buildFormGroup(this.metadata)
+    console.log('Form renderer - formGroup received:', this.formGroup);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
-    // console.log('Controls', this.myForm.controls);
-
-
   }
-
 
   getFormGroup(name: string): FormGroup {
     const group = this.formGroup.get(name);
@@ -80,13 +73,11 @@ export class FormRenderer implements OnChanges, OnInit {
 
   addFormArrayItem(name: string, components: FormComponentMetadata[]) {
     const array = this.getFormArray(name);
-    const newGroup = this.buildFormGroup(components); // use shared logic
+    const newGroup = this.buildFormGroup(components);
     array.push(newGroup);
   }
 
-
   private buildFormGroup(components: FormComponentMetadata[]): FormGroup {
-
     console.log(components);
 
     const group = new FormGroup({});
@@ -128,12 +119,11 @@ export class FormRenderer implements OnChanges, OnInit {
 
       } else if (comp.type === 'CHECKBOX_MULTI') {
         const validators = [];
-        if (comp.required) validators.push(Validators.required); // can add custom min-length validator if needed
+        if (comp.required) validators.push(Validators.required);
         group.addControl(comp.name + '|||' + comp.id!, new FormControl([], validators));
       } else if (comp.type === 'DATETIME') {
         const validators = [];
         if (comp.required) validators.push(Validators.required);
-        // Custom min/max validator can be added later
         group.addControl(comp.name + '|||' + comp.id!, new FormControl('', validators));
       } else if (comp.type === 'DATEONLY') {
         const validators = [];
@@ -147,7 +137,6 @@ export class FormRenderer implements OnChanges, OnInit {
         const nestedGroup = this.buildFormGroup(comp.components);
         group.addControl(comp.name + '|||' + comp.id!, nestedGroup);
       } else if (comp.type === 'FORM_ARRAY') {
-        // build one initial array item
         const arrayItemGroup = this.buildFormGroup(comp.components);
         const formArray = new FormArray<FormGroup>([arrayItemGroup]);
         group.addControl(comp.name + '|||' + comp.id!, formArray);
@@ -160,7 +149,4 @@ export class FormRenderer implements OnChanges, OnInit {
   printFormValue() {
     console.log(this.formGroup.value);
   }
-
-
-
 }

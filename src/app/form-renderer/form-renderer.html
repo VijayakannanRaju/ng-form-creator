@@ -1,5 +1,5 @@
 <!-- Wrap everything in a form group to satisfy formGroupName -->
-<form *ngIf="formGroup" [formGroup]="formGroup" class="form-renderer">
+<div [formGroup]="formGroup" class="form-renderer">
 
     <ng-container *ngFor="let c of metadata; let metadataIndex = index">
         <ng-container [ngSwitch]="c.type">
@@ -147,7 +147,7 @@
                         <strong style="display: block; margin-bottom: 8px;">Form Array: {{ c.name + '|||' + c.id!
                             }}</strong>
                         <div *ngFor="let _ of getFormArray(c.name + '|||' + c.id!).controls; let i = index"
-                            [formGroupName]="c.name + '|||' + c.id!"
+                            [formGroupName]="i"
                             style="margin-bottom: 12px; padding: 12px; border: 1px dashed #81c784; border-radius: 6px;">
                             <app-form-renderer [components]="c.components"
                                 [formGroup]="getFormGroupFromArray(c.name + '|||' + c.id!, i)">
@@ -162,4 +162,4 @@
         </ng-container>
     </ng-container>
 
-</form>
+</div>

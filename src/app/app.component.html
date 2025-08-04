@@ -30,7 +30,11 @@
 
 
     <app-gg-form-structure *ngIf="showStructure" [components]="formMetadataService.components"></app-gg-form-structure>
-    <app-form-renderer *ngIf="!showStructure" [components]="formMetadataService.components"></app-form-renderer>
+    <form *ngIf="!showStructure" [formGroup]="mainFormGroup" (ngSubmit)="submit()">
+      <app-form-renderer [formGroup]="mainFormGroup"
+        [components]="formMetadataService.components"></app-form-renderer>
+      <button type="submit">Submit</button>
+    </form>
 
 
   </div>
