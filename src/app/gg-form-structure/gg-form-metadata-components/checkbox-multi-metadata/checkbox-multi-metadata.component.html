@@ -1,15 +1,110 @@
 <div style="position: relative;">
+    <div>
+        <form [formGroup]="checkboxMultiForm">
+            <div class="card-container" [title]="c.displayLabel">
+                <div class="icon-container">
+                    <img [src]="'imgs/form-fields/'+c.iconName" height="30px" alt="">
+                </div>
+                <div class="card-heading">
+                    <div *ngIf="!showNameInput" (click)="toggleNameEdit()">{{c.name}}</div>
+                    <input #nameInput *ngIf="showNameInput" class="form-control"
+                        [id]="c.id+'-name'" formControlName="name" placeholder="Give a name to this component">
+                </div>
+                <div class="actions-container">
+                    <button (click)="c.showMetadataDiv = !c.showMetadataDiv">
+                        {{ c.showMetadataDiv ? 'Hide' : 'Show' }} Metadata
+                    </button>
+                    <img *ngIf="hasFormErrors()" src="imgs/icons/exclamation.png" alt="validation error"
+                        class="error-icon" title="Form has validation errors" (click)="c.showMetadataDiv = true">
+                </div>
+            </div>
 
+            <div *ngIf="c.showMetadataDiv" class="metadata-section">
+                <div class="form-group">
+                    <label [for]="c.id+'-displayLabel'" class="form-label">
+                        Display Label
+                        <span class="required-indicator">*</span>
+                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                            title="This is the label that will be displayed in the actual form">
+                    </label>
+                    <input type="text" class="form-control" [id]="c.id+'-displayLabel'"
+                        placeholder="Enter display label" formControlName="displayLabel"
+                        [class.is-invalid]="isFieldInvalid('displayLabel')"
+                        [class.is-valid]="!isFieldInvalid('displayLabel') && checkboxMultiForm.get('displayLabel')?.dirty">
+                    <div class="invalid-feedback" *ngIf="isFieldInvalid('displayLabel')">
+                        {{ getFieldError('displayLabel') }}
+                    </div>
+                </div>
 
+                <div class="form-group">
+                    <label class="form-label">
+                        Options
+                        <span class="required-indicator">*</span>
+                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                            title="Add options for the checkbox multi. Each option must have both value and display text.">
+                    </label>
 
-    <div style="padding: 1rem;">
-        <div [id]="c.id+'-label'" class="component-label">{{c.type}} - {{c.displayName}}</div>
-        <button [id]="c.id+'-button'" (click)="c.displayName = 'CHanged From Component'">CLick</button>
+                    <div formArrayName="options" class="options-container">
+                        <div *ngFor="let option of optionsArray.controls; let i = index" [formGroupName]="i"
+                            class="option-row">
+                            <div class="option-number">{{i + 1}}.</div>
+                            <div class="option-fields">
+                                <div class="option-field">
+                                    <input type="text" class="form-control" [id]="c.id+'-option-'+i+'-value'"
+                                        placeholder="Value" formControlName="value"
+                                        [class.is-invalid]="isOptionFieldInvalid(i, 'value')"
+                                        [class.is-valid]="!isOptionFieldInvalid(i, 'value') && option.get('value')?.dirty">
+                                    <div class="invalid-feedback" *ngIf="isOptionFieldInvalid(i, 'value')">
+                                        {{ getOptionFieldError(i, 'value') }}
+                                    </div>
+                                </div>
+
+                                <div class="option-field">
+                                    <input type="text" class="form-control" [id]="c.id+'-option-'+i+'-display'"
+                                        placeholder="Display Text" formControlName="display"
+                                        [class.is-invalid]="isOptionFieldInvalid(i, 'display')"
+                                        [class.is-valid]="!isOptionFieldInvalid(i, 'display') && option.get('display')?.dirty">
+                                    <div class="invalid-feedback" *ngIf="isOptionFieldInvalid(i, 'display')">
+                                        {{ getOptionFieldError(i, 'display') }}
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="remove-option-btn" (click)="removeOption(i)"
+                                [disabled]="optionsArray.length <= 1" title="Remove option">
+                                <img src="imgs/icons/delete.png" alt="delete" height="14px">
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="add-option-container">
+                        <button type="button" class="add-option-btn" (click)="addOption()">
+                            <img src="imgs/icons/add.png" alt="add" height="14px">
+                            Add Option
+                        </button>
+                    </div>
+
+                    <!-- Options validation error message -->
+                    <div class="invalid-feedback options-validation-error" *ngIf="hasOptionsErrors()">
+                        {{ getOptionsError() }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        Required Field
+                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                            title="Check if this field is mandatory in the form">
+                    </label>
+                    <div class="checkbox-container">
+                        <input type="checkbox" [id]="c.id+'-required'" formControlName="required">
+                        <label [for]="c.id+'-required'" class="checkbox-label">Make this field required</label>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
-
 
     <div *ngIf="inputComponentDragService.showOverlay" [id]="c.id+'-overlay'"
         style="position:absolute; top:0; height: 100%; width: 100%; background-color: rgba(128, 128, 128, 0.205);">
     </div>
-
 </div>

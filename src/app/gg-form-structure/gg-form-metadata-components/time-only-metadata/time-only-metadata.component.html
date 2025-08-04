@@ -1,15 +1,108 @@
 <div style="position: relative;">
+    <div>
+        <form [formGroup]="timeOnlyForm">
+            <div class="card-container" [title]="c.displayLabel">
+                <div class="icon-container">
+                    <img [src]="'imgs/form-fields/'+c.iconName" height="30px" alt="">
+                </div>
+                <div class="card-heading">
+                    <div *ngIf="!showNameInput" (click)="toggleNameEdit()">{{c.name}}</div>
+                    <input #nameInput *ngIf="showNameInput" class="form-control"
+                        [id]="c.id+'-name'" formControlName="name" placeholder="Give a name to this component">
+                </div>
+                <div class="actions-container">
+                    <button (click)="c.showMetadataDiv = !c.showMetadataDiv">
+                        {{ c.showMetadataDiv ? 'Hide' : 'Show' }} Metadata
+                    </button>
+                    <img *ngIf="hasFormErrors()" src="imgs/icons/exclamation.png" alt="validation error"
+                        class="error-icon" title="Form has validation errors" (click)="c.showMetadataDiv = true">
+                </div>
+            </div>
 
+            <div *ngIf="c.showMetadataDiv" class="metadata-section">
+                <div class="form-group">
+                    <label [for]="c.id+'-displayLabel'" class="form-label">
+                        Display Label
+                        <span class="required-indicator">*</span>
+                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                            title="This is the label that will be displayed in the actual form">
+                    </label>
+                    <input type="text" class="form-control" [id]="c.id+'-displayLabel'"
+                        placeholder="Enter display label" formControlName="displayLabel"
+                        [class.is-invalid]="isFieldInvalid('displayLabel')"
+                        [class.is-valid]="!isFieldInvalid('displayLabel') && timeOnlyForm.get('displayLabel')?.dirty">
+                    <div class="invalid-feedback" *ngIf="isFieldInvalid('displayLabel')">
+                        {{ getFieldError('displayLabel') }}
+                    </div>
+                </div>
 
+                <div class="form-group">
+                    <label [for]="c.id+'-placeholder'" class="form-label">
+                        Placeholder
+                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                            title="Placeholder text to show when the field is empty">
+                    </label>
+                    <input type="text" class="form-control" [id]="c.id+'-placeholder'"
+                        placeholder="Enter placeholder text" formControlName="placeholder"
+                        [class.is-invalid]="isFieldInvalid('placeholder')"
+                        [class.is-valid]="!isFieldInvalid('placeholder') && timeOnlyForm.get('placeholder')?.dirty">
+                    <div class="invalid-feedback" *ngIf="isFieldInvalid('placeholder')">
+                        {{ getFieldError('placeholder') }}
+                    </div>
+                </div>
 
-    <div style="padding: 1rem;">
-        <div [id]="c.id+'-label'" class="component-label">{{c.type}} - {{c.displayName}}</div>
-        <button [id]="c.id+'-button'" (click)="c.displayName = 'CHanged From Component'">CLick</button>
+                <div class="form-group">
+                    <label [for]="c.id+'-minTime'" class="form-label">
+                        Minimum Time
+                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                            title="Earliest time that can be selected (HH:mm format)">
+                    </label>
+                    <input type="time" class="form-control" [id]="c.id+'-minTime'"
+                        formControlName="minTime"
+                        [class.is-invalid]="isFieldInvalid('minTime') || hasTimeRangeError()"
+                        [class.is-valid]="!isFieldInvalid('minTime') && !hasTimeRangeError() && timeOnlyForm.get('minTime')?.dirty">
+                    <div class="invalid-feedback" *ngIf="isFieldInvalid('minTime')">
+                        {{ getFieldError('minTime') }}
+                    </div>
+                    <div class="invalid-feedback" *ngIf="hasTimeRangeError()">
+                        {{ getTimeRangeError() }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label [for]="c.id+'-maxTime'" class="form-label">
+                        Maximum Time
+                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                            title="Latest time that can be selected (HH:mm format)">
+                    </label>
+                    <input type="time" class="form-control" [id]="c.id+'-maxTime'"
+                        formControlName="maxTime"
+                        [class.is-invalid]="isFieldInvalid('maxTime') || hasTimeRangeError()"
+                        [class.is-valid]="!isFieldInvalid('maxTime') && !hasTimeRangeError() && timeOnlyForm.get('maxTime')?.dirty">
+                    <div class="invalid-feedback" *ngIf="isFieldInvalid('maxTime')">
+                        {{ getFieldError('maxTime') }}
+                    </div>
+                    <div class="invalid-feedback" *ngIf="hasTimeRangeError()">
+                        {{ getTimeRangeError() }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        Required Field
+                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                            title="Check if this field is mandatory in the form">
+                    </label>
+                    <div class="checkbox-container">
+                        <input type="checkbox" [id]="c.id+'-required'" formControlName="required">
+                        <label [for]="c.id+'-required'" class="checkbox-label">Make this field required</label>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
-
 
     <div *ngIf="inputComponentDragService.showOverlay" [id]="c.id+'-overlay'"
         style="position:absolute; top:0; height: 100%; width: 100%; background-color: rgba(128, 128, 128, 0.205);">
     </div>
-
 </div>

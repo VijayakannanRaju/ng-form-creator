@@ -1,4 +1,5 @@
 import { Directive, ElementRef, HostListener, Renderer2 } from "@angular/core";
+import { InputComponentDragService } from "./input-component-drag.service";
 
 @Directive({
     selector: '[dragHighlight]',
@@ -9,7 +10,8 @@ export class HighlightDirective {
 
     constructor(
         private el: ElementRef,
-        private renderer: Renderer2
+        private renderer: Renderer2,
+        private inputComponentDragService: InputComponentDragService
     ) {
 
     }
@@ -52,12 +54,16 @@ export class HighlightDirective {
     onDrop(event: DragEvent) {
         event.preventDefault();
         // event.stopPropagation();
-
-
+        this.inputComponentDragService.showOverlay = false;
+        console.log('Directive Drop | Dropend');
+        console.log('Overlay', this.inputComponentDragService.showOverlay);
 
         this.renderer.setStyle(this.el.nativeElement, 'background-color', this.originalBackground || '');
 
     }
+
+
+
 
 
 }

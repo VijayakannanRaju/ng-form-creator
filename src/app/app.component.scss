@@ -21,3 +21,224 @@
 .scrollable-div::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+// Form name container styling
+.form-name-container {
+  background: #f8f9fa;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  div {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    min-height: 45px;
+
+    // Form name label styling
+    div:first-child {
+      font-family: "Inter", sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      color: #0a2a75;
+      letter-spacing: 0.3px;
+    }
+
+    // Button container styling
+    div:last-child {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  }
+
+  // Button styling
+  .gg-btn {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    padding: 0.5rem 1rem;
+    background: #0a2a75;
+    color: white;
+    border: 1px solid #0a2a75;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+      background: #133a94;
+      border-color: #133a94;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(10, 42, 117, 0.2);
+    }
+  }
+
+  // Responsive design
+  @media (max-width: 768px) {
+    div {
+      padding: 0.4rem 0.75rem;
+      min-height: 40px;
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: flex-start;
+
+      div:first-child {
+        font-size: 14px;
+      }
+
+      div:last-child {
+        margin-left: 0;
+        width: 100%;
+        justify-content: flex-end;
+      }
+    }
+
+    .gg-btn {
+      padding: 0.4rem 0.75rem;
+      font-size: 12px;
+    }
+  }
+
+  // Animation for smooth transitions
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// JSON Preview styling
+.json-preview {
+  background: #1e1e1e;
+  border-left: 1px solid #e0e0e0;
+  position: relative;
+  
+  // Header for JSON preview
+  &::before {
+    content: "JSON Preview";
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #2d2d2d;
+    color: #e0e0e0;
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #404040;
+    z-index: 5;
+    display: block;
+  }
+
+  // Scrollbar styling for JSON preview
+  scrollbar-width: thin;
+  scrollbar-color: #555 #2d2d2d;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #2d2d2d;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #777;
+  }
+
+  // Pre element styling
+  pre {
+    margin: 0;
+    padding: 1rem;
+    font-family: "Consolas", "Monaco", "Courier New", monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #e0e0e0;
+    background: transparent;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-x: auto;
+    
+    // Syntax highlighting for JSON
+    .string { color: #ce9178; }
+    .number { color: #b5cea8; }
+    .boolean { color: #569cd6; }
+    .null { color: #569cd6; }
+    .key { color: #9cdcfe; }
+    
+    // Indentation and structure
+    .brace { color: #d4d4d4; }
+    .bracket { color: #d4d4d4; }
+    .comma { color: #d4d4d4; }
+    .colon { color: #d4d4d4; }
+  }
+
+  // Responsive design for JSON preview
+  @media (max-width: 1200px) {
+    width: 350px !important;
+    
+    pre {
+      font-size: 11px;
+      padding: 0.75rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    width: 100% !important;
+    height: 300px !important;
+    border-left: none;
+    border-top: 1px solid #e0e0e0;
+    
+    &::before {
+      font-size: 13px;
+      padding: 0.5rem 0.75rem;
+    }
+    
+    pre {
+      font-size: 10px;
+      padding: 0.5rem;
+    }
+  }
+
+  // Animation for smooth appearance
+  animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

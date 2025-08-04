@@ -67,6 +67,8 @@ export class GgFormStructureComponent {
     private el: ElementRef
   ) { }
   onDragOver(event: DragEvent, c?: any) {
+    // console.log('Component Drag Over');
+
     event.preventDefault(); // Necessary to allow dropping
 
   }
@@ -78,6 +80,10 @@ export class GgFormStructureComponent {
 
     const data = this.inputComponentDragService.getData();
     //console.log("Dropped Data", data);
+
+    if (data?.type == 'FORM_GROUP' || data?.type == 'FORM_ARRAY') {
+      data.showDropZone = true;
+    }
 
     let item;
 
@@ -100,75 +106,86 @@ export class GgFormStructureComponent {
 
 
     const droppedElement = event.target as HTMLElement;
-    // console.log('Dropped On Element ID', droppedElement.id);
+    console.log('Dropped Element ID', data?.id);
+    console.log('Dropped On Element ID', droppedElement.id);
+
+    if (data && data.id && droppedElement.id.includes(data.id)) {
+      // do nothing
+    } else {
+
+      this.removeComponent(data!.id, this.formMetadataService.components); // Remove the component from the list
 
 
-    if (droppedElement.classList.contains('drop-zone') || droppedElement.id.includes(this.dropZoneId)) {
-      // console.log('Dropped on zone:', droppedElement.id);
-      // console.log(this.components);
+      if (droppedElement.classList.contains('drop-zone') || droppedElement.id.includes(this.dropZoneId)) {
+        // console.log('Dropped on zone:', droppedElement.id);
+        // console.log(this.components);
 
-      // console.log(item);
+        // console.log(item);
 
-      this.components.push(JSON.parse(JSON.stringify(item)));
-      // console.log(this.components);
+        this.components.push(JSON.parse(JSON.stringify(item)));
+        // console.log(this.components);
 
-    }
-
-
-
-
-    if (
-      droppedElement.id.includes('-label') ||
-      droppedElement.id.includes('-component') ||
-      droppedElement.id.includes('-topHighlight') ||
-      droppedElement.id.includes('-componentCard') ||
-      droppedElement.id.includes('-overlay')) {
-      let id = '';
-      if (droppedElement.id.includes('-label')) {
-        id = droppedElement.id.split('-label')[0];
-      } else if (droppedElement.id.includes('-component')) {
-        id = droppedElement.id.split('-component')[0];
-      } else if (droppedElement.id.includes('-topHighlight')) {
-        id = droppedElement.id.split('-topHighlight')[0];
-      } else if (droppedElement.id.includes('-componentCard')) {
-        id = droppedElement.id.split('-componentCard')[0];
-      } else if (droppedElement.id.includes('-overlay')) {
-        id = droppedElement.id.split('-overlay')[0];
       }
-      // console.log('Dropped on LABEL:', droppedElement.id);
-      // this.components.push(item);
-      this.dropOnBeforeDiv(this.components, id, item)
+
+
+
+
+
+      if (
+        droppedElement.id.includes('-label') ||
+        droppedElement.id.includes('-component') ||
+        droppedElement.id.includes('-topHighlight') ||
+        droppedElement.id.includes('-componentCard') ||
+        droppedElement.id.includes('-overlay')) {
+        let id = '';
+        if (droppedElement.id.includes('-label')) {
+          id = droppedElement.id.split('-label')[0];
+        } else if (droppedElement.id.includes('-component')) {
+          id = droppedElement.id.split('-component')[0];
+        } else if (droppedElement.id.includes('-topHighlight')) {
+          id = droppedElement.id.split('-topHighlight')[0];
+        } else if (droppedElement.id.includes('-componentCard')) {
+          id = droppedElement.id.split('-componentCard')[0];
+        } else if (droppedElement.id.includes('-overlay')) {
+          id = droppedElement.id.split('-overlay')[0];
+        }
+        // console.log('Dropped on LABEL:', droppedElement.id);
+        // this.components.push(item);
+        this.dropOnBeforeDiv(this.components, id, item)
+
+      }
+
+
+
 
     }
 
 
-    // if (droppedElement.classList.contains('before-drop-item')) {
-    //   // console.log('Dropped on before :', droppedElement.id);
-    //   this.dropOnBeforeDiv(this.components, droppedElement.id.split('-before')[0], item)
-    // }
 
 
-    // if (droppedElement.classList.contains('after-drop-item')) {
-    //   // console.log('Dropped on  after:', droppedElement.id);
-    //   this.dropOnAfterDiv(this.components, droppedElement.id.split('-after')[0], item)
-    // }
-
-
-
-
-
-
-
-
-    // 🚀 Emit updated structure to parent
-    // this.structureChanged.emit(this.components);
 
     this.inputComponentDragService.showOverlay = false; // Hide overlay after drop
   }
 
 
-  onDragEnd(event: DragEvent) {
-    this.inputComponentDragService.showOverlay = false;
+  onDragEnd(event: DragEvent, c: FormComponentMetadata) {
+    console.log('Directive Drag ended');
+    // event.preventDefault();
+    // event.stopPropagation();
+    // Check if dropEffect is "none", which means the drop was not successful
+    console.log(event.dataTransfer?.dropEffect);
+
+    if (event.dataTransfer?.dropEffect === 'none') {
+
+      console.log('Drop was not successful (dropped in an invalid target)');
+      this.inputComponentDragService.showOverlay = false;
+      console.log('Directive Drop | Dropend');
+      console.log('Overlay', this.inputComponentDragService.showOverlay);
+
+    } else {
+      console.log('Drop was successful');
+
+    }
   }
 
 
@@ -192,14 +209,17 @@ export class GgFormStructureComponent {
   }
 
 
-  onDragStart(event: DragEvent, item: any) {
+  onDragStart(event: DragEvent, item: FormComponentMetadata) {
     event.stopPropagation();
+    if (item.type == 'FORM_GROUP' || item.type == 'FORM_ARRAY') {
+      item.showDropZone = false;
+    }
     this.inputComponentDragService.setData(item);
     // console.log(item);
     event.dataTransfer?.setData('text/plain', JSON.stringify(item)); // Optional
     this.inputComponentDragService.showOverlay = true; // Show overlay on drag start
 
-    this.removeComponent(item.id, this.formMetadataService.components); // Remove the component from the list
+    // this.removeComponent(item.id, this.formMetadataService.components); // Remove the component from the list
 
   }
 

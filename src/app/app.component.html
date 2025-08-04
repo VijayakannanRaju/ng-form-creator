@@ -4,13 +4,13 @@
 
 <div style="display: flex;">
 
-  <div class="scrollable-div" style="width: 100px; height: calc(100vh - 73px); overflow-y: auto;">
+  <div class="scrollable-div" style="width: 100px; height: calc(100vh - 78px); overflow-y: auto;">
     <app-gg-input-selection></app-gg-input-selection>
   </div>
 
-  <div style=" height: calc(100vh - 73px);  overflow-y: auto; flex: 1; border-right: 1px solid lightgray;">
+  <div style=" height: calc(100vh - 78px);  overflow-y: auto; flex: 1; border-right: 1px solid lightgray;">
 
-    <div *ngIf="showStructure">
+    <div class="form-name-container" *ngIf="showStructure">
       <div style="display: flex; align-items: center; padding: 0.5rem;">
         <div>Form Name</div>
         <div style="margin-left: auto">
@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <div *ngIf="!showStructure">
+    <div class="form-name-container" *ngIf="!showStructure">
       <div style="display: flex; align-items: center; padding: 0.5rem;">
         <div>Form Name</div>
         <div style="margin-left: auto">
@@ -37,7 +37,7 @@
 
 
 
-  <div style="width: 400px; height: calc(100vh - 73px);  overflow-y: auto;">
+  <div class="json-preview" style="width: 400px; height: calc(100vh - 78px);  overflow-y: auto;">
     <!-- Show JSON preview -->
     <pre>{{ this.formMetadataService.components |json}}</pre>
   </div>

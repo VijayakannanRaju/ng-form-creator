@@ -98,63 +98,67 @@ export class FormRenderer implements OnChanges, OnInit {
           minLength: comp.minLength,
           maxLength: comp.maxLength,
         });
-        group.addControl(comp.id!, new FormControl('', validators));
+        group.addControl(comp.name + '|||' + comp.id!, new FormControl('', validators));
       } else if (comp.type === 'EMAILBOX') {
         const validators = [Validators.email];
         if (comp.required) validators.push(Validators.required);
-        group.addControl(comp.id!, new FormControl('', validators));
+        group.addControl(comp.name + '|||' + comp.id!, new FormControl('', validators));
       } else if (comp.type === 'NUMBERBOX') {
         const validators = [];
         if (comp.required) validators.push(Validators.required);
         if (comp.min != null) validators.push(Validators.min(comp.min));
         if (comp.max != null) validators.push(Validators.max(comp.max));
-        group.addControl(comp.id!, new FormControl(null, validators));
+        group.addControl(comp.name + '|||' + comp.id!, new FormControl(null, validators));
       } else if (comp.type === 'TEXTAREA') {
         const validators = [];
         if (comp.required) validators.push(Validators.required);
-        group.addControl(comp.id!, new FormControl('', validators));
+        group.addControl(comp.name + '|||' + comp.id!, new FormControl('', validators));
       } else if (comp.type === 'DROPDOWN') {
         const validators = [];
         if (comp.required) validators.push(Validators.required);
-        group.addControl(comp.id!, new FormControl('', validators));
+        group.addControl(comp.name + '|||' + comp.id!, new FormControl('', validators));
       } else if (comp.type === 'RADIO_GROUP') {
         const validators = [];
         if (comp.required) validators.push(Validators.required);
-        group.addControl(comp.id!, new FormControl('', validators));
+        group.addControl(comp.name + '|||' + comp.id!, new FormControl('', validators));
       } else if (comp.type === 'CHECKBOX_SINGLE') {
         const validators = [];
         if (comp.required) validators.push(Validators.requiredTrue);
-        group.addControl(comp.id!, new FormControl(false, validators));
+        group.addControl(comp.name + '|||' + comp.id!, new FormControl(false, validators));
 
       } else if (comp.type === 'CHECKBOX_MULTI') {
         const validators = [];
         if (comp.required) validators.push(Validators.required); // can add custom min-length validator if needed
-        group.addControl(comp.id!, new FormControl([], validators));
+        group.addControl(comp.name + '|||' + comp.id!, new FormControl([], validators));
       } else if (comp.type === 'DATETIME') {
         const validators = [];
         if (comp.required) validators.push(Validators.required);
         // Custom min/max validator can be added later
-        group.addControl(comp.id!, new FormControl('', validators));
+        group.addControl(comp.name + '|||' + comp.id!, new FormControl('', validators));
       } else if (comp.type === 'DATEONLY') {
         const validators = [];
         if (comp.required) validators.push(Validators.required);
-        group.addControl(comp.id!, new FormControl(null, validators));
+        group.addControl(comp.name + '|||' + comp.id!, new FormControl(null, validators));
       } else if (comp.type === 'TIMEONLY') {
         const validators = [];
         if (comp.required) validators.push(Validators.required);
-        group.addControl(comp.id!, new FormControl(null, validators));
+        group.addControl(comp.name + '|||' + comp.id!, new FormControl(null, validators));
       } else if (comp.type === 'FORM_GROUP') {
         const nestedGroup = this.buildFormGroup(comp.components);
-        group.addControl(comp.id!, nestedGroup);
+        group.addControl(comp.name + '|||' + comp.id!, nestedGroup);
       } else if (comp.type === 'FORM_ARRAY') {
         // build one initial array item
         const arrayItemGroup = this.buildFormGroup(comp.components);
         const formArray = new FormArray<FormGroup>([arrayItemGroup]);
-        group.addControl(comp.id!, formArray);
+        group.addControl(comp.name + '|||' + comp.id!, formArray);
       }
     }
 
     return group;
+  }
+
+  printFormValue() {
+    console.log(this.formGroup.value);
   }
 
 

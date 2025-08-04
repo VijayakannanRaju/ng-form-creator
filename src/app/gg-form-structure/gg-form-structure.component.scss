@@ -8,7 +8,7 @@
 
 #root {
   //116px
-  height: calc(100vh - 158px);
+  height: calc(100vh - 148px);
   overflow: auto;
 }
 
@@ -54,8 +54,17 @@
   // padding: 1rem;
   box-shadow: 1px 1px 2px 1px #c9c9d5;
   position: relative;
+  transition: all 0.3s ease-in-out;
 }
 
 .selected {
-  box-shadow: 1px 1px 2px 1px #0a2a75;
+  box-shadow: 0 0 0 2px rgba(10, 42, 117, 0.2),
+    0 4px 8px rgba(10, 42, 117, 0.15), 0 8px 16px rgba(10, 42, 117, 0.1),
+    0 0 20px rgba(10, 42, 117, 0.05);
+  transform: translateY(-2px);
+  border-radius: 8px;
+}
+
+.makeItInvisible {
+  visibility: hidden;
 }

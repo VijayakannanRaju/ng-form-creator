@@ -38,7 +38,9 @@ export class GgInputSelectionComponent {
       displayName: 'Description',
       description: '',
       value: '',
-      iconName: 'description.png'
+      iconName: 'description.png',
+      showMetadataDiv: true
+
     },
 
     {
@@ -50,7 +52,9 @@ export class GgInputSelectionComponent {
       maxLength: 1000,
       minLength: 1,
       required: false,
-      iconName: 'textbox.png'
+      iconName: 'textbox.png',
+      showMetadataDiv: true
+
     },
     {
       type: 'EMAILBOX',
@@ -59,7 +63,9 @@ export class GgInputSelectionComponent {
       displayName: 'Email Box',
       placeholder: 'placeholder text',
       required: false,
-      iconName: 'emailbox.png'
+      iconName: 'emailbox.png',
+      showMetadataDiv: true
+
     },
 
     {
@@ -71,7 +77,9 @@ export class GgInputSelectionComponent {
       required: false,
       min: 0,
       max: 1000,
-      iconName: 'numberbox.png'
+      iconName: 'numberbox.png',
+      showMetadataDiv: true
+
     },
     {
       type: 'TEXTAREA',
@@ -83,7 +91,8 @@ export class GgInputSelectionComponent {
       minLength: 1,
       required: false,
       rows: 4,
-      iconName: 'textarea.png'
+      iconName: 'textarea.png',
+      showMetadataDiv: true
     },
 
     {
@@ -97,7 +106,8 @@ export class GgInputSelectionComponent {
         { value: 'option2', display: 'Option 2' },
         { value: 'option3', display: 'Option 3' }
       ],
-      iconName: 'dropdown.png'
+      iconName: 'dropdown.png',
+      showMetadataDiv: true
     },
 
     {
@@ -111,7 +121,8 @@ export class GgInputSelectionComponent {
         { value: 'option2', display: 'Option 2' },
         { value: 'option3', display: 'Option 3' }
       ],
-      iconName: 'radio-group.png'
+      iconName: 'radio-group.png',
+      showMetadataDiv: true,
     },
 
     {
@@ -121,10 +132,10 @@ export class GgInputSelectionComponent {
       displayName: 'Checkbox single',
       required: false,
       options: [
-        { value: 'option1', display: 'Option 1' },
-        { value: 'option2', display: 'Option 2' }
+        { value: 'option1', display: 'Option 1' }
       ],
-      iconName: 'checkbox-single.png'
+      iconName: 'checkbox-single.png',
+      showMetadataDiv: true
     },
 
 
@@ -139,7 +150,8 @@ export class GgInputSelectionComponent {
         { value: 'option2', display: 'Option 2' },
         { value: 'option3', display: 'Option 3' }
       ],
-      iconName: 'checkbox-multi.png'
+      iconName: 'checkbox-multi.png',
+      showMetadataDiv: true
     },
 
     {
@@ -151,7 +163,8 @@ export class GgInputSelectionComponent {
       minDate: undefined,
       maxDate: undefined,
       required: false,
-      iconName: 'datetime.png'
+      iconName: 'datetime.png',
+      showMetadataDiv: true,
     },
 
     {
@@ -163,7 +176,8 @@ export class GgInputSelectionComponent {
       minDate: undefined,
       maxDate: undefined,
       required: false,
-      iconName: 'dateonly.png'
+      iconName: 'dateonly.png',
+      showMetadataDiv: true
     },
 
     {
@@ -175,7 +189,8 @@ export class GgInputSelectionComponent {
       minTime: undefined,
       maxTime: undefined,
       required: false,
-      iconName: 'timeonly.png'
+      iconName: 'timeonly.png',
+      showMetadataDiv: true
     },
 
 
@@ -187,6 +202,8 @@ export class GgInputSelectionComponent {
       displayLabel: 'Form Group',
       components: [],
       iconName: 'form-group.png',
+      showMetadataDiv: true,
+      showDropZone: true
     },
 
     {
@@ -197,7 +214,10 @@ export class GgInputSelectionComponent {
       components: [],
       minItems: undefined,
       maxItems: undefined,
-      iconName: 'form-array.png'
+      iconName: 'form-array.png',
+      showMetadataDiv: true,
+      showDropZone: true
+
     }
 
 

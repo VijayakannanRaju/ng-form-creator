@@ -2,6 +2,13 @@
 // form-types.ts
 // ========================
 
+// Common validation error type
+export interface FormValidationError {
+  field: string;
+  message: string;
+  type: 'required' | 'minlength' | 'maxlength' | 'pattern' | 'email' | 'min' | 'max' | 'custom';
+}
+
 export type FormComponentMetadata =
   | TextboxMetadata
   | EmailboxMetadata
@@ -31,7 +38,10 @@ export interface TextboxMetadata {
   minLength?: number;
   required?: boolean;
   selected?: boolean;
-  iconName: 'textbox.png'
+  iconName: 'textbox.png';
+  showMetadataDiv: boolean;
+  errors?: FormValidationError[];
+  dragStarted?: boolean;
 }
 
 export interface EmailboxMetadata {
@@ -44,8 +54,10 @@ export interface EmailboxMetadata {
   placeholder?: string;
   required?: boolean;
   selected?: boolean;
-  iconName: 'emailbox.png'
-
+  iconName: 'emailbox.png';
+  showMetadataDiv: boolean;
+  errors?: FormValidationError[];
+  dragStarted?: boolean;
 
 }
 
@@ -61,8 +73,10 @@ export interface NumberboxMetadata {
   max?: number;
   required?: boolean;
   selected?: boolean;
-  iconName: 'numberbox.png'
-
+  iconName: 'numberbox.png';
+  showMetadataDiv: boolean;
+  errors?: FormValidationError[];
+  dragStarted?: boolean;
 
 }
 
@@ -79,8 +93,10 @@ export interface TextAreaMetadata {
   required?: boolean;
   selected?: boolean;
   rows?: number;
-  iconName: 'textarea.png'
-
+  iconName: 'textarea.png';
+  errors?: FormValidationError[];
+  dragStarted?: boolean;
+  showMetadataDiv: boolean;
 
 }
 
@@ -93,9 +109,11 @@ export interface DropdownMetadata {
   displayName: string;
   required?: boolean;
   selected?: boolean;
-
   options: { value: any; display: string }[];
-  iconName: 'dropdown.png'
+  iconName: 'dropdown.png';
+  errors?: FormValidationError[];
+  dragStarted?: boolean;
+  showMetadataDiv: boolean;
 
 }
 
@@ -108,9 +126,11 @@ export interface RadioGroupMetadata {
   displayName: string;
   required?: boolean;
   selected?: boolean;
-
   options: { value: any; display: string }[];
-  iconName: 'radio-group.png'
+  iconName: 'radio-group.png';
+  showMetadataDiv: boolean;
+  errors?: FormValidationError[];
+  dragStarted?: boolean;
 
 }
 
@@ -123,9 +143,11 @@ export interface CheckboxSingleMetadata {
   displayName: string;
   required?: boolean;
   selected?: boolean;
-
   options: { value: any; display: string }[]; // should have only one item ideally
-  iconName: 'checkbox-single.png'
+  iconName: 'checkbox-single.png';
+  showMetadataDiv: boolean;
+  errors?: FormValidationError[];
+  dragStarted?: boolean;
 
 }
 
@@ -138,9 +160,11 @@ export interface CheckboxMultiMetadata {
   displayName: string;
   required?: boolean;
   selected?: boolean;
-
   options: { value: any; display: string }[];
-  iconName: 'checkbox-multi.png'
+  iconName: 'checkbox-multi.png';
+  showMetadataDiv: boolean;
+  errors?: FormValidationError[];
+  dragStarted?: boolean;
 
 }
 
@@ -156,8 +180,10 @@ export interface DateTimeMetadata {
   minDate?: string; // ISO format
   maxDate?: string;
   selected?: boolean;
-  iconName: 'datetime.png'
-
+  iconName: 'datetime.png';
+  showMetadataDiv: boolean;
+  errors?: FormValidationError[];
+  dragStarted?: boolean;
 
 }
 
@@ -173,8 +199,10 @@ export interface DateOnlyMetadata {
   minDate?: string; // ISO format preferred
   maxDate?: string;
   selected?: boolean;
-  iconName: 'dateonly.png'
-
+  iconName: 'dateonly.png';
+  showMetadataDiv: boolean;
+  errors?: FormValidationError[];
+  dragStarted?: boolean;
 
 }
 
@@ -190,12 +218,12 @@ export interface TimeOnlyMetadata {
   minTime?: string; // "HH:mm"
   maxTime?: string;
   selected?: boolean;
-  iconName: 'timeonly.png'
-
+  iconName: 'timeonly.png';
+  showMetadataDiv: boolean;
+  errors?: FormValidationError[];
+  dragStarted?: boolean;
 
 }
-
-
 
 export interface DescriptionMetadata {
   id?: string,
@@ -207,8 +235,10 @@ export interface DescriptionMetadata {
   value: string;
   description: string;
   selected?: boolean;
-  iconName: 'description.png'
-
+  iconName: 'description.png';
+  showMetadataDiv: boolean;
+  errors?: FormValidationError[];
+  dragStarted?: boolean;
 
 }
 
@@ -223,9 +253,9 @@ export interface HeadingMetadata {
   description: string;
   selected?: boolean;
   iconName: 'heading.png';
-  showMetadataDiv: boolean
-
-
+  showMetadataDiv: boolean;
+  errors?: FormValidationError[];
+  dragStarted?: boolean;
 
 }
 
@@ -238,8 +268,11 @@ export interface FormGroupMetadata {
   displayLabel: string;
   components: FormComponentMetadata[];
   selected?: boolean;
-  iconName: 'form-group.png'
-
+  iconName: 'form-group.png';
+  errors?: FormValidationError[];
+  showMetadataDiv: boolean;
+  dragStarted?: boolean;
+  showDropZone: boolean;
 
 }
 
@@ -256,7 +289,11 @@ export interface FormArrayMetadata {
   maxItems?: number;
   required?: boolean;
   selected?: boolean;
-  iconName: 'form-array.png'
+  iconName: 'form-array.png';
+  errors?: FormValidationError[];
+  showMetadataDiv: boolean;
+  dragStarted?: boolean;
+  showDropZone: boolean;
 
 
 }
