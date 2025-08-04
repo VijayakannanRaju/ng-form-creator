@@ -27,7 +27,8 @@ export class GgInputSelectionComponent {
       displayName: 'Heading',
       description: '',
       value: '',
-      iconName: 'heading.png'
+      iconName: 'heading.png',
+      showMetadataDiv: true
     },
 
     {

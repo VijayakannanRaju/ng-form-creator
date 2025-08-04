@@ -222,7 +222,8 @@ export interface HeadingMetadata {
   value: string;
   description: string;
   selected?: boolean;
-  iconName: 'heading.png'
+  iconName: 'heading.png';
+  showMetadataDiv: boolean
 
 
 

@@ -258,69 +258,61 @@ export class GgFormStructureComponent {
   }
 
 
-  dropOnAfterDiv(components: any, relativeComponentId: string, item: any) {
+  // dropOnAfterDiv(components: any, relativeComponentId: string, item: any) {
 
-    // console.log(this.components);
-
-
-    let relativeComponent;
-    let relativeComponentIndex;
+  //   // console.log(this.components);
 
 
-    components.forEach((c: any, index: number) => {
-      if (c.id === relativeComponentId) {
-        relativeComponent = c;
-        // console.log('Added after');
-        // components.splice(index + 1, 0, item);
-        relativeComponentIndex = index;
-
-      }
-    });
-
-    if (typeof (relativeComponentIndex) === 'number' && relativeComponentIndex >= 0) {
-      components.splice(relativeComponentIndex + 1, 0, item)
-
-    }
+  //   let relativeComponent;
+  //   let relativeComponentIndex;
 
 
-    if (!relativeComponent) {
-      components.forEach((c: any) => {
-        if (c.components) {
-          this.dropOnAfterDiv(c.components, relativeComponentId, item)
-        }
-      });
-    }
+  //   components.forEach((c: any, index: number) => {
+  //     if (c.id === relativeComponentId) {
+  //       relativeComponent = c;
+  //       // console.log('Added after');
+  //       // components.splice(index + 1, 0, item);
+  //       relativeComponentIndex = index;
 
-  }
+  //     }
+  //   });
 
+  //   if (typeof (relativeComponentIndex) === 'number' && relativeComponentIndex >= 0) {
+  //     components.splice(relativeComponentIndex + 1, 0, item)
 
-  dropOnZone(components: any, zoneId: string, item: any) {
-
-    let pushed = false;
-    components.forEach((c: any) => {
-      if (c.dropZoneId === zoneId) {
-        c.components.push(item);
-        pushed = true;
-      }
-    });
-
-    if (!pushed) {
-      components.forEach((c: any) => {
-        if (c.components) {
-          this.dropOnZone(c.components, zoneId, item)
-        }
-      });
-    }
-  }
-
-  draggedOnZone(event: DragEvent, action: 'enter' | 'leave') {
-    event.preventDefault();
-    event.stopPropagation();
-    // console.log(action);
-    // console.log((event.target as HTMLElement).id);
+  //   }
 
 
-  }
+  //   if (!relativeComponent) {
+  //     components.forEach((c: any) => {
+  //       if (c.components) {
+  //         this.dropOnAfterDiv(c.components, relativeComponentId, item)
+  //       }
+  //     });
+  //   }
+
+  // }
+
+
+  // dropOnZone(components: any, zoneId: string, item: any) {
+
+  //   let pushed = false;
+  //   components.forEach((c: any) => {
+  //     if (c.dropZoneId === zoneId) {
+  //       c.components.push(item);
+  //       pushed = true;
+  //     }
+  //   });
+
+  //   if (!pushed) {
+  //     components.forEach((c: any) => {
+  //       if (c.components) {
+  //         this.dropOnZone(c.components, zoneId, item)
+  //       }
+  //     });
+  //   }
+  // }
+
 
 
 }

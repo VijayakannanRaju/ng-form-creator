@@ -1,5 +1,4 @@
-<div class="drop-zone" [id]="dropZoneId" (dragover)="onDragOver($event)" (drop)="onDrop($event)"
-    (dragenter)="draggedOnZone($event, 'enter')" (dragleave)="draggedOnZone($event, 'leave')" dragHighlight>
+<div class="drop-zone" [id]="dropZoneId" (dragover)="onDragOver($event)" (drop)="onDrop($event)" dragHighlight>
 
     <div [id]="dropZoneId+'-zoneDropMessage'" class="drop-zone-message">Drop Here</div>
 

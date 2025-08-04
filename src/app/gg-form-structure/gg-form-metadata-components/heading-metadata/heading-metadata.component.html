@@ -10,20 +10,33 @@
                 <div>
                     <img [src]="'imgs/form-fields/'+c.iconName" height="30px" alt="">
                 </div>
-                <div class="card-heading">{{c.displayName}}</div>
+                <div class="card-heading">
+                    <div style="cursor: text;" *ngIf="!showNameInput" (click)="showNameInput = true">{{c.name}}</div>
+
+                    <input #nameInput *ngIf="showNameInput" (focusout)="showNameInput = false" class="form-control"
+                        [id]="c.id+'-name'" [(ngModel)]="c.name" placeholder="Give a name to this component">
+                </div>
+                <div style="margin-left: auto;">
+                    <button (click)="c.showMetadataDiv = !c.showMetadataDiv">Show / Hide - Metadata</button>
+                </div>
             </div>
         </div>
 
-        <div>
-            <label [for]="c.id+'-value'" class="form-label">Heading (Type the heading that you want to see in the
-                form)</label>
-            <input class="form-control" [id]="c.id+'-value'" placeholder="My Heading" [(ngModel)]="c.value">
+        <div *ngIf="c.showMetadataDiv">
+            <div>
+                <label [for]="c.id+'-value'" class="form-label">Heading (Type the heading that you want to see in the
+                    form)</label>
+                <input class="form-control" [id]="c.id+'-value'" placeholder="My Heading" [(ngModel)]="c.value">
+            </div>
+            <div>
+                <label [for]="c.id+'-description'" class="form-label">Description (This is foryour understanding. This
+                    will
+                    not be visible in the form)</label>
+                <textarea class="form-control" [id]="c.id+'-description'" rows="3"
+                    [(ngModel)]="c.description"></textarea>
+            </div>
         </div>
-        <div>
-            <label [for]="c.id+'-description'" class="form-label">Description (This is foryour understanding. This will
-                not be visible in the form)</label>
-            <textarea class="form-control" [id]="c.id+'-description'" rows="3" [(ngModel)]="c.description"></textarea>
-        </div>
+
 
 
 
