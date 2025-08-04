@@ -17,6 +17,7 @@ import { DateOnly } from '../form-components/date-only/date-only';
 import { TimeOnly } from '../form-components/time-only/time-only';
 import { Textarea } from '../form-components/textarea/textarea.component';
 import { buildFormGroup } from '../utils/form-builder';
+import { FormBuilderService } from '../utils/form-builder.service';
 
 
 
@@ -34,7 +35,7 @@ export class FormRenderer implements OnChanges, OnInit {
   @Input('components') metadata!: FormComponentMetadata[];
   @Input('formGroup') formGroup!: FormGroup;
 
-  constructor() {
+  constructor(private formBuilderService: FormBuilderService) {
     console.log('constructor called');
   }
 
@@ -73,80 +74,80 @@ export class FormRenderer implements OnChanges, OnInit {
 
   addFormArrayItem(name: string, components: FormComponentMetadata[]) {
     const array = this.getFormArray(name);
-    const newGroup = this.buildFormGroup(components);
+    // const newGroup = this.buildFormGroup(components);
+    const newGroup = this.formBuilderService.buildFormGroup(components);
+
     array.push(newGroup);
   }
 
-  private buildFormGroup(components: FormComponentMetadata[]): FormGroup {
-    console.log(components);
+  // private buildFormGroup(components: FormComponentMetadata[]): FormGroup {
+  //   console.log(components);
 
-    const group = new FormGroup({});
+  //   const group = new FormGroup({});
 
-    for (const comp of components) {
-      if (comp.type === 'TEXTBOX') {
-        const validators = buildValidators({
-          required: comp.required,
-          minLength: comp.minLength,
-          maxLength: comp.maxLength,
-        });
-        group.addControl(comp.name + '|||' + comp.id!, new FormControl('', validators));
-      } else if (comp.type === 'EMAILBOX') {
-        const validators = [Validators.email];
-        if (comp.required) validators.push(Validators.required);
-        group.addControl(comp.name + '|||' + comp.id!, new FormControl('', validators));
-      } else if (comp.type === 'NUMBERBOX') {
-        const validators = [];
-        if (comp.required) validators.push(Validators.required);
-        if (comp.min != null) validators.push(Validators.min(comp.min));
-        if (comp.max != null) validators.push(Validators.max(comp.max));
-        group.addControl(comp.name + '|||' + comp.id!, new FormControl(null, validators));
-      } else if (comp.type === 'TEXTAREA') {
-        const validators = [];
-        if (comp.required) validators.push(Validators.required);
-        group.addControl(comp.name + '|||' + comp.id!, new FormControl('', validators));
-      } else if (comp.type === 'DROPDOWN') {
-        const validators = [];
-        if (comp.required) validators.push(Validators.required);
-        group.addControl(comp.name + '|||' + comp.id!, new FormControl('', validators));
-      } else if (comp.type === 'RADIO_GROUP') {
-        const validators = [];
-        if (comp.required) validators.push(Validators.required);
-        group.addControl(comp.name + '|||' + comp.id!, new FormControl('', validators));
-      } else if (comp.type === 'CHECKBOX_SINGLE') {
-        const validators = [];
-        if (comp.required) validators.push(Validators.requiredTrue);
-        group.addControl(comp.name + '|||' + comp.id!, new FormControl(false, validators));
+  //   for (const comp of components) {
+  //     if (comp.type === 'TEXTBOX') {
+  //       const validators = buildValidators({
+  //         required: comp.required,
+  //         minLength: comp.minLength,
+  //         maxLength: comp.maxLength,
+  //       });
+  //       group.addControl(comp.name + '|||' + comp.id!, new FormControl('', validators));
+  //     } else if (comp.type === 'EMAILBOX') {
+  //       const validators = [Validators.email];
+  //       if (comp.required) validators.push(Validators.required);
+  //       group.addControl(comp.name + '|||' + comp.id!, new FormControl('', validators));
+  //     } else if (comp.type === 'NUMBERBOX') {
+  //       const validators = [];
+  //       if (comp.required) validators.push(Validators.required);
+  //       if (comp.min != null) validators.push(Validators.min(comp.min));
+  //       if (comp.max != null) validators.push(Validators.max(comp.max));
+  //       group.addControl(comp.name + '|||' + comp.id!, new FormControl(null, validators));
+  //     } else if (comp.type === 'TEXTAREA') {
+  //       const validators = [];
+  //       if (comp.required) validators.push(Validators.required);
+  //       group.addControl(comp.name + '|||' + comp.id!, new FormControl('', validators));
+  //     } else if (comp.type === 'DROPDOWN') {
+  //       const validators = [];
+  //       if (comp.required) validators.push(Validators.required);
+  //       group.addControl(comp.name + '|||' + comp.id!, new FormControl('', validators));
+  //     } else if (comp.type === 'RADIO_GROUP') {
+  //       const validators = [];
+  //       if (comp.required) validators.push(Validators.required);
+  //       group.addControl(comp.name + '|||' + comp.id!, new FormControl('', validators));
+  //     } else if (comp.type === 'CHECKBOX_SINGLE') {
+  //       const validators = [];
+  //       if (comp.required) validators.push(Validators.requiredTrue);
+  //       group.addControl(comp.name + '|||' + comp.id!, new FormControl(false, validators));
 
-      } else if (comp.type === 'CHECKBOX_MULTI') {
-        const validators = [];
-        if (comp.required) validators.push(Validators.required);
-        group.addControl(comp.name + '|||' + comp.id!, new FormControl([], validators));
-      } else if (comp.type === 'DATETIME') {
-        const validators = [];
-        if (comp.required) validators.push(Validators.required);
-        group.addControl(comp.name + '|||' + comp.id!, new FormControl('', validators));
-      } else if (comp.type === 'DATEONLY') {
-        const validators = [];
-        if (comp.required) validators.push(Validators.required);
-        group.addControl(comp.name + '|||' + comp.id!, new FormControl(null, validators));
-      } else if (comp.type === 'TIMEONLY') {
-        const validators = [];
-        if (comp.required) validators.push(Validators.required);
-        group.addControl(comp.name + '|||' + comp.id!, new FormControl(null, validators));
-      } else if (comp.type === 'FORM_GROUP') {
-        const nestedGroup = this.buildFormGroup(comp.components);
-        group.addControl(comp.name + '|||' + comp.id!, nestedGroup);
-      } else if (comp.type === 'FORM_ARRAY') {
-        const arrayItemGroup = this.buildFormGroup(comp.components);
-        const formArray = new FormArray<FormGroup>([arrayItemGroup]);
-        group.addControl(comp.name + '|||' + comp.id!, formArray);
-      }
-    }
+  //     } else if (comp.type === 'CHECKBOX_MULTI') {
+  //       const validators = [];
+  //       if (comp.required) validators.push(Validators.required);
+  //       group.addControl(comp.name + '|||' + comp.id!, new FormControl([], validators));
+  //     } else if (comp.type === 'DATETIME') {
+  //       const validators = [];
+  //       if (comp.required) validators.push(Validators.required);
+  //       group.addControl(comp.name + '|||' + comp.id!, new FormControl('', validators));
+  //     } else if (comp.type === 'DATEONLY') {
+  //       const validators = [];
+  //       if (comp.required) validators.push(Validators.required);
+  //       group.addControl(comp.name + '|||' + comp.id!, new FormControl(null, validators));
+  //     } else if (comp.type === 'TIMEONLY') {
+  //       const validators = [];
+  //       if (comp.required) validators.push(Validators.required);
+  //       group.addControl(comp.name + '|||' + comp.id!, new FormControl(null, validators));
+  //     } else if (comp.type === 'FORM_GROUP') {
+  //       const nestedGroup = this.buildFormGroup(comp.components);
+  //       group.addControl(comp.name + '|||' + comp.id!, nestedGroup);
+  //     } else if (comp.type === 'FORM_ARRAY') {
+  //       const arrayItemGroup = this.buildFormGroup(comp.components);
+  //       const formArray = new FormArray<FormGroup>([arrayItemGroup]);
+  //       group.addControl(comp.name + '|||' + comp.id!, formArray);
+  //     }
+  //   }
 
-    return group;
-  }
+  //   return group;
+  // }
 
-  printFormValue() {
-    console.log(this.formGroup.value);
-  }
+
 }
