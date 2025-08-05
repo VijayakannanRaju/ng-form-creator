@@ -1,12 +1,48 @@
-<label *ngIf="label">{{ label }}</label>
-<div *ngIf="options.length">
+<div class="checkbox-multi-container" [class.focused]="isFocused" [class.invalid]="isInvalid" [class.disabled]="isDisabled">
+  <div class="checkbox-multi-wrapper">
+    <div class="label-row">
+      <label *ngIf="label" class="checkbox-multi-label" [for]="'checkbox-multi-' + (metadata?.id || 'default')">
+        {{ label }}
+        <span *ngIf="required" class="required-indicator" aria-label="required">*</span>
+      </label>
+      
+      <!-- Clear button -->
+      <button *ngIf="showClearButton && value.length > 0 && !isDisabled" type="button" class="clear-button"
+        (click)="clearValue()" aria-label="Clear selection" title="Clear selection">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+        </svg>
+        Clear
+      </button>
+    </div>
 
-  <div *ngFor="let option of options">
-    <label>
-      <input type="checkbox" [checked]="isChecked(option.value)" (change)="toggleValue(option.value)"
-        [disabled]="isDisabled" />
-      {{ option.display }}
-    </label>
+    <div class="checkbox-multi-content" role="group" [attr.aria-describedby]="'error-' + (metadata?.id || 'default')" 
+         [attr.aria-invalid]="isInvalid" [attr.aria-required]="required">
+      
+      <div *ngFor="let option of options; let i = index" class="checkbox-option">
+        <label class="checkbox-option-label" [for]="'checkbox-multi-' + (metadata?.id || 'default') + '-' + i">
+          <input 
+            type="checkbox" 
+            [id]="'checkbox-multi-' + (metadata?.id || 'default') + '-' + i"
+            class="checkbox-input" 
+            [checked]="isChecked(option.value)" 
+            (change)="toggleValue(option.value)" 
+            (focus)="onFocus()"
+            (blur)="onBlur()"
+            [disabled]="isDisabled"
+            [attr.aria-describedby]="'error-' + (metadata?.id || 'default')" 
+          />
+          <span class="checkbox-custom"></span>
+          <span class="checkbox-text">{{ option.display }}</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Error message -->
+    <div *ngIf="isInvalid && getErrorMessage()" [id]="'error-' + (metadata?.id || 'default')" class="error-message"
+      role="alert" aria-live="polite">
+      {{ getErrorMessage() }}
+    </div>
   </div>
-
 </div>

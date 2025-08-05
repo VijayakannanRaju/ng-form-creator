@@ -1,5 +1,46 @@
-<label *ngIf="label">{{ label }}</label>
-<label>
-  <input type="checkbox" [checked]="value" (change)="onInputChange($event)" [disabled]="isDisabled" />
-  {{ optionLabel }}
-</label>
+<div class="checkbox-single-container" [class.focused]="isFocused" [class.invalid]="isInvalid" [class.disabled]="isDisabled">
+  <div class="checkbox-single-wrapper">
+    <div class="label-row">
+      <label *ngIf="label" class="checkbox-single-label" [for]="'checkbox-single-' + (metadata?.id || 'default')">
+        {{ label }}
+        <span *ngIf="required" class="required-indicator" aria-label="required">*</span>
+      </label>
+      
+      <!-- Clear button -->
+      <button *ngIf="showClearButton && value !== null && !isDisabled" type="button" class="clear-button"
+        (click)="clearValue()" aria-label="Clear selection" title="Clear selection">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+        </svg>
+        Clear
+      </button>
+    </div>
+
+    <div class="checkbox-single-content" role="group" [attr.aria-describedby]="'error-' + (metadata?.id || 'default')" 
+         [attr.aria-invalid]="isInvalid" [attr.aria-required]="required">
+      
+      <label class="checkbox-option-label" [for]="'checkbox-single-' + (metadata?.id || 'default')">
+        <input 
+          type="checkbox" 
+          [id]="'checkbox-single-' + (metadata?.id || 'default')"
+          class="checkbox-input" 
+          [checked]="value !== null" 
+          (change)="onInputChange($event)" 
+          (focus)="onFocus()"
+          (blur)="onBlur()"
+          [disabled]="isDisabled"
+          [attr.aria-describedby]="'error-' + (metadata?.id || 'default')" 
+        />
+        <span class="checkbox-custom"></span>
+        <span class="checkbox-text">{{ selectedOption?.display || label }}</span>
+      </label>
+    </div>
+
+    <!-- Error message -->
+    <div *ngIf="isInvalid && getErrorMessage()" [id]="'error-' + (metadata?.id || 'default')" class="error-message"
+      role="alert" aria-live="polite">
+      {{ getErrorMessage() }}
+    </div>
+  </div>
+</div>

@@ -40,7 +40,6 @@ export class DateOnlyMetadataComponent implements OnInit, OnDestroy, AfterViewCh
   ngAfterViewChecked(): void {
     if (this.showNameInput && this.nameInputRef) {
       this.nameInputRef.nativeElement.focus();
-      this.showNameInput = false;
     }
   }
 
@@ -172,8 +171,17 @@ export class DateOnlyMetadataComponent implements OnInit, OnDestroy, AfterViewCh
     return 'Minimum date cannot be greater than maximum date';
   }
 
-  toggleNameEdit(): void {
+  onNameClick(): void {
     this.showNameInput = true;
+  }
+
+  onNameFocusOut(): void {
+    const nameValue = this.dateOnlyForm.get('name')?.value;
+    if (!nameValue || nameValue.trim() === '') {
+      // If name is empty, set it to displayLabel
+      this.dateOnlyForm.patchValue({ name: this.c.displayLabel });
+    }
+    this.showNameInput = false;
   }
 
   // Helper method to get current date in ISO format for min/max date inputs

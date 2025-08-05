@@ -40,7 +40,6 @@ export class FormGroupMetadataComponent implements OnInit, OnDestroy, AfterViewC
   ngAfterViewChecked(): void {
     if (this.showNameInput && this.nameInputRef) {
       this.nameInputRef.nativeElement.focus();
-      this.showNameInput = false;
     }
   }
 
@@ -138,7 +137,16 @@ export class FormGroupMetadataComponent implements OnInit, OnDestroy, AfterViewC
     return this.c.errors ? this.c.errors.length > 0 : false;
   }
 
-  toggleNameEdit(): void {
+  onNameClick(): void {
     this.showNameInput = true;
+  }
+
+  onNameFocusOut(): void {
+    const nameValue = this.formGroupForm.get('name')?.value;
+    if (!nameValue || nameValue.trim() === '') {
+      // If name is empty, set it to displayLabel
+      this.formGroupForm.patchValue({ name: this.c.displayLabel });
+    }
+    this.showNameInput = false;
   }
 }

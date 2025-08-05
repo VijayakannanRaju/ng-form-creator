@@ -6,8 +6,8 @@
                     <img [src]="'imgs/form-fields/'+c.iconName" height="30px" alt="">
                 </div>
                 <div class="card-heading">
-                    <div *ngIf="!showNameInput" (click)="toggleNameEdit()">{{c.name}}</div>
-                    <input #nameInput *ngIf="showNameInput" class="form-control"
+                    <div *ngIf="!showNameInput" (click)="onNameClick()">{{c.name}}</div>
+                    <input #nameInput *ngIf="showNameInput" (focusout)="onNameFocusOut()" class="form-control"
                         [id]="c.id+'-name'" formControlName="name" placeholder="Give a name to this component">
                 </div>
                 <div class="actions-container">

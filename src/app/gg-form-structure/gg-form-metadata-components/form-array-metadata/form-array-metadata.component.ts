@@ -40,7 +40,6 @@ export class FormArrayMetadataComponent implements OnInit, OnDestroy, AfterViewC
   ngAfterViewChecked(): void {
     if (this.showNameInput && this.nameInputRef) {
       this.nameInputRef.nativeElement.focus();
-      this.showNameInput = false;
     }
   }
 
@@ -168,7 +167,16 @@ export class FormArrayMetadataComponent implements OnInit, OnDestroy, AfterViewC
     return 'Minimum items cannot be greater than maximum items';
   }
 
-  toggleNameEdit(): void {
+  onNameClick(): void {
     this.showNameInput = true;
+  }
+
+  onNameFocusOut(): void {
+    const nameValue = this.formArrayForm.get('name')?.value;
+    if (!nameValue || nameValue.trim() === '') {
+      // If name is empty, set it to displayLabel
+      this.formArrayForm.patchValue({ name: this.c.displayLabel });
+    }
+    this.showNameInput = false;
   }
 }

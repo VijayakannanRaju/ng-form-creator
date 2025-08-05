@@ -1,4 +1,4 @@
-import { Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges, forwardRef } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Textbox } from '../form-components/textbox/textbox';
@@ -26,10 +26,13 @@ import { FormBuilderService } from '../utils/form-builder.service';
   standalone: true,
   imports: [CommonModule,
     ReactiveFormsModule,
-    Textbox, Heading, Description, FormRenderer, Emailbox, Numberbox, Dropdown, RadioGroup,
-    CheckboxSingle, CheckboxMulti, Datetime, DateOnly, TimeOnly, Textarea
+    Textbox, Heading, Description, Emailbox, Numberbox, Dropdown, RadioGroup,
+    CheckboxSingle, CheckboxMulti, Datetime, DateOnly, TimeOnly, Textarea,
+    forwardRef(() => FormRenderer)
   ],
-  templateUrl: './form-renderer.html'
+  templateUrl: './form-renderer.html',
+  styleUrl: './form-renderer.scss',
+
 })
 export class FormRenderer implements OnChanges, OnInit {
   @Input('components') metadata!: FormComponentMetadata[];
@@ -78,6 +81,13 @@ export class FormRenderer implements OnChanges, OnInit {
     const newGroup = this.formBuilderService.buildFormGroup(components);
 
     array.push(newGroup);
+  }
+
+  removeFormArrayItem(name: string, index: number) {
+    const array = this.getFormArray(name);
+    if (array.length > 1) { // Keep at least one item
+      array.removeAt(index);
+    }
   }
 
   // private buildFormGroup(components: FormComponentMetadata[]): FormGroup {

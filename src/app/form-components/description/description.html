@@ -1,4 +1,6 @@
-<div *ngIf="descriptionData">
-    <p>{{descriptionData | json}}</p>
-    <p>{{descriptionData.value}}</p>
+<div class="description-container" *ngIf="descriptionData">
+  <div class="description-content">
+    <h3 *ngIf="descriptionData.value" class="description-title">{{ descriptionData.value }}</h3>
+    <p *ngIf="descriptionData.description" class="description-text">{{ descriptionData.description }}</p>
+  </div>
 </div>

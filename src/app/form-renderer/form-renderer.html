@@ -7,8 +7,9 @@
             <!-- TEXTBOX -->
             <ng-container *ngSwitchCase="'TEXTBOX'">
                 <ng-container *ngIf="c.type === 'TEXTBOX'">
-                    <app-textbox [formControlName]="c.name + '|||' + c.id!" [label]="c.displayLabel"
-                        [placeholder]="c.placeholder || c.displayLabel">
+                    <app-textbox [formControlName]="c.name + '|||' + c.id!" [metadata]="c" [label]="c.displayLabel"
+                        [placeholder]="c.placeholder || c.displayLabel" [required]="!!c.required"
+                        [maxLength]="c.maxLength" [minLength]="c.minLength" [showClearButton]="true">
                     </app-textbox>
                 </ng-container>
             </ng-container>
@@ -16,8 +17,9 @@
             <!-- TEXTAREA -->
             <ng-container *ngSwitchCase="'TEXTAREA'">
                 <ng-container *ngIf="c.type === 'TEXTAREA'">
-                    <app-textarea [formControlName]="c.name + '|||' + c.id!" [label]="c.displayLabel"
-                        [placeholder]="c.placeholder || c.displayLabel">
+                    <app-textarea [formControlName]="c.name + '|||' + c.id!" [metadata]="c" [label]="c.displayLabel"
+                        [placeholder]="c.placeholder || c.displayLabel" [maxLength]="c.maxLength"
+                        [minLength]="c.minLength" [required]="!!c.required" [rows]="c.rows">
                     </app-textarea>
                 </ng-container>
             </ng-container>
@@ -25,8 +27,8 @@
             <!--EMAILBOX-->
             <ng-container *ngSwitchCase="'EMAILBOX'">
                 <ng-container *ngIf="c.type === 'EMAILBOX'">
-                    <app-emailbox [formControlName]="c.name + '|||' + c.id!" [label]="c.displayLabel"
-                        [placeholder]="c.placeholder || c.displayLabel">
+                    <app-emailbox [formControlName]="c.name + '|||' + c.id!" [metadata]="c" [label]="c.displayLabel"
+                        [placeholder]="c.placeholder || c.displayLabel" [required]="!!c.required">
                     </app-emailbox>
                 </ng-container>
             </ng-container>
@@ -34,9 +36,9 @@
             <!--NUMBERBOX-->
             <ng-container *ngSwitchCase="'NUMBERBOX'">
                 <ng-container *ngIf="c.type === 'NUMBERBOX'">
-
-                    <app-numberbox [formControlName]="c.name + '|||' + c.id!" [label]="c.displayLabel"
-                        [placeholder]="c.placeholder || c.displayLabel" [min]="c.min" [max]="c.max">
+                    <app-numberbox [formControlName]="c.name + '|||' + c.id!" [metadata]="c" [label]="c.displayLabel"
+                        [placeholder]="c.placeholder || c.displayLabel" [min]="c.min" [max]="c.max"
+                        [required]="!!c.required">
                     </app-numberbox>
                 </ng-container>
             </ng-container>
@@ -44,8 +46,8 @@
             <!-- DROPDOWN -->
             <ng-container *ngSwitchCase="'DROPDOWN'">
                 <ng-container *ngIf="c.type === 'DROPDOWN'">
-                    <app-dropdown [formControlName]="c.name + '|||' + c.id!" [label]="c.displayLabel"
-                        [options]="c.options">
+                    <app-dropdown [formControlName]="c.name + '|||' + c.id!" [metadata]="c" [label]="c.displayLabel"
+                        [options]="c.options" [required]="!!c.required">
                     </app-dropdown>
                 </ng-container>
             </ng-container>
@@ -53,8 +55,8 @@
             <!-- RADIO GROUP -->
             <ng-container *ngSwitchCase="'RADIO_GROUP'">
                 <ng-container *ngIf="c.type === 'RADIO_GROUP'">
-                    <app-radio-group [formControlName]="c.name + '|||' + c.id!" [label]="c.displayLabel"
-                        [options]="c.options">
+                    <app-radio-group [formControlName]="c.name + '|||' + c.id!" [metadata]="c" [label]="c.displayLabel"
+                        [options]="c.options" [required]="!!c.required">
                     </app-radio-group>
                 </ng-container>
             </ng-container>
@@ -62,9 +64,8 @@
             <!-- CHECKBOX SINGLE -->
             <ng-container *ngSwitchCase="'CHECKBOX_SINGLE'">
                 <ng-container *ngIf="c.type === 'CHECKBOX_SINGLE'">
-
-                    <app-checkbox-single [formControlName]="c.name + '|||' + c.id!" [label]="c.displayLabel"
-                        [optionLabel]="c.options[0].display || ''">
+                    <app-checkbox-single [formControlName]="c.name + '|||' + c.id!" [metadata]="c"
+                        [label]="c.displayLabel" [required]="!!c.required" [showClearButton]="true">
                     </app-checkbox-single>
                 </ng-container>
             </ng-container>
@@ -72,8 +73,9 @@
             <!-- CHECKBOX MULTI -->
             <ng-container *ngSwitchCase="'CHECKBOX_MULTI'">
                 <ng-container *ngIf="c.type === 'CHECKBOX_MULTI'">
-                    <app-checkbox-multi [formControlName]="c.name + '|||' + c.id!" [label]="c.displayLabel"
-                        [options]="c.options">
+                    <app-checkbox-multi [formControlName]="c.name + '|||' + c.id!" [metadata]="c"
+                        [label]="c.displayLabel" [options]="c.options" [required]="!!c.required"
+                        [showClearButton]="true">
                     </app-checkbox-multi>
                 </ng-container>
             </ng-container>
@@ -81,17 +83,19 @@
             <!-- DATETIME -->
             <ng-container *ngSwitchCase="'DATETIME'">
                 <ng-container *ngIf="c.type === 'DATETIME'">
-                    <app-datetime [formControlName]="c.name + '|||' + c.id!" [label]="c.displayLabel"
-                        [placeholder]="c.placeholder || c.displayLabel" [minDate]="c.minDate"
-                        [maxDate]="c.maxDate"></app-datetime>
+                    <app-datetime [formControlName]="c.name + '|||' + c.id!" [metadata]="c" [label]="c.displayLabel"
+                        [placeholder]="c.placeholder || c.displayLabel" [minDate]="c.minDate" [maxDate]="c.maxDate"
+                        [required]="!!c.required" [showClearButton]="true">
+                    </app-datetime>
                 </ng-container>
             </ng-container>
 
             <!-- DATEONLY -->
             <ng-container *ngSwitchCase="'DATEONLY'">
                 <ng-container *ngIf="c.type === 'DATEONLY'">
-                    <app-date-only [formControlName]="c.name + '|||' + c.id!" [label]="c.displayLabel"
-                        [placeholder]="c.placeholder || c.displayLabel" [minDate]="c.minDate" [maxDate]="c.maxDate">
+                    <app-date-only [formControlName]="c.name + '|||' + c.id!" [metadata]="c" [label]="c.displayLabel"
+                        [placeholder]="c.placeholder || c.displayLabel" [minDate]="c.minDate" [maxDate]="c.maxDate"
+                        [required]="!!c.required" [showClearButton]="true">
                     </app-date-only>
                 </ng-container>
             </ng-container>
@@ -100,8 +104,9 @@
             <!-- TIMEONLY -->
             <ng-container *ngSwitchCase="'TIMEONLY'">
                 <ng-container *ngIf="c.type === 'TIMEONLY'">
-                    <app-time-only [formControlName]="c.name + '|||' + c.id!" [label]="c.displayLabel"
-                        [placeholder]="c.placeholder || c.displayLabel">
+                    <app-time-only [formControlName]="c.name + '|||' + c.id!" [metadata]="c" [label]="c.displayLabel"
+                        [placeholder]="c.placeholder || c.displayLabel" [minTime]="c.minTime" [maxTime]="c.maxTime"
+                        [required]="!!c.required" [showClearButton]="true">
                     </app-time-only>
                 </ng-container>
             </ng-container>
@@ -128,13 +133,20 @@
             <!-- NESTED FORM GROUP -->
             <ng-container *ngSwitchCase="'FORM_GROUP'">
                 <ng-container *ngIf="c.type === 'FORM_GROUP'">
-                    <div [formGroupName]="c.name + '|||' + c.id!"
-                        style="margin-left: 16px; margin-top: 16px; padding: 12px; border: 2px solid #1976d2; border-radius: 8px; background-color: #e3f2fd;">
-                        <strong style="display: block; margin-bottom: 8px;">Form Group: {{ c.name + '|||' + c.id!
-                            }}</strong>
-                        <app-form-renderer [components]="c.components"
-                            [formGroup]="getFormGroup(c.name + '|||' + c.id!)">
-                        </app-form-renderer>
+                    <div [formGroupName]="c.name + '|||' + c.id!" class="form-group-container">
+                        <div class="form-group-header">
+                            <h3 class="form-group-title">{{c.displayLabel}}</h3>
+                            <div class="form-group-indicator">
+                                <svg viewBox="0 0 24 24" fill="currentColor" class="form-group-icon">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="form-group-content">
+                            <app-form-renderer [components]="c.components"
+                                [formGroup]="getFormGroup(c.name + '|||' + c.id!)">
+                            </app-form-renderer>
+                        </div>
                     </div>
                 </ng-container>
             </ng-container>
@@ -142,19 +154,44 @@
             <!-- FORM ARRAY -->
             <ng-container *ngSwitchCase="'FORM_ARRAY'">
                 <ng-container *ngIf="c.type === 'FORM_ARRAY'">
-                    <div [formArrayName]="c.name + '|||' + c.id!"
-                        style="margin-left: 16px; margin-top: 16px; padding: 12px; border: 2px dashed #388e3c; border-radius: 8px; background-color: #e8f5e9;">
-                        <strong style="display: block; margin-bottom: 8px;">Form Array: {{ c.name + '|||' + c.id!
-                            }}</strong>
-                        <div *ngFor="let _ of getFormArray(c.name + '|||' + c.id!).controls; let i = index"
-                            [formGroupName]="i"
-                            style="margin-bottom: 12px; padding: 12px; border: 1px dashed #81c784; border-radius: 6px;">
-                            <app-form-renderer [components]="c.components"
-                                [formGroup]="getFormGroupFromArray(c.name + '|||' + c.id!, i)">
-                            </app-form-renderer>
+                    <div [formArrayName]="c.name + '|||' + c.id!" class="form-array-container">
+                        <div class="form-array-header">
+                            <h3 class="form-array-title">{{ c.displayLabel}}</h3>
+                            <div class="form-array-indicator">
+                                <svg viewBox="0 0 24 24" fill="currentColor" class="form-array-icon">
+                                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                                </svg>
+                            </div>
                         </div>
-                        <button type="button"
-                            (click)="addFormArrayItem(c.name + '|||' + c.id!, c.components)">Add</button>
+                        <div class="form-array-content">
+                            <div *ngFor="let _ of getFormArray(c.name + '|||' + c.id!).controls; let i = index"
+                                [formGroupName]="i" class="form-array-item">
+                                <div class="form-array-item-header">
+                                    <span class="form-array-item-number">Item {{i + 1}}</span>
+                                    <button type="button" class="remove-item-button" 
+                                        (click)="removeFormArrayItem(c.name + '|||' + c.id!, i)"
+                                        title="Remove this item">
+                                        <svg viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="form-array-item-content">
+                                    <app-form-renderer [components]="c.components"
+                                        [formGroup]="getFormGroupFromArray(c.name + '|||' + c.id!, i)">
+                                    </app-form-renderer>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-array-actions">
+                            <button type="button" class="add-item-button"
+                                (click)="addFormArrayItem(c.name + '|||' + c.id!, c.components)">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                                </svg>
+                                Add {{ c.displayLabel}}
+                            </button>
+                        </div>
                     </div>
                 </ng-container>
             </ng-container>

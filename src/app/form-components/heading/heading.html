@@ -1,4 +1,4 @@
-<div *ngIf="headingData">
-    <p>{{headingData | json}}</p>
-    <p>{{headingData.value}}</p>
+<div class="heading-container" *ngIf="headingData">
+  <h2 class="heading-title">{{ headingData.value }}</h2>
+  <p *ngIf="headingData.description" class="heading-description">{{ headingData.description }}</p>
 </div>

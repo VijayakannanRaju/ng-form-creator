@@ -40,7 +40,6 @@ export class RadioGroupMetadataComponent implements OnInit, OnDestroy, AfterView
   ngAfterViewChecked(): void {
     if (this.showNameInput && this.nameInputRef) {
       this.nameInputRef.nativeElement.focus();
-      this.showNameInput = false;
     }
   }
 
@@ -220,7 +219,16 @@ export class RadioGroupMetadataComponent implements OnInit, OnDestroy, AfterView
     return 'Please fill in all required option fields';
   }
 
-  toggleNameEdit(): void {
+  onNameClick(): void {
     this.showNameInput = true;
+  }
+
+  onNameFocusOut(): void {
+    const nameValue = this.radioGroupForm.get('name')?.value;
+    if (!nameValue || nameValue.trim() === '') {
+      // If name is empty, set it to displayLabel
+      this.radioGroupForm.patchValue({ name: this.c.displayLabel });
+    }
+    this.showNameInput = false;
   }
 }

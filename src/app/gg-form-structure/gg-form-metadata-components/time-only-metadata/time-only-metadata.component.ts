@@ -40,7 +40,6 @@ export class TimeOnlyMetadataComponent implements OnInit, OnDestroy, AfterViewCh
   ngAfterViewChecked(): void {
     if (this.showNameInput && this.nameInputRef) {
       this.nameInputRef.nativeElement.focus();
-      this.showNameInput = false;
     }
   }
 
@@ -172,8 +171,17 @@ export class TimeOnlyMetadataComponent implements OnInit, OnDestroy, AfterViewCh
     return 'Minimum time cannot be greater than maximum time';
   }
 
-  toggleNameEdit(): void {
+  onNameClick(): void {
     this.showNameInput = true;
+  }
+
+  onNameFocusOut(): void {
+    const nameValue = this.timeOnlyForm.get('name')?.value;
+    if (!nameValue || nameValue.trim() === '') {
+      // If name is empty, set it to displayLabel
+      this.timeOnlyForm.patchValue({ name: this.c.displayLabel });
+    }
+    this.showNameInput = false;
   }
 
   // Helper method to get current time in HH:mm format for min/max time inputs

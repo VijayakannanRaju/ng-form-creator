@@ -1,12 +1,52 @@
-<label *ngIf="label">{{ label }}</label>
-<select
-  [disabled]="isDisabled"
-  [value]="value"
-  (change)="onSelect($event)"
-  (blur)="onTouched()"
->
-  <option value="">-- Select --</option>
-  <option *ngFor="let opt of options" [value]="opt.value">
-    {{ opt.display }}
-  </option>
-</select>
+<div class="dropdown-container" [class.focused]="isFocused" [class.invalid]="isInvalid" [class.disabled]="isDisabled">
+  <div class="dropdown-wrapper">
+    <label *ngIf="label" class="dropdown-label" [for]="'dropdown-' + (metadata?.id || 'default')">
+      {{ label }}
+      <span *ngIf="required" class="required-indicator" aria-label="required">*</span>
+    </label>
+
+    <div class="dropdown-input-wrapper">
+      <select 
+        [id]="'dropdown-' + (metadata?.id || 'default')" 
+        class="dropdown-select" 
+        [value]="value"
+        (change)="onSelect($event)" 
+        (focus)="onFocus()" 
+        (blur)="onBlur()" 
+        [disabled]="isDisabled"
+        [attr.aria-describedby]="'error-' + (metadata?.id || 'default')" 
+        [attr.aria-invalid]="isInvalid"
+        [attr.aria-required]="required" 
+      >
+        <option value="">{{ placeholder }}</option>
+        <option *ngFor="let opt of options" [value]="opt.value">
+          {{ opt.display }}
+        </option>
+      </select>
+
+      <div class="dropdown-decoration">
+        <div class="focus-indicator"></div>
+        <div class="dropdown-arrow">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7 10l5 5 5-5z"/>
+          </svg>
+        </div>
+      </div>
+      
+      <!-- Clear button outside dropdown-decoration to ensure it's clickable -->
+      <button *ngIf="showClearButton && value && !isDisabled" type="button" class="clear-button"
+        (click)="clearValue()" aria-label="Clear selection" title="Clear selection">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Error message -->
+    <div *ngIf="isInvalid && getErrorMessage()" [id]="'error-' + (metadata?.id || 'default')" class="error-message"
+      role="alert" aria-live="polite">
+      {{ getErrorMessage() }}
+    </div>
+  </div>
+</div>

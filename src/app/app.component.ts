@@ -34,6 +34,12 @@ export class AppComponent {
 
   formStructure: any[] = [];
   showStructure = true;
+  
+  // Popup states
+  showSuccessPopup = false;
+  showErrorPopup = false;
+  formData: any = {};
+  validationErrors: Array<{field: string, message: string}> = [];
 
   constructor(public formMetadataService: FormMetadataService,
     private formBuilderService: FormBuilderService
@@ -144,10 +150,126 @@ export class AppComponent {
   // }
 
   submit() {
+    if (this.mainFormGroup.valid) {
+      this.formData = this.mainFormGroup.value;
+      this.showSuccessPopup = true;
+      console.log('Form submitted successfully:', this.formData);
+    } else {
+      this.collectValidationErrors();
+      this.showErrorPopup = true;
+      console.log('Form validation failed');
+    }
+  }
 
-    console.log(this.mainFormGroup.value);
-    console.log(this.mainFormGroup.valid);
+  private collectValidationErrors() {
+    this.validationErrors = [];
+    this.collectErrorsFromGroup(this.mainFormGroup, '');
+  }
 
+  private collectErrorsFromGroup(formGroup: FormGroup, prefix: string) {
+    Object.keys(formGroup.controls).forEach(key => {
+      const control = formGroup.get(key);
+      const fieldName = prefix ? `${prefix}.${key}` : key;
+      
+      if (control instanceof FormGroup) {
+        this.collectErrorsFromGroup(control, fieldName);
+      } else if (control instanceof FormArray) {
+        control.controls.forEach((arrayControl, index) => {
+          if (arrayControl instanceof FormGroup) {
+            this.collectErrorsFromGroup(arrayControl, `${fieldName}[${index}]`);
+          } else if (arrayControl.errors) {
+            this.addValidationError(`${fieldName}[${index}]`, arrayControl.errors);
+          }
+        });
+      } else if (control && control.errors) {
+        this.addValidationError(fieldName, control.errors);
+      }
+    });
+  }
+
+  private addValidationError(fieldName: string, errors: any) {
+    const fieldDisplayName = this.getFieldDisplayName(fieldName);
+    
+    if (errors['required']) {
+      this.validationErrors.push({
+        field: fieldDisplayName,
+        message: 'This field is required'
+      });
+    } else if (errors['email']) {
+      this.validationErrors.push({
+        field: fieldDisplayName,
+        message: 'Please enter a valid email address'
+      });
+    } else if (errors['minlength']) {
+      this.validationErrors.push({
+        field: fieldDisplayName,
+        message: `Minimum length is ${errors['minlength'].requiredLength} characters`
+      });
+    } else if (errors['maxlength']) {
+      this.validationErrors.push({
+        field: fieldDisplayName,
+        message: `Maximum length is ${errors['maxlength'].requiredLength} characters`
+      });
+    } else if (errors['min']) {
+      this.validationErrors.push({
+        field: fieldDisplayName,
+        message: `Minimum value is ${errors['min'].min}`
+      });
+    } else if (errors['max']) {
+      this.validationErrors.push({
+        field: fieldDisplayName,
+        message: `Maximum value is ${errors['max'].max}`
+      });
+    } else if (errors['invalidDate']) {
+      this.validationErrors.push({
+        field: fieldDisplayName,
+        message: 'Please enter a valid date'
+      });
+    } else if (errors['minDate']) {
+      this.validationErrors.push({
+        field: fieldDisplayName,
+        message: `Date must be on or after ${errors['minDate'].min}`
+      });
+    } else if (errors['maxDate']) {
+      this.validationErrors.push({
+        field: fieldDisplayName,
+        message: `Date must be on or before ${errors['maxDate'].max}`
+      });
+    } else if (errors['invalidTime']) {
+      this.validationErrors.push({
+        field: fieldDisplayName,
+        message: 'Please enter a valid time'
+      });
+    } else if (errors['minTime']) {
+      this.validationErrors.push({
+        field: fieldDisplayName,
+        message: `Time must be at or after ${errors['minTime'].min}`
+      });
+    } else if (errors['maxTime']) {
+      this.validationErrors.push({
+        field: fieldDisplayName,
+        message: `Time must be at or before ${errors['maxTime'].max}`
+      });
+    } else {
+      this.validationErrors.push({
+        field: fieldDisplayName,
+        message: 'Invalid value'
+      });
+    }
+  }
+
+  private getFieldDisplayName(fieldName: string): string {
+    // Remove the '|||id' suffix and convert to readable format
+    const cleanName = fieldName.split('|||')[0];
+    return cleanName.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+  }
+
+  closeSuccessPopup() {
+    this.showSuccessPopup = false;
+  }
+
+  closeErrorPopup() {
+    this.showErrorPopup = false;
   }
 
 }
