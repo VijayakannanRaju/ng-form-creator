@@ -34,12 +34,13 @@ export class AppComponent {
 
   formStructure: any[] = [];
   showStructure = true;
-  
+
   // Popup states
   showSuccessPopup = false;
   showErrorPopup = false;
+  showPublishPopup = false;
   formData: any = {};
-  validationErrors: Array<{field: string, message: string}> = [];
+  validationErrors: Array<{ field: string, message: string }> = [];
 
   constructor(public formMetadataService: FormMetadataService,
     private formBuilderService: FormBuilderService
@@ -170,7 +171,7 @@ export class AppComponent {
     Object.keys(formGroup.controls).forEach(key => {
       const control = formGroup.get(key);
       const fieldName = prefix ? `${prefix}.${key}` : key;
-      
+
       if (control instanceof FormGroup) {
         this.collectErrorsFromGroup(control, fieldName);
       } else if (control instanceof FormArray) {
@@ -189,7 +190,7 @@ export class AppComponent {
 
   private addValidationError(fieldName: string, errors: any) {
     const fieldDisplayName = this.getFieldDisplayName(fieldName);
-    
+
     if (errors['required']) {
       this.validationErrors.push({
         field: fieldDisplayName,
@@ -271,5 +272,7 @@ export class AppComponent {
   closeErrorPopup() {
     this.showErrorPopup = false;
   }
+
+
 
 }

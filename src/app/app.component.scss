@@ -87,6 +87,24 @@
     }
   }
 
+  // Publish button styling
+  .publish-btn {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    border-color: #059669;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(5, 150, 105, 0.2);
+
+    &:hover {
+      background: linear-gradient(135deg, #047857 0%, #065f46 100%);
+      border-color: #047857;
+      box-shadow: 0 4px 8px rgba(5, 150, 105, 0.3);
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.3);
+    }
+  }
+
   // Responsive design
   @media (max-width: 768px) {
     div {
@@ -412,6 +430,76 @@
   }
 }
 
+// Publish Popup
+.publish-popup {
+  .popup-header {
+    background: linear-gradient(135deg, #0a2a75 0%, #133a94 100%);
+    color: white;
+
+    .popup-icon {
+      color: white;
+    }
+
+    .close-button {
+      color: rgba(255, 255, 255, 0.8);
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+      }
+    }
+  }
+}
+
+// Publish Options
+.publish-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.publish-option-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+
+  &:hover {
+    background: #f1f5f9;
+    border-color: #0a2a75;
+    color: #0a2a75;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(10, 42, 117, 0.1);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #0a2a75;
+    box-shadow: 0 0 0 3px rgba(10, 42, 117, 0.1);
+  }
+
+  .publish-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+}
+
 // Popup Body
 .popup-body {
   padding: 1.5rem;
@@ -543,6 +631,21 @@
     .error-field,
     .error-message {
       font-size: 0.75rem;
+    }
+  }
+
+  .publish-options {
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+  }
+
+  .publish-option-btn {
+    padding: 0.75rem 1rem;
+    font-size: 0.8rem;
+
+    .publish-icon {
+      width: 18px;
+      height: 18px;
     }
   }
 }
