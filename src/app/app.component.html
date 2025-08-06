@@ -19,7 +19,14 @@
       </div>
     </div>
 
-
+    <div class="form-name-container" *ngIf="!showStructure">
+      <div style="display: flex; align-items: center; padding: 0.5rem;">
+        <div>Form Name</div>
+        <div style="margin-left: auto">
+          <button class="gg-btn" (click)="toggleShowStructure()">Show Structure</button>
+        </div>
+      </div>
+    </div>
 
 
     <app-gg-form-structure *ngIf="showStructure" [components]="formMetadataService.components"></app-gg-form-structure>
