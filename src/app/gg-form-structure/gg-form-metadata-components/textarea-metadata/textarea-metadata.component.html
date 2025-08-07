@@ -20,92 +20,205 @@
             </div>
 
             <div *ngIf="c.showMetadataDiv" class="metadata-section">
-                <div class="form-group">
-                    <label [for]="c.id+'-displayLabel'" class="form-label">
-                        Display Label
-                        <span class="required-indicator">*</span>
-                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
-                            title="This is the label that will be displayed in the actual form">
-                    </label>
-                    <input type="text" class="form-control" [id]="c.id+'-displayLabel'"
-                        placeholder="Enter display label" formControlName="displayLabel"
-                        [class.is-invalid]="isFieldInvalid('displayLabel')"
-                        [class.is-valid]="!isFieldInvalid('displayLabel') && textareaForm.get('displayLabel')?.dirty">
-                    <div class="invalid-feedback" *ngIf="isFieldInvalid('displayLabel')">
-                        {{ getFieldError('displayLabel') }}
+                <div class="metadata-grid">
+                    <div class="form-group">
+                        <label [for]="c.id+'-displayLabel'" class="form-label">
+                            Display Label
+                            <span class="required-indicator">*</span>
+                            <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                                title="This is the label that will be displayed in the actual form">
+                        </label>
+                        <input type="text" class="form-control" [id]="c.id+'-displayLabel'"
+                            placeholder="Enter display label" formControlName="displayLabel"
+                            [class.is-invalid]="isFieldInvalid('displayLabel')"
+                            [class.is-valid]="!isFieldInvalid('displayLabel') && textareaForm.get('displayLabel')?.dirty">
+                        <div class="invalid-feedback" *ngIf="isFieldInvalid('displayLabel')">
+                            {{ getFieldError('displayLabel') }}
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label [for]="c.id+'-placeholder'" class="form-label">
-                        Placeholder
-                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
-                            title="Optional placeholder text for the textarea field">
-                    </label>
-                    <input type="text" class="form-control" [id]="c.id+'-placeholder'"
-                        placeholder="Enter placeholder text" formControlName="placeholder">
-                </div>
-
-                <div class="form-group">
-                    <label [for]="c.id+'-rows'" class="form-label">
-                        Rows
-                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
-                            title="Number of visible text lines (between 1 and 20)">
-                    </label>
-                    <input type="number" class="form-control" [id]="c.id+'-rows'"
-                        placeholder="Enter number of rows" formControlName="rows" min="1" max="20"
-                        [class.is-invalid]="isFieldInvalid('rows')"
-                        [class.is-valid]="!isFieldInvalid('rows') && textareaForm.get('rows')?.dirty">
-                    <div class="invalid-feedback" *ngIf="isFieldInvalid('rows')">
-                        {{ getFieldError('rows') }}
+                    <div class="form-group">
+                        <label [for]="c.id+'-placeholder'" class="form-label">
+                            Placeholder
+                            <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                                title="Optional placeholder text for the textarea field">
+                        </label>
+                        <input type="text" class="form-control" [id]="c.id+'-placeholder'"
+                            placeholder="Enter placeholder text" formControlName="placeholder">
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label [for]="c.id+'-maxLength'" class="form-label">
-                        Maximum Length
-                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
-                            title="Maximum number of characters allowed (must be greater than 0)">
-                    </label>
-                    <input type="number" class="form-control" [id]="c.id+'-maxLength'"
-                        placeholder="Enter maximum length" formControlName="maxLength" min="1"
-                        [class.is-invalid]="isFieldInvalid('maxLength')"
-                        [class.is-valid]="!isFieldInvalid('maxLength') && textareaForm.get('maxLength')?.dirty">
-                    <div class="invalid-feedback" *ngIf="isFieldInvalid('maxLength')">
-                        {{ getFieldError('maxLength') }}
+                    <div class="form-group">
+                        <label [for]="c.id+'-rows'" class="form-label">
+                            Rows
+                            <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                                title="Number of visible text lines (between 1 and 20)">
+                        </label>
+                        <input type="number" class="form-control" [id]="c.id+'-rows'"
+                            placeholder="Enter number of rows" formControlName="rows" min="1" max="20"
+                            [class.is-invalid]="isFieldInvalid('rows')"
+                            [class.is-valid]="!isFieldInvalid('rows') && textareaForm.get('rows')?.dirty">
+                        <div class="invalid-feedback" *ngIf="isFieldInvalid('rows')">
+                            {{ getFieldError('rows') }}
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label [for]="c.id+'-minLength'" class="form-label">
-                        Minimum Length
-                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
-                            title="Minimum number of characters required (must be greater than 0)">
-                    </label>
-                    <input type="number" class="form-control" [id]="c.id+'-minLength'"
-                        placeholder="Enter minimum length" formControlName="minLength" min="1"
-                        [class.is-invalid]="isFieldInvalid('minLength')"
-                        [class.is-valid]="!isFieldInvalid('minLength') && textareaForm.get('minLength')?.dirty">
-                    <div class="invalid-feedback" *ngIf="isFieldInvalid('minLength')">
-                        {{ getFieldError('minLength') }}
+                    <div class="form-group">
+                        <label [for]="c.id+'-maxLength'" class="form-label">
+                            Maximum Length
+                            <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                                title="Maximum number of characters allowed (must be greater than 0)">
+                        </label>
+                        <input type="number" class="form-control" [id]="c.id+'-maxLength'"
+                            placeholder="Enter maximum length" formControlName="maxLength" min="1"
+                            [class.is-invalid]="isFieldInvalid('maxLength')"
+                            [class.is-valid]="!isFieldInvalid('maxLength') && textareaForm.get('maxLength')?.dirty">
+                        <div class="invalid-feedback" *ngIf="isFieldInvalid('maxLength')">
+                            {{ getFieldError('maxLength') }}
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="form-label">
-                        Required Field
-                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
-                            title="Check if this field is mandatory in the form">
-                    </label>
-                    <div class="checkbox-container">
-                        <input type="checkbox" [id]="c.id+'-required'" formControlName="required">
-                        <label [for]="c.id+'-required'" class="checkbox-label">Make this field required</label>
+                    <div class="form-group">
+                        <label [for]="c.id+'-minLength'" class="form-label">
+                            Minimum Length
+                            <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                                title="Minimum number of characters required (must be greater than 0)">
+                        </label>
+                        <input type="number" class="form-control" [id]="c.id+'-minLength'"
+                            placeholder="Enter minimum length" formControlName="minLength" min="1"
+                            [class.is-invalid]="isFieldInvalid('minLength')"
+                            [class.is-valid]="!isFieldInvalid('minLength') && textareaForm.get('minLength')?.dirty">
+                        <div class="invalid-feedback" *ngIf="isFieldInvalid('minLength')">
+                            {{ getFieldError('minLength') }}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            Required Field
+                            <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                                title="Check if this field is mandatory in the form">
+                        </label>
+                        <div class="checkbox-container">
+                            <input type="checkbox" [id]="c.id+'-required'" formControlName="required">
+                            <label [for]="c.id+'-required'" class="checkbox-label">Make this field required</label>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Length validation error message -->
                 <div class="invalid-feedback length-validation-error" *ngIf="hasLengthValidationError()">
                     {{ getLengthValidationError() }}
+                </div>
+
+                <!-- Responsive Width Controls Section -->
+                <div class="responsive-width-section">
+                    <h4 class="section-title">Responsive Width Controls</h4>
+                    <div class="responsive-width-grid">
+                        <!-- Large Screen Controls -->
+                        <div class="screen-size-group">
+                            <h5 class="screen-size-title">Large Screen (1024px+)</h5>
+                            <div class="width-controls">
+                                <div class="form-group">
+                                    <label [for]="c.id+'-containerWidthLarge'" class="form-label">
+                                        Container Width
+                                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                                            title="Full-width: Takes entire line. Inline: Can share line with other inline components">
+                                    </label>
+                                    <select class="form-control" [id]="c.id+'-containerWidthLarge'" 
+                                        formControlName="containerWidthInLargeScreen">
+                                        <option value="full-width">Full Width</option>
+                                        <option value="inline">Inline</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label [for]="c.id+'-componentWidthLarge'" class="form-label">
+                                        Component Width
+                                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                                            title="Width in 12-column grid system (e.g., 4 = 4/12 = 33.33% width)">
+                                    </label>
+                                    <select class="form-control" [id]="c.id+'-componentWidthLarge'" 
+                                        formControlName="componentWidthInLargeScreen">
+                                        <option value="12">Full Width (12/12)</option>
+                                        <option value="6">Half Width (6/12)</option>
+                                        <option value="4">One Third (4/12)</option>
+                                        <option value="3">Quarter (3/12)</option>
+                                        <option value="2">One Sixth (2/12)</option>
+                                        <option value="1">One Twelfth (1/12)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Medium Screen Controls -->
+                        <div class="screen-size-group">
+                            <h5 class="screen-size-title">Medium Screen (768px+)</h5>
+                            <div class="width-controls">
+                                <div class="form-group">
+                                    <label [for]="c.id+'-containerWidthMedium'" class="form-label">
+                                        Container Width
+                                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                                            title="Full-width: Takes entire line. Inline: Can share line with other inline components">
+                                    </label>
+                                    <select class="form-control" [id]="c.id+'-containerWidthMedium'" 
+                                        formControlName="containerWidthInMediumScreen">
+                                        <option value="full-width">Full Width</option>
+                                        <option value="inline">Inline</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label [for]="c.id+'-componentWidthMedium'" class="form-label">
+                                        Component Width
+                                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                                            title="Width in 12-column grid system (e.g., 4 = 4/12 = 33.33% width)">
+                                    </label>
+                                    <select class="form-control" [id]="c.id+'-componentWidthMedium'" 
+                                        formControlName="componentWidthInMediumScreen">
+                                        <option value="12">Full Width (12/12)</option>
+                                        <option value="6">Half Width (6/12)</option>
+                                        <option value="4">One Third (4/12)</option>
+                                        <option value="3">Quarter (3/12)</option>
+                                        <option value="2">One Sixth (2/12)</option>
+                                        <option value="1">One Twelfth (1/12)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Small Screen Controls -->
+                        <div class="screen-size-group">
+                            <h5 class="screen-size-title">Small Screen (<768px)</h5>
+                            <div class="width-controls">
+                                <div class="form-group">
+                                    <label [for]="c.id+'-containerWidthSmall'" class="form-label">
+                                        Container Width
+                                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                                            title="Full-width: Takes entire line. Inline: Can share line with other inline components">
+                                    </label>
+                                    <select class="form-control" [id]="c.id+'-containerWidthSmall'" 
+                                        formControlName="containerWidthInSmallScreen">
+                                        <option value="full-width">Full Width</option>
+                                        <option value="inline">Inline</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label [for]="c.id+'-componentWidthSmall'" class="form-label">
+                                        Component Width
+                                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                                            title="Width in 12-column grid system (e.g., 4 = 4/12 = 33.33% width)">
+                                    </label>
+                                    <select class="form-control" [id]="c.id+'-componentWidthSmall'" 
+                                        formControlName="componentWidthInSmallScreen">
+                                        <option value="12">Full Width (12/12)</option>
+                                        <option value="6">Half Width (6/12)</option>
+                                        <option value="4">One Third (4/12)</option>
+                                        <option value="3">Quarter (3/12)</option>
+                                        <option value="2">One Sixth (2/12)</option>
+                                        <option value="1">One Twelfth (1/12)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>

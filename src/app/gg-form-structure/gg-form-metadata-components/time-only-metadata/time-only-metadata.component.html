@@ -20,82 +20,195 @@
             </div>
 
             <div *ngIf="c.showMetadataDiv" class="metadata-section">
-                <div class="form-group">
-                    <label [for]="c.id+'-displayLabel'" class="form-label">
-                        Display Label
-                        <span class="required-indicator">*</span>
-                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
-                            title="This is the label that will be displayed in the actual form">
-                    </label>
-                    <input type="text" class="form-control" [id]="c.id+'-displayLabel'"
-                        placeholder="Enter display label" formControlName="displayLabel"
-                        [class.is-invalid]="isFieldInvalid('displayLabel')"
-                        [class.is-valid]="!isFieldInvalid('displayLabel') && timeOnlyForm.get('displayLabel')?.dirty">
-                    <div class="invalid-feedback" *ngIf="isFieldInvalid('displayLabel')">
-                        {{ getFieldError('displayLabel') }}
+                <div class="metadata-grid">
+                    <div class="form-group">
+                        <label [for]="c.id+'-displayLabel'" class="form-label">
+                            Display Label
+                            <span class="required-indicator">*</span>
+                            <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                                title="This is the label that will be displayed in the actual form">
+                        </label>
+                        <input type="text" class="form-control" [id]="c.id+'-displayLabel'"
+                            placeholder="Enter display label" formControlName="displayLabel"
+                            [class.is-invalid]="isFieldInvalid('displayLabel')"
+                            [class.is-valid]="!isFieldInvalid('displayLabel') && timeOnlyForm.get('displayLabel')?.dirty">
+                        <div class="invalid-feedback" *ngIf="isFieldInvalid('displayLabel')">
+                            {{ getFieldError('displayLabel') }}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label [for]="c.id+'-placeholder'" class="form-label">
+                            Placeholder
+                            <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                                title="Placeholder text to show when the field is empty">
+                        </label>
+                        <input type="text" class="form-control" [id]="c.id+'-placeholder'"
+                            placeholder="Enter placeholder text" formControlName="placeholder"
+                            [class.is-invalid]="isFieldInvalid('placeholder')"
+                            [class.is-valid]="!isFieldInvalid('placeholder') && timeOnlyForm.get('placeholder')?.dirty">
+                        <div class="invalid-feedback" *ngIf="isFieldInvalid('placeholder')">
+                            {{ getFieldError('placeholder') }}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label [for]="c.id+'-minTime'" class="form-label">
+                            Minimum Time
+                            <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                                title="Earliest time that can be selected (HH:mm format)">
+                        </label>
+                        <input type="time" class="form-control" [id]="c.id+'-minTime'"
+                            formControlName="minTime"
+                            [class.is-invalid]="isFieldInvalid('minTime') || hasTimeRangeError()"
+                            [class.is-valid]="!isFieldInvalid('minTime') && !hasTimeRangeError() && timeOnlyForm.get('minTime')?.dirty">
+                        <div class="invalid-feedback" *ngIf="isFieldInvalid('minTime')">
+                            {{ getFieldError('minTime') }}
+                        </div>
+                        <div class="invalid-feedback" *ngIf="hasTimeRangeError()">
+                            {{ getTimeRangeError() }}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label [for]="c.id+'-maxTime'" class="form-label">
+                            Maximum Time
+                            <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                                title="Latest time that can be selected (HH:mm format)">
+                        </label>
+                        <input type="time" class="form-control" [id]="c.id+'-maxTime'"
+                            formControlName="maxTime"
+                            [class.is-invalid]="isFieldInvalid('maxTime') || hasTimeRangeError()"
+                            [class.is-valid]="!isFieldInvalid('maxTime') && !hasTimeRangeError() && timeOnlyForm.get('maxTime')?.dirty">
+                        <div class="invalid-feedback" *ngIf="isFieldInvalid('maxTime')">
+                            {{ getFieldError('maxTime') }}
+                        </div>
+                        <div class="invalid-feedback" *ngIf="hasTimeRangeError()">
+                            {{ getTimeRangeError() }}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            Required Field
+                            <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                                title="Check if this field is mandatory in the form">
+                        </label>
+                        <div class="checkbox-container">
+                            <input type="checkbox" [id]="c.id+'-required'" formControlName="required">
+                            <label [for]="c.id+'-required'" class="checkbox-label">Make this field required</label>
+                        </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label [for]="c.id+'-placeholder'" class="form-label">
-                        Placeholder
-                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
-                            title="Placeholder text to show when the field is empty">
-                    </label>
-                    <input type="text" class="form-control" [id]="c.id+'-placeholder'"
-                        placeholder="Enter placeholder text" formControlName="placeholder"
-                        [class.is-invalid]="isFieldInvalid('placeholder')"
-                        [class.is-valid]="!isFieldInvalid('placeholder') && timeOnlyForm.get('placeholder')?.dirty">
-                    <div class="invalid-feedback" *ngIf="isFieldInvalid('placeholder')">
-                        {{ getFieldError('placeholder') }}
-                    </div>
-                </div>
+                <!-- Responsive Width Controls Section -->
+                <div class="responsive-width-section">
+                    <h4 class="section-title">Responsive Width Controls</h4>
+                    <div class="responsive-width-grid">
+                        <!-- Large Screen Controls -->
+                        <div class="screen-size-group">
+                            <h5 class="screen-size-title">Large Screen (1024px+)</h5>
+                            <div class="width-controls">
+                                <div class="form-group">
+                                    <label [for]="c.id+'-containerWidthLarge'" class="form-label">
+                                        Container Width
+                                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                                            title="Full-width: Takes entire line. Inline: Can share line with other inline components">
+                                    </label>
+                                    <select class="form-control" [id]="c.id+'-containerWidthLarge'" 
+                                        formControlName="containerWidthInLargeScreen">
+                                        <option value="full-width">Full Width</option>
+                                        <option value="inline">Inline</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label [for]="c.id+'-componentWidthLarge'" class="form-label">
+                                        Component Width
+                                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                                            title="Width in 12-column grid system (e.g., 4 = 4/12 = 33.33% width)">
+                                    </label>
+                                    <select class="form-control" [id]="c.id+'-componentWidthLarge'" 
+                                        formControlName="componentWidthInLargeScreen">
+                                        <option value="12">Full Width (12/12)</option>
+                                        <option value="6">Half Width (6/12)</option>
+                                        <option value="4">One Third (4/12)</option>
+                                        <option value="3">Quarter (3/12)</option>
+                                        <option value="2">One Sixth (2/12)</option>
+                                        <option value="1">One Twelfth (1/12)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
 
-                <div class="form-group">
-                    <label [for]="c.id+'-minTime'" class="form-label">
-                        Minimum Time
-                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
-                            title="Earliest time that can be selected (HH:mm format)">
-                    </label>
-                    <input type="time" class="form-control" [id]="c.id+'-minTime'"
-                        formControlName="minTime"
-                        [class.is-invalid]="isFieldInvalid('minTime') || hasTimeRangeError()"
-                        [class.is-valid]="!isFieldInvalid('minTime') && !hasTimeRangeError() && timeOnlyForm.get('minTime')?.dirty">
-                    <div class="invalid-feedback" *ngIf="isFieldInvalid('minTime')">
-                        {{ getFieldError('minTime') }}
-                    </div>
-                    <div class="invalid-feedback" *ngIf="hasTimeRangeError()">
-                        {{ getTimeRangeError() }}
-                    </div>
-                </div>
+                        <!-- Medium Screen Controls -->
+                        <div class="screen-size-group">
+                            <h5 class="screen-size-title">Medium Screen (768px+)</h5>
+                            <div class="width-controls">
+                                <div class="form-group">
+                                    <label [for]="c.id+'-containerWidthMedium'" class="form-label">
+                                        Container Width
+                                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                                            title="Full-width: Takes entire line. Inline: Can share line with other inline components">
+                                    </label>
+                                    <select class="form-control" [id]="c.id+'-containerWidthMedium'" 
+                                        formControlName="containerWidthInMediumScreen">
+                                        <option value="full-width">Full Width</option>
+                                        <option value="inline">Inline</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label [for]="c.id+'-componentWidthMedium'" class="form-label">
+                                        Component Width
+                                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                                            title="Width in 12-column grid system (e.g., 4 = 4/12 = 33.33% width)">
+                                    </label>
+                                    <select class="form-control" [id]="c.id+'-componentWidthMedium'" 
+                                        formControlName="componentWidthInMediumScreen">
+                                        <option value="12">Full Width (12/12)</option>
+                                        <option value="6">Half Width (6/12)</option>
+                                        <option value="4">One Third (4/12)</option>
+                                        <option value="3">Quarter (3/12)</option>
+                                        <option value="2">One Sixth (2/12)</option>
+                                        <option value="1">One Twelfth (1/12)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
 
-                <div class="form-group">
-                    <label [for]="c.id+'-maxTime'" class="form-label">
-                        Maximum Time
-                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
-                            title="Latest time that can be selected (HH:mm format)">
-                    </label>
-                    <input type="time" class="form-control" [id]="c.id+'-maxTime'"
-                        formControlName="maxTime"
-                        [class.is-invalid]="isFieldInvalid('maxTime') || hasTimeRangeError()"
-                        [class.is-valid]="!isFieldInvalid('maxTime') && !hasTimeRangeError() && timeOnlyForm.get('maxTime')?.dirty">
-                    <div class="invalid-feedback" *ngIf="isFieldInvalid('maxTime')">
-                        {{ getFieldError('maxTime') }}
-                    </div>
-                    <div class="invalid-feedback" *ngIf="hasTimeRangeError()">
-                        {{ getTimeRangeError() }}
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">
-                        Required Field
-                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
-                            title="Check if this field is mandatory in the form">
-                    </label>
-                    <div class="checkbox-container">
-                        <input type="checkbox" [id]="c.id+'-required'" formControlName="required">
-                        <label [for]="c.id+'-required'" class="checkbox-label">Make this field required</label>
+                        <!-- Small Screen Controls -->
+                        <div class="screen-size-group">
+                            <h5 class="screen-size-title">Small Screen (<768px)</h5>
+                            <div class="width-controls">
+                                <div class="form-group">
+                                    <label [for]="c.id+'-containerWidthSmall'" class="form-label">
+                                        Container Width
+                                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                                            title="Full-width: Takes entire line. Inline: Can share line with other inline components">
+                                    </label>
+                                    <select class="form-control" [id]="c.id+'-containerWidthSmall'" 
+                                        formControlName="containerWidthInSmallScreen">
+                                        <option value="full-width">Full Width</option>
+                                        <option value="inline">Inline</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label [for]="c.id+'-componentWidthSmall'" class="form-label">
+                                        Component Width
+                                        <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                                            title="Width in 12-column grid system (e.g., 4 = 4/12 = 33.33% width)">
+                                    </label>
+                                    <select class="form-control" [id]="c.id+'-componentWidthSmall'" 
+                                        formControlName="componentWidthInSmallScreen">
+                                        <option value="12">Full Width (12/12)</option>
+                                        <option value="6">Half Width (6/12)</option>
+                                        <option value="4">One Third (4/12)</option>
+                                        <option value="3">Quarter (3/12)</option>
+                                        <option value="2">One Sixth (2/12)</option>
+                                        <option value="1">One Twelfth (1/12)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

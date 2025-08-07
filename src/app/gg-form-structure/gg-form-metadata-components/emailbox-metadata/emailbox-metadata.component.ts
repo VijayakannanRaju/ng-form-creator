@@ -49,7 +49,13 @@ export class EmailboxMetadataComponent implements OnInit, OnDestroy {
       name: [this.c.name || ''],
       displayLabel: [this.c.displayLabel || '', [Validators.required]],
       placeholder: [this.c.placeholder || ''],
-      required: [this.c.required || false]
+      required: [this.c.required || false],
+      containerWidthInLargeScreen: [this.c.containerWidthInLargeScreen || 'full-width'],
+      containerWidthInMediumScreen: [this.c.containerWidthInMediumScreen || 'full-width'],
+      containerWidthInSmallScreen: [this.c.containerWidthInSmallScreen || 'full-width'],
+      componentWidthInLargeScreen: [this.c.componentWidthInLargeScreen || 12],
+      componentWidthInMediumScreen: [this.c.componentWidthInMediumScreen || 12],
+      componentWidthInSmallScreen: [this.c.componentWidthInSmallScreen || 12]
     });
   }
 
@@ -60,6 +66,12 @@ export class EmailboxMetadataComponent implements OnInit, OnDestroy {
       this.c.displayLabel = formValues.displayLabel;
       this.c.placeholder = formValues.placeholder;
       this.c.required = formValues.required;
+      this.c.containerWidthInLargeScreen = formValues.containerWidthInLargeScreen;
+      this.c.containerWidthInMediumScreen = formValues.containerWidthInMediumScreen;
+      this.c.containerWidthInSmallScreen = formValues.containerWidthInSmallScreen;
+      this.c.componentWidthInLargeScreen = formValues.componentWidthInLargeScreen;
+      this.c.componentWidthInMediumScreen = formValues.componentWidthInMediumScreen;
+      this.c.componentWidthInSmallScreen = formValues.componentWidthInSmallScreen;
 
       // Update errors array based on form validation (only if not already updating)
       if (!this.isUpdatingErrors) {

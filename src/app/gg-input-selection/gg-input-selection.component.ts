@@ -53,7 +53,13 @@ export class GgInputSelectionComponent {
       minLength: 1,
       required: false,
       iconName: 'textbox.png',
-      showMetadataDiv: true
+      showMetadataDiv: true,
+      containerWidthInLargeScreen: 'full-width',
+      containerWidthInMediumScreen: 'full-width',
+      containerWidthInSmallScreen: 'full-width',
+      componentWidthInLargeScreen: 12,
+      componentWidthInMediumScreen: 12,
+      componentWidthInSmallScreen: 12
 
     },
     {
@@ -64,7 +70,13 @@ export class GgInputSelectionComponent {
       placeholder: 'placeholder text',
       required: false,
       iconName: 'emailbox.png',
-      showMetadataDiv: true
+      showMetadataDiv: true,
+      containerWidthInLargeScreen: 'full-width',
+      containerWidthInMediumScreen: 'full-width',
+      containerWidthInSmallScreen: 'full-width',
+      componentWidthInLargeScreen: 12,
+      componentWidthInMediumScreen: 12,
+      componentWidthInSmallScreen: 12
 
     },
 
@@ -78,7 +90,13 @@ export class GgInputSelectionComponent {
       min: 0,
       max: 1000,
       iconName: 'numberbox.png',
-      showMetadataDiv: true
+      showMetadataDiv: true,
+      containerWidthInLargeScreen: 'full-width',
+      containerWidthInMediumScreen: 'full-width',
+      containerWidthInSmallScreen: 'full-width',
+      componentWidthInLargeScreen: 12,
+      componentWidthInMediumScreen: 12,
+      componentWidthInSmallScreen: 12
 
     },
     {
@@ -92,7 +110,13 @@ export class GgInputSelectionComponent {
       required: false,
       rows: 4,
       iconName: 'textarea.png',
-      showMetadataDiv: true
+      showMetadataDiv: true,
+      containerWidthInLargeScreen: 'full-width',
+      containerWidthInMediumScreen: 'full-width',
+      containerWidthInSmallScreen: 'full-width',
+      componentWidthInLargeScreen: 12,
+      componentWidthInMediumScreen: 12,
+      componentWidthInSmallScreen: 12
     },
 
     {
@@ -107,7 +131,13 @@ export class GgInputSelectionComponent {
         { value: 'option3', display: 'Option 3' }
       ],
       iconName: 'dropdown.png',
-      showMetadataDiv: true
+      showMetadataDiv: true,
+      containerWidthInLargeScreen: 'full-width',
+      containerWidthInMediumScreen: 'full-width',
+      containerWidthInSmallScreen: 'full-width',
+      componentWidthInLargeScreen: 12,
+      componentWidthInMediumScreen: 12,
+      componentWidthInSmallScreen: 12
     },
 
     {
@@ -123,6 +153,12 @@ export class GgInputSelectionComponent {
       ],
       iconName: 'radio-group.png',
       showMetadataDiv: true,
+      containerWidthInLargeScreen: 'full-width',
+      containerWidthInMediumScreen: 'full-width',
+      containerWidthInSmallScreen: 'full-width',
+      componentWidthInLargeScreen: 12,
+      componentWidthInMediumScreen: 12,
+      componentWidthInSmallScreen: 12
     },
 
     {
@@ -135,7 +171,13 @@ export class GgInputSelectionComponent {
         { value: 'option1', display: 'Option 1' }
       ],
       iconName: 'checkbox-single.png',
-      showMetadataDiv: true
+      showMetadataDiv: true,
+      containerWidthInLargeScreen: 'full-width',
+      containerWidthInMediumScreen: 'full-width',
+      containerWidthInSmallScreen: 'full-width',
+      componentWidthInLargeScreen: 12,
+      componentWidthInMediumScreen: 12,
+      componentWidthInSmallScreen: 12
     },
 
 
@@ -151,7 +193,13 @@ export class GgInputSelectionComponent {
         { value: 'option3', display: 'Option 3' }
       ],
       iconName: 'checkbox-multi.png',
-      showMetadataDiv: true
+      showMetadataDiv: true,
+      containerWidthInLargeScreen: 'full-width',
+      containerWidthInMediumScreen: 'full-width',
+      containerWidthInSmallScreen: 'full-width',
+      componentWidthInLargeScreen: 12,
+      componentWidthInMediumScreen: 12,
+      componentWidthInSmallScreen: 12
     },
 
     {
@@ -165,6 +213,12 @@ export class GgInputSelectionComponent {
       required: false,
       iconName: 'datetime.png',
       showMetadataDiv: true,
+      containerWidthInLargeScreen: 'full-width',
+      containerWidthInMediumScreen: 'full-width',
+      containerWidthInSmallScreen: 'full-width',
+      componentWidthInLargeScreen: 12,
+      componentWidthInMediumScreen: 12,
+      componentWidthInSmallScreen: 12
     },
 
     {
@@ -177,7 +231,13 @@ export class GgInputSelectionComponent {
       maxDate: undefined,
       required: false,
       iconName: 'dateonly.png',
-      showMetadataDiv: true
+      showMetadataDiv: true,
+      containerWidthInLargeScreen: 'full-width',
+      containerWidthInMediumScreen: 'full-width',
+      containerWidthInSmallScreen: 'full-width',
+      componentWidthInLargeScreen: 12,
+      componentWidthInMediumScreen: 12,
+      componentWidthInSmallScreen: 12
     },
 
     {
@@ -190,7 +250,13 @@ export class GgInputSelectionComponent {
       maxTime: undefined,
       required: false,
       iconName: 'timeonly.png',
-      showMetadataDiv: true
+      showMetadataDiv: true,
+      containerWidthInLargeScreen: 'full-width',
+      containerWidthInMediumScreen: 'full-width',
+      containerWidthInSmallScreen: 'full-width',
+      componentWidthInLargeScreen: 12,
+      componentWidthInMediumScreen: 12,
+      componentWidthInSmallScreen: 12
     },
 
 

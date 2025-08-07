@@ -89,11 +89,40 @@ button {
   border-radius: 8px;
 }
 
-.form-group {
+// Responsive grid layout for metadata fields
+.metadata-grid {
+  display: grid;
+  gap: 1.5rem;
   margin-bottom: 1.5rem;
+  
+  // Default: 1 column for small screens
+  grid-template-columns: 1fr;
+  
+  // Medium screens (768px and up): 2 columns
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  // Large screens (1024px and up): 3 columns
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  // Extra large screens (1400px and up): 4 columns
+  @media (min-width: 1400px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.form-group {
+  margin-bottom: 0; // Remove bottom margin since grid handles spacing
 
   &:last-child {
     margin-bottom: 0;
+  }
+
+  &.options-section {
+    margin-bottom: 0; // Options section is outside the grid
   }
 }
 
@@ -352,5 +381,65 @@ button {
 
 .info-icon {
   height: 20px;
+}
+
+// Responsive Width Controls Section
+.responsive-width-section {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+
+  .section-title {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: #0a2a75;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e0e0e0;
+  }
+
+  .responsive-width-grid {
+    display: grid;
+    gap: 1.5rem;
+    
+    // Default: 1 column for small screens
+    grid-template-columns: 1fr;
+    
+    // Medium screens (768px and up): 2 columns
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    // Large screens (1024px and up): 3 columns
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .screen-size-group {
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+
+    .screen-size-title {
+      font-family: "Inter", sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      color: #0a2a75;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .width-controls {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: 1fr;
+    }
+  }
 }
 

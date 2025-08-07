@@ -42,6 +42,13 @@ export interface TextboxMetadata {
   showMetadataDiv: boolean;
   errors?: FormValidationError[];
   dragStarted?: boolean;
+  containerWidthInLargeScreen: 'full-width' | 'inline';
+  containerWidthInMediumScreen: 'full-width' | 'inline';
+  containerWidthInSmallScreen: 'full-width' | 'inline';
+  componentWidthInLargeScreen: 12 | 6 | 4 | 3 | 2 | 1;
+  componentWidthInMediumScreen: 12 | 6 | 4 | 3 | 2 | 1;
+  componentWidthInSmallScreen: 12 | 6 | 4 | 3 | 2 | 1;
+
 }
 
 export interface EmailboxMetadata {
@@ -58,7 +65,12 @@ export interface EmailboxMetadata {
   showMetadataDiv: boolean;
   errors?: FormValidationError[];
   dragStarted?: boolean;
-
+  containerWidthInLargeScreen: 'full-width' | 'inline';
+  containerWidthInMediumScreen: 'full-width' | 'inline';
+  containerWidthInSmallScreen: 'full-width' | 'inline';
+  componentWidthInLargeScreen: 12 | 6 | 4 | 3 | 2 | 1;
+  componentWidthInMediumScreen: 12 | 6 | 4 | 3 | 2 | 1;
+  componentWidthInSmallScreen: 12 | 6 | 4 | 3 | 2 | 1;
 }
 
 export interface NumberboxMetadata {
@@ -77,6 +89,12 @@ export interface NumberboxMetadata {
   showMetadataDiv: boolean;
   errors?: FormValidationError[];
   dragStarted?: boolean;
+  containerWidthInLargeScreen: 'full-width' | 'inline';
+  containerWidthInMediumScreen: 'full-width' | 'inline';
+  containerWidthInSmallScreen: 'full-width' | 'inline';
+  componentWidthInLargeScreen: 12 | 6 | 4 | 3 | 2 | 1;
+  componentWidthInMediumScreen: 12 | 6 | 4 | 3 | 2 | 1;
+  componentWidthInSmallScreen: 12 | 6 | 4 | 3 | 2 | 1;
 
 }
 
@@ -97,6 +115,12 @@ export interface TextAreaMetadata {
   errors?: FormValidationError[];
   dragStarted?: boolean;
   showMetadataDiv: boolean;
+  containerWidthInLargeScreen: 'full-width' | 'inline';
+  containerWidthInMediumScreen: 'full-width' | 'inline';
+  containerWidthInSmallScreen: 'full-width' | 'inline';
+  componentWidthInLargeScreen: 12 | 6 | 4 | 3 | 2 | 1;
+  componentWidthInMediumScreen: 12 | 6 | 4 | 3 | 2 | 1;
+  componentWidthInSmallScreen: 12 | 6 | 4 | 3 | 2 | 1;
 
 }
 
@@ -114,6 +138,12 @@ export interface DropdownMetadata {
   errors?: FormValidationError[];
   dragStarted?: boolean;
   showMetadataDiv: boolean;
+  containerWidthInLargeScreen: 'full-width' | 'inline';
+  containerWidthInMediumScreen: 'full-width' | 'inline';
+  containerWidthInSmallScreen: 'full-width' | 'inline';
+  componentWidthInLargeScreen: 12 | 6 | 4 | 3 | 2 | 1;
+  componentWidthInMediumScreen: 12 | 6 | 4 | 3 | 2 | 1;
+  componentWidthInSmallScreen: 12 | 6 | 4 | 3 | 2 | 1;
 
 }
 
@@ -131,6 +161,12 @@ export interface RadioGroupMetadata {
   showMetadataDiv: boolean;
   errors?: FormValidationError[];
   dragStarted?: boolean;
+  containerWidthInLargeScreen: 'full-width' | 'inline';
+  containerWidthInMediumScreen: 'full-width' | 'inline';
+  containerWidthInSmallScreen: 'full-width' | 'inline';
+  componentWidthInLargeScreen: 12 | 6 | 4 | 3 | 2 | 1;
+  componentWidthInMediumScreen: 12 | 6 | 4 | 3 | 2 | 1;
+  componentWidthInSmallScreen: 12 | 6 | 4 | 3 | 2 | 1;
 
 }
 
@@ -148,6 +184,12 @@ export interface CheckboxSingleMetadata {
   showMetadataDiv: boolean;
   errors?: FormValidationError[];
   dragStarted?: boolean;
+  containerWidthInLargeScreen: 'full-width' | 'inline';
+  containerWidthInMediumScreen: 'full-width' | 'inline';
+  containerWidthInSmallScreen: 'full-width' | 'inline';
+  componentWidthInLargeScreen: 12 | 6 | 4 | 3 | 2 | 1;
+  componentWidthInMediumScreen: 12 | 6 | 4 | 3 | 2 | 1;
+  componentWidthInSmallScreen: 12 | 6 | 4 | 3 | 2 | 1;
 
 }
 
@@ -165,6 +207,12 @@ export interface CheckboxMultiMetadata {
   showMetadataDiv: boolean;
   errors?: FormValidationError[];
   dragStarted?: boolean;
+  containerWidthInLargeScreen: 'full-width' | 'inline';
+  containerWidthInMediumScreen: 'full-width' | 'inline';
+  containerWidthInSmallScreen: 'full-width' | 'inline';
+  componentWidthInLargeScreen: 12 | 6 | 4 | 3 | 2 | 1;
+  componentWidthInMediumScreen: 12 | 6 | 4 | 3 | 2 | 1;
+  componentWidthInSmallScreen: 12 | 6 | 4 | 3 | 2 | 1;
 
 }
 
@@ -184,6 +232,12 @@ export interface DateTimeMetadata {
   showMetadataDiv: boolean;
   errors?: FormValidationError[];
   dragStarted?: boolean;
+  containerWidthInLargeScreen: 'full-width' | 'inline';
+  containerWidthInMediumScreen: 'full-width' | 'inline';
+  containerWidthInSmallScreen: 'full-width' | 'inline';
+  componentWidthInLargeScreen: 12 | 6 | 4 | 3 | 2 | 1;
+  componentWidthInMediumScreen: 12 | 6 | 4 | 3 | 2 | 1;
+  componentWidthInSmallScreen: 12 | 6 | 4 | 3 | 2 | 1;
 
 }
 
@@ -203,6 +257,12 @@ export interface DateOnlyMetadata {
   showMetadataDiv: boolean;
   errors?: FormValidationError[];
   dragStarted?: boolean;
+  containerWidthInLargeScreen: 'full-width' | 'inline';
+  containerWidthInMediumScreen: 'full-width' | 'inline';
+  containerWidthInSmallScreen: 'full-width' | 'inline';
+  componentWidthInLargeScreen: 12 | 6 | 4 | 3 | 2 | 1;
+  componentWidthInMediumScreen: 12 | 6 | 4 | 3 | 2 | 1;
+  componentWidthInSmallScreen: 12 | 6 | 4 | 3 | 2 | 1;
 
 }
 
@@ -222,6 +282,12 @@ export interface TimeOnlyMetadata {
   showMetadataDiv: boolean;
   errors?: FormValidationError[];
   dragStarted?: boolean;
+  containerWidthInLargeScreen: 'full-width' | 'inline';
+  containerWidthInMediumScreen: 'full-width' | 'inline';
+  containerWidthInSmallScreen: 'full-width' | 'inline';
+  componentWidthInLargeScreen: 12 | 6 | 4 | 3 | 2 | 1;
+  componentWidthInMediumScreen: 12 | 6 | 4 | 3 | 2 | 1;
+  componentWidthInSmallScreen: 12 | 6 | 4 | 3 | 2 | 1;
 
 }
 

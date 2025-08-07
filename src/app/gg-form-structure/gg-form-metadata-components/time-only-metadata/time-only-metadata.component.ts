@@ -50,7 +50,13 @@ export class TimeOnlyMetadataComponent implements OnInit, OnDestroy, AfterViewCh
       placeholder: [this.c.placeholder || ''],
       required: [this.c.required || false],
       minTime: [this.c.minTime || ''],
-      maxTime: [this.c.maxTime || '']
+      maxTime: [this.c.maxTime || ''],
+      containerWidthInLargeScreen: [this.c.containerWidthInLargeScreen || 'full-width'],
+      containerWidthInMediumScreen: [this.c.containerWidthInMediumScreen || 'full-width'],
+      containerWidthInSmallScreen: [this.c.containerWidthInSmallScreen || 'full-width'],
+      componentWidthInLargeScreen: [this.c.componentWidthInLargeScreen || 12],
+      componentWidthInMediumScreen: [this.c.componentWidthInMediumScreen || 12],
+      componentWidthInSmallScreen: [this.c.componentWidthInSmallScreen || 12]
     });
   }
 
@@ -69,6 +75,12 @@ export class TimeOnlyMetadataComponent implements OnInit, OnDestroy, AfterViewCh
     this.c.required = formValue.required;
     this.c.minTime = formValue.minTime;
     this.c.maxTime = formValue.maxTime;
+    this.c.containerWidthInLargeScreen = formValue.containerWidthInLargeScreen;
+    this.c.containerWidthInMediumScreen = formValue.containerWidthInMediumScreen;
+    this.c.containerWidthInSmallScreen = formValue.containerWidthInSmallScreen;
+    this.c.componentWidthInLargeScreen = formValue.componentWidthInLargeScreen;
+    this.c.componentWidthInMediumScreen = formValue.componentWidthInMediumScreen;
+    this.c.componentWidthInSmallScreen = formValue.componentWidthInSmallScreen;
 
     this.updateErrors();
   }

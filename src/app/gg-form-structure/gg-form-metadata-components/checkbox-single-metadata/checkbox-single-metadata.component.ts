@@ -48,7 +48,13 @@ export class CheckboxSingleMetadataComponent implements OnInit, OnDestroy, After
       name: [this.c.name || ''],
       displayLabel: [this.c.displayLabel || '', [Validators.required]],
       required: [this.c.required || false],
-      options: this.fb.array([]) // FormArray for options (only one allowed)
+      options: this.fb.array([]), // FormArray for options (only one allowed)
+      containerWidthInLargeScreen: [this.c.containerWidthInLargeScreen || 'full-width'],
+      containerWidthInMediumScreen: [this.c.containerWidthInMediumScreen || 'full-width'],
+      containerWidthInSmallScreen: [this.c.containerWidthInSmallScreen || 'full-width'],
+      componentWidthInLargeScreen: [this.c.componentWidthInLargeScreen || 12],
+      componentWidthInMediumScreen: [this.c.componentWidthInMediumScreen || 12],
+      componentWidthInSmallScreen: [this.c.componentWidthInSmallScreen || 12]
     });
     this.initializeOptionsArray();
   }
@@ -100,6 +106,12 @@ export class CheckboxSingleMetadataComponent implements OnInit, OnDestroy, After
     this.c.name = formValue.name;
     this.c.displayLabel = formValue.displayLabel;
     this.c.required = formValue.required;
+    this.c.containerWidthInLargeScreen = formValue.containerWidthInLargeScreen;
+    this.c.containerWidthInMediumScreen = formValue.containerWidthInMediumScreen;
+    this.c.containerWidthInSmallScreen = formValue.containerWidthInSmallScreen;
+    this.c.componentWidthInLargeScreen = formValue.componentWidthInLargeScreen;
+    this.c.componentWidthInMediumScreen = formValue.componentWidthInMediumScreen;
+    this.c.componentWidthInSmallScreen = formValue.componentWidthInSmallScreen;
     
     // Update options array (only take the first option)
     this.c.options = formValue.options.slice(0, 1).map((option: any) => ({

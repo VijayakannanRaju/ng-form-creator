@@ -49,7 +49,13 @@ export class DropdownMetadataComponent implements OnInit, OnDestroy {
       name: [this.c.name || ''],
       displayLabel: [this.c.displayLabel || '', [Validators.required]],
       required: [this.c.required || false],
-      options: this.fb.array([])
+      options: this.fb.array([]),
+      containerWidthInLargeScreen: [this.c.containerWidthInLargeScreen || 'full-width'],
+      containerWidthInMediumScreen: [this.c.containerWidthInMediumScreen || 'full-width'],
+      containerWidthInSmallScreen: [this.c.containerWidthInSmallScreen || 'full-width'],
+      componentWidthInLargeScreen: [this.c.componentWidthInLargeScreen || 12],
+      componentWidthInMediumScreen: [this.c.componentWidthInMediumScreen || 12],
+      componentWidthInSmallScreen: [this.c.componentWidthInSmallScreen || 12]
     });
 
     // Initialize options FormArray
@@ -84,6 +90,12 @@ export class DropdownMetadataComponent implements OnInit, OnDestroy {
       this.c.name = formValues.name;
       this.c.displayLabel = formValues.displayLabel;
       this.c.required = formValues.required;
+      this.c.containerWidthInLargeScreen = formValues.containerWidthInLargeScreen;
+      this.c.containerWidthInMediumScreen = formValues.containerWidthInMediumScreen;
+      this.c.containerWidthInSmallScreen = formValues.containerWidthInSmallScreen;
+      this.c.componentWidthInLargeScreen = formValues.componentWidthInLargeScreen;
+      this.c.componentWidthInMediumScreen = formValues.componentWidthInMediumScreen;
+      this.c.componentWidthInSmallScreen = formValues.componentWidthInSmallScreen;
 
       // Update options array from form array
       this.c.options = formValues.options.map((option: any) => ({

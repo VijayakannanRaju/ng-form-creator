@@ -1,10 +1,10 @@
-import { Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges, forwardRef } from '@angular/core';
+import { Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges, forwardRef, OnDestroy, HostListener } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Textbox } from '../form-components/textbox/textbox';
 import { Heading } from '../form-components/heading/heading';
 import { Description } from '../form-components/description/description';
-import { FormComponentMetadata } from '../form.type';
+import { FormComponentMetadata, TextboxMetadata, EmailboxMetadata, NumberboxMetadata, TextAreaMetadata, DropdownMetadata, RadioGroupMetadata, CheckboxSingleMetadata, CheckboxMultiMetadata, DateTimeMetadata, DateOnlyMetadata, TimeOnlyMetadata, FormArrayMetadata } from '../form.type';
 import { buildValidators } from '../utils/form-validators';
 import { Emailbox } from '../form-components/emailbox/emailbox';
 import { Numberbox } from '../form-components/numberbox/numberbox';
@@ -34,9 +34,12 @@ import { FormBuilderService } from '../utils/form-builder.service';
   styleUrl: './form-renderer.scss',
 
 })
-export class FormRenderer implements OnChanges, OnInit {
+export class FormRenderer implements OnChanges, OnInit, OnDestroy {
   @Input('components') metadata!: FormComponentMetadata[];
   @Input('formGroup') formGroup!: FormGroup;
+
+  // Property to store max items error message
+  maxItemsErrorMessage: string = '';
 
   constructor(private formBuilderService: FormBuilderService) {
     console.log('constructor called');
@@ -47,8 +50,24 @@ export class FormRenderer implements OnChanges, OnInit {
     console.log('Form renderer - formGroup received:', this.formGroup);
   }
 
+  ngOnDestroy(): void {
+    // Clean up any subscriptions if needed
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
+  }
+
+  isFullWidthComponent(component: FormComponentMetadata): boolean {
+    return (component as any).containerWidthInLargeScreen === 'full-width';
+  }
+
+  getComponentClasses(component: FormComponentMetadata): string {
+    const smallWidth = (component as any).componentWidthInSmallScreen || 12;
+    const mediumWidth = (component as any).componentWidthInMediumScreen || 12;
+    const largeWidth = (component as any).componentWidthInLargeScreen || 12;
+    
+    return `col-${smallWidth} md:col-${mediumWidth} lg:col-${largeWidth}`;
   }
 
   getFormGroup(name: string): FormGroup {
@@ -77,9 +96,23 @@ export class FormRenderer implements OnChanges, OnInit {
 
   addFormArrayItem(name: string, components: FormComponentMetadata[]) {
     const array = this.getFormArray(name);
-    // const newGroup = this.buildFormGroup(components);
+    
+    // Find the FormArrayMetadata to get maxItems
+    const formArrayMetadata = this.findFormArrayMetadata(name);
+    if (formArrayMetadata) {
+      const maxItems = formArrayMetadata.maxItems;
+      // Check if maxItems limit is reached
+      if (maxItems && maxItems > 0 && array.length >= maxItems) {
+        this.showMaxItemsError(formArrayMetadata.displayLabel, maxItems);
+        return; // Don't add the item
+      }
+    }
+    
+    // Clear any previous error message
+    this.maxItemsErrorMessage = '';
+    
+    // Add the new item
     const newGroup = this.formBuilderService.buildFormGroup(components);
-
     array.push(newGroup);
   }
 
@@ -87,77 +120,31 @@ export class FormRenderer implements OnChanges, OnInit {
     const array = this.getFormArray(name);
     if (array.length > 1) { // Keep at least one item
       array.removeAt(index);
+      
+      // Clear error message when removing items
+      this.maxItemsErrorMessage = '';
     }
   }
 
-  // private buildFormGroup(components: FormComponentMetadata[]): FormGroup {
-  //   console.log(components);
+  private findFormArrayMetadata(name: string): FormArrayMetadata | null {
+    // Extract the base name without the ID suffix
+    const baseName = name.split('|||')[0];
+    
+    // Find the FormArrayMetadata in the metadata array
+    for (const component of this.metadata) {
+      if (component.type === 'FORM_ARRAY' && component.name === baseName) {
+        return component as FormArrayMetadata;
+      }
+    }
+    return null;
+  }
 
-  //   const group = new FormGroup({});
-
-  //   for (const comp of components) {
-  //     if (comp.type === 'TEXTBOX') {
-  //       const validators = buildValidators({
-  //         required: comp.required,
-  //         minLength: comp.minLength,
-  //         maxLength: comp.maxLength,
-  //       });
-  //       group.addControl(comp.name + '|||' + comp.id!, new FormControl('', validators));
-  //     } else if (comp.type === 'EMAILBOX') {
-  //       const validators = [Validators.email];
-  //       if (comp.required) validators.push(Validators.required);
-  //       group.addControl(comp.name + '|||' + comp.id!, new FormControl('', validators));
-  //     } else if (comp.type === 'NUMBERBOX') {
-  //       const validators = [];
-  //       if (comp.required) validators.push(Validators.required);
-  //       if (comp.min != null) validators.push(Validators.min(comp.min));
-  //       if (comp.max != null) validators.push(Validators.max(comp.max));
-  //       group.addControl(comp.name + '|||' + comp.id!, new FormControl(null, validators));
-  //     } else if (comp.type === 'TEXTAREA') {
-  //       const validators = [];
-  //       if (comp.required) validators.push(Validators.required);
-  //       group.addControl(comp.name + '|||' + comp.id!, new FormControl('', validators));
-  //     } else if (comp.type === 'DROPDOWN') {
-  //       const validators = [];
-  //       if (comp.required) validators.push(Validators.required);
-  //       group.addControl(comp.name + '|||' + comp.id!, new FormControl('', validators));
-  //     } else if (comp.type === 'RADIO_GROUP') {
-  //       const validators = [];
-  //       if (comp.required) validators.push(Validators.required);
-  //       group.addControl(comp.name + '|||' + comp.id!, new FormControl('', validators));
-  //     } else if (comp.type === 'CHECKBOX_SINGLE') {
-  //       const validators = [];
-  //       if (comp.required) validators.push(Validators.requiredTrue);
-  //       group.addControl(comp.name + '|||' + comp.id!, new FormControl(false, validators));
-
-  //     } else if (comp.type === 'CHECKBOX_MULTI') {
-  //       const validators = [];
-  //       if (comp.required) validators.push(Validators.required);
-  //       group.addControl(comp.name + '|||' + comp.id!, new FormControl([], validators));
-  //     } else if (comp.type === 'DATETIME') {
-  //       const validators = [];
-  //       if (comp.required) validators.push(Validators.required);
-  //       group.addControl(comp.name + '|||' + comp.id!, new FormControl('', validators));
-  //     } else if (comp.type === 'DATEONLY') {
-  //       const validators = [];
-  //       if (comp.required) validators.push(Validators.required);
-  //       group.addControl(comp.name + '|||' + comp.id!, new FormControl(null, validators));
-  //     } else if (comp.type === 'TIMEONLY') {
-  //       const validators = [];
-  //       if (comp.required) validators.push(Validators.required);
-  //       group.addControl(comp.name + '|||' + comp.id!, new FormControl(null, validators));
-  //     } else if (comp.type === 'FORM_GROUP') {
-  //       const nestedGroup = this.buildFormGroup(comp.components);
-  //       group.addControl(comp.name + '|||' + comp.id!, nestedGroup);
-  //     } else if (comp.type === 'FORM_ARRAY') {
-  //       const arrayItemGroup = this.buildFormGroup(comp.components);
-  //       const formArray = new FormArray<FormGroup>([arrayItemGroup]);
-  //       group.addControl(comp.name + '|||' + comp.id!, formArray);
-  //     }
-  //   }
-
-  //   return group;
-  // }
-
-
-}
+  private showMaxItemsError(displayLabel: string, maxItems: number): void {
+    this.maxItemsErrorMessage = `Maximum ${maxItems} items allowed for "${displayLabel}". Cannot add more items.`;
+    
+    // Auto-clear the message after 5 seconds
+    setTimeout(() => {
+      this.maxItemsErrorMessage = '';
+    }, 5000);
+  }
+} 

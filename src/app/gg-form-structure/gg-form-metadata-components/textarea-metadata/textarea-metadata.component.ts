@@ -52,7 +52,13 @@ export class TextareaMetadataComponent implements OnInit, OnDestroy {
       maxLength: [this.c.maxLength || null, [Validators.min(1)]],
       minLength: [this.c.minLength || null, [Validators.min(1)]],
       rows: [this.c.rows || 3, [Validators.min(1), Validators.max(20)]],
-      required: [this.c.required || false]
+      required: [this.c.required || false],
+      containerWidthInLargeScreen: [this.c.containerWidthInLargeScreen || 'full-width'],
+      containerWidthInMediumScreen: [this.c.containerWidthInMediumScreen || 'full-width'],
+      containerWidthInSmallScreen: [this.c.containerWidthInSmallScreen || 'full-width'],
+      componentWidthInLargeScreen: [this.c.componentWidthInLargeScreen || 12],
+      componentWidthInMediumScreen: [this.c.componentWidthInMediumScreen || 12],
+      componentWidthInSmallScreen: [this.c.componentWidthInSmallScreen || 12]
     }, { validators: this.lengthValidation });
   }
 
@@ -78,6 +84,12 @@ export class TextareaMetadataComponent implements OnInit, OnDestroy {
       this.c.minLength = formValues.minLength;
       this.c.rows = formValues.rows;
       this.c.required = formValues.required;
+      this.c.containerWidthInLargeScreen = formValues.containerWidthInLargeScreen;
+      this.c.containerWidthInMediumScreen = formValues.containerWidthInMediumScreen;
+      this.c.containerWidthInSmallScreen = formValues.containerWidthInSmallScreen;
+      this.c.componentWidthInLargeScreen = formValues.componentWidthInLargeScreen;
+      this.c.componentWidthInMediumScreen = formValues.componentWidthInMediumScreen;
+      this.c.componentWidthInSmallScreen = formValues.componentWidthInSmallScreen;
 
       // Update errors array based on form validation (only if not already updating)
       if (!this.isUpdatingErrors) {
