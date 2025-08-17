@@ -284,6 +284,49 @@ export class GgInputSelectionComponent {
       showMetadataDiv: true,
       showDropZone: true
 
+    },
+
+    {
+
+      type: 'TYPEAHEAD_WITH_HTTP_CALL',
+      name: 'typeaheadwithhttpcall',
+      displayLabel: 'Typeahead with http call',
+      displayName: 'Typeahead with http call',
+      arrayInResponsePath: 'results',
+      optionDisplayLabelKeyInArray: 'name',
+      optionValueKeyInArray: 'url',
+      httpCallUrl: 'https://pokeapi.co/api/v2/pokemon?limit=2000',
+      httpCallMethod: 'GET',
+      iconName: 'typeahead-with-http-call.png',
+      showMetadataDiv: true,
+      containerWidthInLargeScreen: 'full-width',
+      containerWidthInMediumScreen: 'full-width',
+      containerWidthInSmallScreen: 'full-width',
+      componentWidthInLargeScreen: 12,
+      componentWidthInMediumScreen: 12,
+      componentWidthInSmallScreen: 12
+    },
+
+    {
+
+      type: 'TYPEAHEAD_WITH_HTTP_SEARCH',
+      name: 'typeaheadwithhttpsearch',
+      displayLabel: 'Typeahead with http search',
+      displayName: 'Typeahead with http search',
+      arrayInResponsePath: 'results',
+      optionDisplayLabelKeyInArray: 'name',
+      optionValueKeyInArray: 'url',
+      httpCallUrl: 'https://pokeapi.co/api/v2/pokemon?limit=3',
+      httpCallSearchQueryParam: 'search',
+      httpCallMethod: 'GET',
+      iconName: 'typeahead-with-http-search.png',
+      showMetadataDiv: true,
+      containerWidthInLargeScreen: 'full-width',
+      containerWidthInMediumScreen: 'full-width',
+      containerWidthInSmallScreen: 'full-width',
+      componentWidthInLargeScreen: 12,
+      componentWidthInMediumScreen: 12,
+      componentWidthInSmallScreen: 12
     }
 
 

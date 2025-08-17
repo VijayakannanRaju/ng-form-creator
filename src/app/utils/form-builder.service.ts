@@ -83,6 +83,16 @@ export class FormBuilderService {
         if (comp.required) validators.push(Validators.required);
         group.addControl(controlName, new FormControl(null, validators));
         console.log('FormBuilderService: Added TIMEONLY control:', controlName);
+      } else if (comp.type === 'TYPEAHEAD_WITH_HTTP_CALL') {
+        const validators = [];
+        if (comp.required) validators.push(Validators.required);
+        group.addControl(controlName, new FormControl(null, validators));
+        console.log('FormBuilderService: Added TYPEAHEAD_WITH_HTTP_CALL control:', controlName);
+      } else if (comp.type === 'TYPEAHEAD_WITH_HTTP_SEARCH') {
+        const validators = [];
+        if (comp.required) validators.push(Validators.required);
+        group.addControl(controlName, new FormControl(null, validators));
+        console.log('FormBuilderService: Added TYPEAHEAD_WITH_HTTP_SEARCH control:', controlName);
       } else if (comp.type === 'FORM_GROUP') {
         const nestedGroup = this.buildFormGroup(comp.components);
         group.addControl(controlName, nestedGroup);

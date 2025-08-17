@@ -18,6 +18,7 @@ import { FormBuilderService } from './utils/form-builder.service';
   selector: 'app-root',
   imports: [
     CommonModule,
+    RouterOutlet,
     GgNavBar,
     // GgFormCreatorNavBarComponent,
     GgInputSelectionComponent,
@@ -151,15 +152,41 @@ export class AppComponent {
   // }
 
   submit() {
+
     if (this.mainFormGroup.valid) {
       this.formData = this.mainFormGroup.value;
       this.showSuccessPopup = true;
       console.log('Form submitted successfully:', this.formData);
     } else {
+      // Mark all form controls as touched to trigger validation highlighting
+      this.markAllControlsAsTouched(this.mainFormGroup);
       this.collectValidationErrors();
       this.showErrorPopup = true;
       console.log('Form validation failed');
     }
+  }
+
+  private markAllControlsAsTouched(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(key => {
+      const control = formGroup.get(key);
+      
+      if (control instanceof FormGroup) {
+        // Recursively mark nested form groups as touched
+        this.markAllControlsAsTouched(control);
+      } else if (control instanceof FormArray) {
+        // Mark all controls in form arrays as touched
+        control.controls.forEach((arrayControl, index) => {
+          if (arrayControl instanceof FormGroup) {
+            this.markAllControlsAsTouched(arrayControl);
+          } else {
+            arrayControl.markAsTouched();
+          }
+        });
+      } else if (control) {
+        // Mark individual form controls as touched
+        control.markAsTouched();
+      }
+    });
   }
 
   private collectValidationErrors() {

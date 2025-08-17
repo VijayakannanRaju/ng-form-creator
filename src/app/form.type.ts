@@ -24,7 +24,9 @@ export type FormComponentMetadata =
   | DescriptionMetadata
   | HeadingMetadata
   | FormGroupMetadata
-  | FormArrayMetadata;
+  | FormArrayMetadata
+  | TypeAheadWithHttpCallMetadata
+  | TypeAheadWithHttpSearchMetadata;
 
 export interface TextboxMetadata {
   id?: string,
@@ -361,5 +363,64 @@ export interface FormArrayMetadata {
   dragStarted?: boolean;
   showDropZone: boolean;
 
+
+}
+
+
+export interface TypeAheadWithHttpCallMetadata {
+  id?: string,
+  dropZoneId?: string,
+  type: 'TYPEAHEAD_WITH_HTTP_CALL';
+  name: string;
+  displayLabel: string;
+  displayName: string;
+  required?: boolean;
+  selected?: boolean;
+  placeholder?: string;
+  arrayInResponsePath: string;
+  optionDisplayLabelKeyInArray: string;
+  optionValueKeyInArray: string;
+  httpCallUrl: string;
+  httpCallMethod: 'GET';
+  iconName: 'typeahead-with-http-call.png';
+  errors?: FormValidationError[];
+  dragStarted?: boolean;
+  showMetadataDiv: boolean;
+  containerWidthInLargeScreen: 'full-width' | 'inline';
+  containerWidthInMediumScreen: 'full-width' | 'inline';
+  containerWidthInSmallScreen: 'full-width' | 'inline';
+  componentWidthInLargeScreen: 12 | 6 | 4 | 3 | 2 | 1;
+  componentWidthInMediumScreen: 12 | 6 | 4 | 3 | 2 | 1;
+  componentWidthInSmallScreen: 12 | 6 | 4 | 3 | 2 | 1;
+
+}
+
+
+export interface TypeAheadWithHttpSearchMetadata {
+  id?: string,
+  dropZoneId?: string,
+  type: 'TYPEAHEAD_WITH_HTTP_SEARCH';
+  name: string;
+  displayLabel: string;
+  displayName: string;
+  required?: boolean;
+  selected?: boolean;
+  placeholder?: string;
+  arrayInResponsePath: string;
+  optionDisplayLabelKeyInArray: string;
+  optionValueKeyInArray: string;
+  httpCallUrl: string;
+  httpCallSearchQueryParam: string;
+  httpCallMethod: 'GET';
+  iconName: 'typeahead-with-http-search.png';
+  errors?: FormValidationError[];
+  dragStarted?: boolean;
+  showMetadataDiv: boolean;
+  containerWidthInLargeScreen: 'full-width' | 'inline';
+  containerWidthInMediumScreen: 'full-width' | 'inline';
+  containerWidthInSmallScreen: 'full-width' | 'inline';
+  componentWidthInLargeScreen: 12 | 6 | 4 | 3 | 2 | 1;
+  componentWidthInMediumScreen: 12 | 6 | 4 | 3 | 2 | 1;
+  componentWidthInSmallScreen: 12 | 6 | 4 | 3 | 2 | 1;
 
 }

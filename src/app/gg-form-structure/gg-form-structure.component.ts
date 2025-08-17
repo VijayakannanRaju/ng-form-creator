@@ -22,6 +22,8 @@ import { TextboxMetadataComponent } from './gg-form-metadata-components/textbox-
 import { EmailboxMetadataComponent } from './gg-form-metadata-components/emailbox-metadata/emailbox-metadata.component';
 import { FormArrayMetadataComponent } from './gg-form-metadata-components/form-array-metadata/form-array-metadata.component';
 import { NumberboxMetadataComponent } from './gg-form-metadata-components/numberbox-metadata/numberbox-metadata.component';
+import { TypeaheadWithHttpCallMetadataComponent } from './gg-form-metadata-components/typeahead-with-http-call-metadata/typeahead-with-http-call-metadata.component';
+import { TypeaheadWithHttpSearchMetadataComponent } from './gg-form-metadata-components/typeahead-with-http-search-metadata/typeahead-with-http-search-metadata.component';
 // Shared Interface for form component metadata
 export interface FormComponent {
   type: string;
@@ -47,7 +49,9 @@ export interface FormComponent {
     TextareaMetadataComponent,
     EmailboxMetadataComponent,
     NumberboxMetadataComponent,
-    FormArrayMetadataComponent
+    FormArrayMetadataComponent,
+    TypeaheadWithHttpCallMetadataComponent,
+    TypeaheadWithHttpSearchMetadataComponent
   ],
   templateUrl: './gg-form-structure.component.html',
   styleUrl: './gg-form-structure.component.scss',

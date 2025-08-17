@@ -1,0 +1,216 @@
+<div style="position: relative;">
+    <div>
+        <form [formGroup]="typeaheadForm">
+            <div class="card-container" [title]="c.displayLabel">
+                <div class="icon-container">
+                    <img [src]="'imgs/form-fields/'+c.iconName" height="30px" alt="">
+                </div>
+                <div class="card-heading">
+                    <div *ngIf="!showNameInput" (click)="toggleNameInput()">{{c.name}}</div>
+                    <input #nameInput *ngIf="showNameInput" (blur)="onNameBlur()" class="form-control"
+                        [id]="c.id+'-name'" [value]="c.name" placeholder="Give a name to this component">
+                </div>
+                <div class="actions-container">
+                    <button (click)="c.showMetadataDiv = !c.showMetadataDiv">
+                        {{ c.showMetadataDiv ? 'Hide' : 'Show' }} Metadata
+                    </button>
+                    <img *ngIf="c.errors && c.errors.length > 0" src="imgs/icons/exclamation.png" alt="validation error"
+                        class="error-icon" title="Form has validation errors" (click)="c.showMetadataDiv = true">
+                </div>
+            </div>
+
+            <div *ngIf="c.showMetadataDiv" class="metadata-section">
+                <div class="metadata-grid">
+                    <div class="form-group">
+                        <label [for]="c.id+'-displayLabel'" class="form-label">
+                            Display Label
+                            <span class="required-indicator">*</span>
+                            <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                                title="This is the label that will be displayed in the actual form">
+                        </label>
+                        <input type="text" class="form-control" [id]="c.id+'-displayLabel'"
+                            placeholder="Enter display label" formControlName="displayLabel"
+                            [class.is-invalid]="isFieldInvalid('displayLabel')"
+                            [class.is-valid]="!isFieldInvalid('displayLabel') && typeaheadForm.get('displayLabel')?.dirty">
+                        <div class="invalid-feedback" *ngIf="isFieldInvalid('displayLabel')">
+                            {{ getFieldError('displayLabel') }}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label [for]="c.id+'-httpCallUrl'" class="form-label">
+                            HTTP Call URL
+                            <span class="required-indicator">*</span>
+                            <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                                title="The API endpoint URL to fetch search results">
+                        </label>
+                        <input type="url" class="form-control" [id]="c.id+'-httpCallUrl'"
+                            placeholder="https://api.example.com/search" formControlName="httpCallUrl"
+                            [class.is-invalid]="isFieldInvalid('httpCallUrl')"
+                            [class.is-valid]="!isFieldInvalid('httpCallUrl') && typeaheadForm.get('httpCallUrl')?.dirty">
+                        <div class="invalid-feedback" *ngIf="isFieldInvalid('httpCallUrl')">
+                            {{ getFieldError('httpCallUrl') }}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label [for]="c.id+'-httpCallSearchQueryParam'" class="form-label">
+                            Search Query Parameter
+                            <span class="required-indicator">*</span>
+                            <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                                title="The query parameter name to append to the URL when searching">
+                        </label>
+                        <input type="text" class="form-control" [id]="c.id+'-httpCallSearchQueryParam'"
+                            placeholder="e.g., search, q, query" formControlName="httpCallSearchQueryParam"
+                            [class.is-invalid]="isFieldInvalid('httpCallSearchQueryParam')"
+                            [class.is-valid]="!isFieldInvalid('httpCallSearchQueryParam') && typeaheadForm.get('httpCallSearchQueryParam')?.dirty">
+                        <div class="invalid-feedback" *ngIf="isFieldInvalid('httpCallSearchQueryParam')">
+                            {{ getFieldError('httpCallSearchQueryParam') }}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label [for]="c.id+'-arrayInResponsePath'" class="form-label">
+                            Array in Response Path
+                            <span class="required-indicator">*</span>
+                            <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                                title="Path to the array in the API response (e.g., 'results' for {results: [...]})">
+                        </label>
+                        <input type="text" class="form-control" [id]="c.id+'-arrayInResponsePath'"
+                            placeholder="e.g., results, data, items" formControlName="arrayInResponsePath"
+                            [class.is-invalid]="isFieldInvalid('arrayInResponsePath')"
+                            [class.is-valid]="!isFieldInvalid('arrayInResponsePath') && typeaheadForm.get('arrayInResponsePath')?.dirty">
+                        <div class="invalid-feedback" *ngIf="isFieldInvalid('arrayInResponsePath')">
+                            {{ getFieldError('arrayInResponsePath') }}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label [for]="c.id+'-optionDisplayLabelKeyInArray'" class="form-label">
+                            Display Label Key
+                            <span class="required-indicator">*</span>
+                            <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                                title="The key in each array item to display in the dropdown">
+                        </label>
+                        <input type="text" class="form-control" [id]="c.id+'-optionDisplayLabelKeyInArray'"
+                            placeholder="e.g., name, title, label" formControlName="optionDisplayLabelKeyInArray"
+                            [class.is-invalid]="isFieldInvalid('optionDisplayLabelKeyInArray')"
+                            [class.is-valid]="!isFieldInvalid('optionDisplayLabelKeyInArray') && typeaheadForm.get('optionDisplayLabelKeyInArray')?.dirty">
+                        <div class="invalid-feedback" *ngIf="isFieldInvalid('optionDisplayLabelKeyInArray')">
+                            {{ getFieldError('optionDisplayLabelKeyInArray') }}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label [for]="c.id+'-optionValueKeyInArray'" class="form-label">
+                            Value Key
+                            <span class="required-indicator">*</span>
+                            <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                                title="The key in each array item to use as the form value">
+                        </label>
+                        <input type="text" class="form-control" [id]="c.id+'-optionValueKeyInArray'"
+                            placeholder="e.g., id, value, code" formControlName="optionValueKeyInArray"
+                            [class.is-invalid]="isFieldInvalid('optionValueKeyInArray')"
+                            [class.is-valid]="!isFieldInvalid('optionValueKeyInArray') && typeaheadForm.get('optionValueKeyInArray')?.dirty">
+                        <div class="invalid-feedback" *ngIf="isFieldInvalid('optionValueKeyInArray')">
+                            {{ getFieldError('optionValueKeyInArray') }}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            Required Field
+                            <img class="info-icon" src="imgs/icons/info.png" alt="info"
+                                title="Check if this field is mandatory in the form">
+                        </label>
+                        <div class="checkbox-container">
+                            <input type="checkbox" [id]="c.id+'-required'" formControlName="required">
+                            <label [for]="c.id+'-required'" class="checkbox-label">Make this field required</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Responsive Width Controls Section -->
+                <div class="responsive-width-section">
+                    <h4 class="section-title">Responsive Width Controls</h4>
+                    <div class="responsive-width-grid">
+                        <!-- Large Screen Controls -->
+                        <div class="screen-size-group">
+                            <h5 class="screen-size-title">Large Screen (1024px+)</h5>
+                            <div class="width-controls">
+                                <div class="form-group">
+                                    <label [for]="c.id+'-containerWidthInLargeScreen'" class="form-label">Container Width</label>
+                                    <select class="form-control" [id]="c.id+'-containerWidthInLargeScreen'" formControlName="containerWidthInLargeScreen">
+                                        <option value="full-width">Full Width</option>
+                                        <option value="inline">Inline</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label [for]="c.id+'-componentWidthInLargeScreen'" class="form-label">Component Width</label>
+                                    <select class="form-control" [id]="c.id+'-componentWidthInLargeScreen'" formControlName="componentWidthInLargeScreen">
+                                        <option value="12">Full (12)</option>
+                                        <option value="6">Half (6)</option>
+                                        <option value="4">One Third (4)</option>
+                                        <option value="3">Quarter (3)</option>
+                                        <option value="2">One Sixth (2)</option>
+                                        <option value="1">One Twelfth (1)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Medium Screen Controls -->
+                        <div class="screen-size-group">
+                            <h5 class="screen-size-title">Medium Screen (768px+)</h5>
+                            <div class="width-controls">
+                                <div class="form-group">
+                                    <label [for]="c.id+'-containerWidthInMediumScreen'" class="form-label">Container Width</label>
+                                    <select class="form-control" [id]="c.id+'-containerWidthInMediumScreen'" formControlName="containerWidthInMediumScreen">
+                                        <option value="full-width">Full Width</option>
+                                        <option value="inline">Inline</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label [for]="c.id+'-componentWidthInMediumScreen'" class="form-label">Component Width</label>
+                                    <select class="form-control" [id]="c.id+'-componentWidthInMediumScreen'" formControlName="componentWidthInMediumScreen">
+                                        <option value="12">Full (12)</option>
+                                        <option value="6">Half (6)</option>
+                                        <option value="4">One Third (4)</option>
+                                        <option value="3">Quarter (3)</option>
+                                        <option value="2">One Sixth (2)</option>
+                                        <option value="1">One Twelfth (1)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Small Screen Controls -->
+                        <div class="screen-size-group">
+                            <h5 class="screen-size-title">Small Screen (<768px)</h5>
+                            <div class="width-controls">
+                                <div class="form-group">
+                                    <label [for]="c.id+'-containerWidthInSmallScreen'" class="form-label">Container Width</label>
+                                    <select class="form-control" [id]="c.id+'-containerWidthInSmallScreen'" formControlName="containerWidthInSmallScreen">
+                                        <option value="full-width">Full Width</option>
+                                        <option value="inline">Inline</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label [for]="c.id+'-componentWidthInSmallScreen'" class="form-label">Component Width</label>
+                                    <select class="form-control" [id]="c.id+'-componentWidthInSmallScreen'" formControlName="componentWidthInSmallScreen">
+                                        <option value="12">Full (12)</option>
+                                        <option value="6">Half (6)</option>
+                                        <option value="4">One Third (4)</option>
+                                        <option value="3">Quarter (3)</option>
+                                        <option value="2">One Sixth (2)</option>
+                                        <option value="1">One Twelfth (1)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

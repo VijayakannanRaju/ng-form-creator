@@ -31,6 +31,8 @@
                     <app-emailbox-metadata *ngIf="c.type =='EMAILBOX'" [component]="c"></app-emailbox-metadata>
                     <app-numberbox-metadata *ngIf="c.type =='NUMBERBOX'" [component]="c"></app-numberbox-metadata>
                     <app-textarea-metadata *ngIf="c.type =='TEXTAREA'" [component]="c"></app-textarea-metadata>
+                    <app-typeahead-with-http-call-metadata *ngIf="c.type =='TYPEAHEAD_WITH_HTTP_CALL'" [component]="c"></app-typeahead-with-http-call-metadata>
+                    <app-typeahead-with-http-search-metadata *ngIf="c.type =='TYPEAHEAD_WITH_HTTP_SEARCH'" [component]="c"></app-typeahead-with-http-search-metadata>
 
 
                     <app-form-group-metadata *ngIf="c.type =='FORM_GROUP'" [component]="c"></app-form-group-metadata>

@@ -194,6 +194,40 @@
                 </ng-container>
             </ng-container>
 
+            <!-- TYPEAHEAD WITH HTTP CALL -->
+            <ng-container *ngSwitchCase="'TYPEAHEAD_WITH_HTTP_CALL'">
+                <ng-container *ngIf="c.type === 'TYPEAHEAD_WITH_HTTP_CALL'">
+                    <!-- Break before if full-width -->
+                    <div *ngIf="isFullWidthComponent(c)" class="line-break"></div>
+                    
+                    <div class="component-wrapper" [class]="getComponentClasses(c)">
+                        <app-typeahead-with-http-call [formControlName]="c.name + '|||' + c.id!" [metadata]="c" [label]="c.displayLabel"
+                            [placeholder]="c.placeholder || 'Start typing to search...'" [required]="!!c.required">
+                        </app-typeahead-with-http-call>
+                    </div>
+                    
+                    <!-- Break after if full-width -->
+                    <div *ngIf="isFullWidthComponent(c)" class="line-break"></div>
+                </ng-container>
+            </ng-container>
+
+            <!-- TYPEAHEAD WITH HTTP SEARCH -->
+            <ng-container *ngSwitchCase="'TYPEAHEAD_WITH_HTTP_SEARCH'">
+                <ng-container *ngIf="c.type === 'TYPEAHEAD_WITH_HTTP_SEARCH'">
+                    <!-- Break before if full-width -->
+                    <div *ngIf="isFullWidthComponent(c)" class="line-break"></div>
+                    
+                    <div class="component-wrapper" [class]="getComponentClasses(c)">
+                        <app-typeahead-with-http-search [formControlName]="c.name + '|||' + c.id!" [metadata]="c" [label]="c.displayLabel"
+                            [placeholder]="c.placeholder || 'Start typing to search...'" [required]="!!c.required">
+                        </app-typeahead-with-http-search>
+                    </div>
+                    
+                    <!-- Break after if full-width -->
+                    <div *ngIf="isFullWidthComponent(c)" class="line-break"></div>
+                </ng-container>
+            </ng-container>
+
             <!-- HEADING -->
             <ng-container *ngSwitchCase="'HEADING'">
                 <ng-container *ngIf="c.type === 'HEADING'">
@@ -233,11 +267,12 @@
                             <h3>{{ c.displayLabel }}</h3>
                             <button type="button" (click)="addFormArrayItem(c.name + '|||' + c.id!, c.components)"
                                 class="add-item-btn">
+                                <img src="imgs/icons/add.png" alt="Add" class="btn-icon">
                                 Add {{ c.displayLabel }}
                             </button>
                         </div>
                         
-                        <!-- Max Items Error Message -->
+                        <!-- Max Items Error Message - Top -->
                         <div *ngIf="maxItemsErrorMessage" class="max-items-error">
                             {{ maxItemsErrorMessage }}
                         </div>
@@ -249,6 +284,7 @@
                                     <h4>{{ c.displayLabel }} {{ i + 1 }}</h4>
                                     <button type="button" (click)="removeFormArrayItem(c.name + '|||' + c.id!, i)"
                                         class="remove-item-btn">
+                                        <img src="imgs/icons/delete.png" alt="Delete" class="btn-icon">
                                         Remove
                                     </button>
                                 </div>
@@ -258,6 +294,20 @@
                                     </app-form-renderer>
                                 </div>
                             </div>
+                        </div>
+                        
+                        <!-- Bottom Add Button -->
+                        <div class="form-array-footer">
+                            <!-- Max Items Error Message -->
+                            <div *ngIf="maxItemsErrorMessage" class="max-items-error">
+                                {{ maxItemsErrorMessage }}
+                            </div>
+                            
+                            <button type="button" (click)="addFormArrayItem(c.name + '|||' + c.id!, c.components)"
+                                class="add-item-btn bottom-add-btn">
+                                <img src="imgs/icons/add.png" alt="Add" class="btn-icon">
+                                Add {{ c.displayLabel }}
+                            </button>
                         </div>
                     </div>
                 </ng-container>

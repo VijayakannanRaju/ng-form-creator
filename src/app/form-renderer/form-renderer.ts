@@ -16,6 +16,8 @@ import { Datetime } from '../form-components/datetime/datetime';
 import { DateOnly } from '../form-components/date-only/date-only';
 import { TimeOnly } from '../form-components/time-only/time-only';
 import { Textarea } from '../form-components/textarea/textarea.component';
+import { TypeaheadWithHttpCallComponent } from '../form-components/typeahead-with-http-call/typeahead-with-http-call.component';
+import { TypeaheadWithHttpSearchComponent } from '../form-components/typeahead-with-http-search/typeahead-with-http-search.component';
 import { buildFormGroup } from '../utils/form-builder';
 import { FormBuilderService } from '../utils/form-builder.service';
 
@@ -28,6 +30,7 @@ import { FormBuilderService } from '../utils/form-builder.service';
     ReactiveFormsModule,
     Textbox, Heading, Description, Emailbox, Numberbox, Dropdown, RadioGroup,
     CheckboxSingle, CheckboxMulti, Datetime, DateOnly, TimeOnly, Textarea,
+    TypeaheadWithHttpCallComponent, TypeaheadWithHttpSearchComponent,
     forwardRef(() => FormRenderer)
   ],
   templateUrl: './form-renderer.html',

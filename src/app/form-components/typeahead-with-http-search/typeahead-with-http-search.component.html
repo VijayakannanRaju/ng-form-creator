@@ -1,0 +1,63 @@
+<div class="typeahead-container" [class.invalid]="isInvalid" [class.disabled]="isDisabled">
+  <div class="typeahead-wrapper">
+    <label *ngIf="label" class="typeahead-label" [for]="'typeahead-' + (metadata?.id || 'default')">
+      {{ label }}
+      <span *ngIf="required" class="required-indicator" aria-label="required">*</span>
+    </label>
+
+    <div class="input-wrapper">
+      <input 
+        [id]="'typeahead-' + (metadata?.id || 'default')" 
+        type="text" 
+        class="typeahead-input" 
+        [class.ng-invalid]="isInvalid"
+        [class.ng-touched]="control.touched"
+        [formControl]="control"
+        [disabled]="isDisabled"
+        [readonly]="readonly" 
+        [placeholder]="placeholder" 
+        [attr.aria-describedby]="'error-' + (metadata?.id || 'default')" 
+        [attr.aria-invalid]="isInvalid"
+        [attr.aria-required]="required"
+        [typeahead]="suggestions$"
+        [typeaheadAsync]="true"
+        [typeaheadOptionField]="metadata?.optionDisplayLabelKeyInArray || 'name'"
+        [typeaheadMinLength]="2"
+        (typeaheadOnSelect)="onSelect($event)"
+        (input)="onInputChange($event)"
+        (focus)="onFocus()"
+        (blur)="onBlur()"
+        (typeaheadLoading)="changeTypeaheadLoading($event)"
+        autocomplete="off" />
+
+      <div class="input-decoration">
+        <div class="focus-indicator"></div>
+      </div>
+      
+      <!-- Clear button -->
+      <button *ngIf="control.value && !isDisabled" type="button" class="clear-button"
+        (click)="clearValue()" aria-label="Clear input" title="Clear input">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+        </svg>
+      </button>
+
+      <!-- Loading indicator -->
+      <div *ngIf="isLoading" class="loading-indicator">
+        <svg class="spinner" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="31.416" stroke-dashoffset="31.416">
+            <animate attributeName="stroke-dasharray" dur="2s" values="0 31.416;15.708 15.708;0 31.416" repeatCount="indefinite"/>
+            <animate attributeName="stroke-dashoffset" dur="2s" values="0;-15.708;-31.416" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Error message -->
+    <div *ngIf="isInvalid && getErrorMessage()" [id]="'error-' + (metadata?.id || 'default')" class="error-message"
+      role="alert" aria-live="polite">
+      {{ getErrorMessage() }}
+    </div>
+  </div>
+</div>
